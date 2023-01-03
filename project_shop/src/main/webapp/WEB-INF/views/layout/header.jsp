@@ -26,13 +26,12 @@
 </style>
 </head>
 <body>
-	<div>
-		<a href="${contextPath}/board/list"><img src="${contextPath}/resources/images/LOGO.jpg" alt="LOGO" width="150" /></a>
-	</div>
+	
 <nav class="navbar navbar-expand-sm bg-light navbar-dark justify-content-between">
+		<a href="${contextPath}/board/list"><img src="${contextPath}/resources/images/LOGO.jpg" alt="LOGO" width="150" /></a>
   <ul class="nav nav-pills">
     <li class="nav-item">
-      <a class="nav-link" href="#">SHOP</a>
+      <a class="nav-link" href="${contextPath}/product/list">SHOP</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="${contextPath}/board/list">Q&A</a>
@@ -69,3 +68,6 @@
   </ul>
 
 </nav>
+
+
+

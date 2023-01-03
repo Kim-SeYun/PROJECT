@@ -4,7 +4,7 @@
 <%@ include file="../layout/header.jsp" %>  
 <script src="${contextPath}/resources/js/board/list.js"></script>  
 <h1>Q&A</h1>
-<a href="${contextPath}/board/writeForm" class="btn btn-dark boardWrite" style="float: right; margin-right: 150px">Write</a>
+<a href="${contextPath}/board/writeForm" class="btn btn-dark boardWrite" style="float: right; margin-right: 450px">Write</a>
 <br><br>
 <div class="container my-3">
 	<form id="listForm">
