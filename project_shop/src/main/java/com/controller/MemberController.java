@@ -122,6 +122,15 @@ public class MemberController extends HttpServlet {
 			return;
 		}
 		
+		// 마이페이지
+		else if(pathInfo.equals("/myPage")) {
+			HttpSession session = request.getSession(false);
+			AuthVO auth = (AuthVO) session.getAttribute("auth");
+			MemberVO info = service.memberInfo(auth.getId());
+			request.setAttribute("info", info);
+			nextPage = "myPage";
+		}
+
 		else {
 			System.out.println("페이지를 찾을 수 없음");
 			return;

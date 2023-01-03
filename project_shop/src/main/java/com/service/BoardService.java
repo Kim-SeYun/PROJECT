@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dao.BoardDao;
 import com.domain.BoardVO;
+import com.domain.Criteria;
 
 import lombok.AllArgsConstructor;
 
@@ -12,8 +13,8 @@ public class BoardService {
 
 	private BoardDao dao;
 
-	public List<BoardVO> boardList() {
-		return dao.selectAll();
+	public List<BoardVO> boardList(Criteria criteria) {
+		return dao.selectAll(criteria);
 	}
 	
 	public int addBoard(BoardVO vo) {

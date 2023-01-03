@@ -1,9 +1,5 @@
 package com.domain;
 
-
-
-
-
 import java.util.Date;
 
 import lombok.AllArgsConstructor;

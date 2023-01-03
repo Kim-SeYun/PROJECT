@@ -26,5 +26,9 @@ public class MemberService {
 		return dao.findMemberGradeById(id);
 	}
 	
+	public MemberVO memberInfo(String id) {
+		return dao.findInfo(id);
+	}
+	
 	
 }

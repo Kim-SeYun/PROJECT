@@ -17,6 +17,8 @@ import org.apache.commons.io.FileUtils;
 import com.common.FileUpload;
 import com.dao.BoardDao;
 import com.domain.BoardVO;
+import com.domain.Criteria;
+import com.domain.Pagination;
 import com.service.BoardService;
 
 @WebServlet("/board/*")
@@ -51,7 +53,16 @@ public class BoardController extends HttpServlet {
 		
 		// 글목록
 		if(pathInfo==null || pathInfo.equals("/") || pathInfo.equals("/list")) {
-			List<BoardVO> boardList = service.boardList();
+			Criteria criteria = new Criteria();
+			BoardDao dao = new BoardDao();
+			String paramPageNum = request.getParameter("pageNum"); // 페이지 번호
+			if(paramPageNum != null) {
+				criteria.setPageNum(Integer.parseInt(paramPageNum));
+			}
+			List<BoardVO> boardList = service.boardList(criteria);
+			int totalCount = dao.getTotalCount(); // 게시물 수
+			Pagination pagination = new Pagination(criteria, totalCount); // 페이지네이션
+			request.setAttribute("p", pagination);
 			request.setAttribute("list", boardList);
 			nextPage = "list";
 		}
