@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dao.ProductDao;
+import com.domain.BoardVO;
 import com.domain.ProductVO;
 import com.service.ProductService;
 
@@ -47,6 +48,13 @@ public class ProductController extends HttpServlet {
 			List<ProductVO> productList = service.productList();
 			request.setAttribute("list", productList);
 			nextPage = "list";
+		}
+		
+		else if(pathInfo.equals("/detail")) {
+			String name = request.getParameter("name");
+			ProductVO product = service.findProduct(name);
+			request.setAttribute("product", product);
+			nextPage = "detail";
 		}
 		
 		else {

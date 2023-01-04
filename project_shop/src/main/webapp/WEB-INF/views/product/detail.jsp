@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
 
+<h1>상품</h1>
+	
+
 
 
 <%@ include file="../layout/footer.jsp" %> 

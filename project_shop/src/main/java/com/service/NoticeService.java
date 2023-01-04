@@ -3,6 +3,7 @@ package com.service;
 import java.util.List;
 
 import com.dao.NoticeDao;
+import com.domain.Criteria;
 import com.domain.NoticeVO;
 
 import lombok.AllArgsConstructor;
@@ -12,8 +13,8 @@ public class NoticeService {
 	
 	private NoticeDao dao;
 	
-	public List<NoticeVO> noticeList() {
-		return dao.selectAll();
+	public List<NoticeVO> noticeList(Criteria criteria) {
+		return dao.selectAll(criteria);
 	}
 	
 	public NoticeVO findNotice(int bno) {

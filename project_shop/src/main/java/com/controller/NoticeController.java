@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.common.FileUpload;
 import com.dao.NoticeDao;
+import com.domain.Criteria;
 import com.domain.NoticeVO;
+import com.domain.Pagination;
 import com.service.NoticeService;
 
 @WebServlet("/notice/*")
@@ -48,10 +50,22 @@ public class NoticeController extends HttpServlet {
 		
 		// 글목록
 		if(pathInfo==null || pathInfo.equals("/") || pathInfo.equals("/list")) {
-			List<NoticeVO> noticeList = service.noticeList();
+			Criteria criteria = new Criteria();
+			NoticeDao dao = new NoticeDao();
+			String paramPageNum = request.getParameter("pageNum");
+			if(paramPageNum != null) {
+				criteria.setPageNum(Integer.parseInt(paramPageNum));
+			}
+			List<NoticeVO> noticeList = service.noticeList(criteria);
+			int totalCount = dao.getTotalCount();
+			Pagination pagination = new Pagination(criteria, totalCount);
+			request.setAttribute("p", pagination);
 			request.setAttribute("list", noticeList);
 			nextPage = "list";
 		}
+		
+
+		
 		// 글상세	
 		else if(pathInfo.equals("/detail")) {
 			String parambno = request.getParameter("bno");

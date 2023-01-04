@@ -9,6 +9,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.common.ConnectionUtil;
+import com.domain.Criteria;
 import com.domain.NoticeVO;
 
 public class NoticeDao {
@@ -19,29 +20,55 @@ public class NoticeDao {
 	}
 	
 	// 글목록
-	public List<NoticeVO> selectAll() {
-		String query = "select * from SHOP_NOTICE order by bno desc";
+	public List<NoticeVO> selectAll(Criteria criteria) {
+		String query = "select rownum, bno, title, content, writer, writeDate ";
+		query += "from (select /*+index_desc(SHOP_NOTICE pk_notice)*/ rownum as rn, bno, title, content, writer, writeDate ";
+		query += "from SHOP_NOTICE ";
+		query += "where rownum<=?) where rn > ?";
 		List<NoticeVO> list = new ArrayList();
 		try (
 				Connection conn = dataSource.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(query);
-				ResultSet rs = pstmt.executeQuery();
 			){
+			int maxRow = criteria.getPageNum()*criteria.getAmount();
+			int minRow = (criteria.getPageNum() - 1) * criteria.getAmount();
+			pstmt.setInt(1, maxRow);
+			pstmt.setInt(2, minRow);
+			try(ResultSet rs = pstmt.executeQuery();) {
 				while(rs.next()) {
 					NoticeVO vo = NoticeVO.builder()
-						.bno(rs.getInt("bno"))
-						.title(rs.getString("title"))
-						.content(rs.getString("content"))
-						.writer(rs.getString("writer"))
-						.writeDate(rs.getDate("writeDate"))
-						.imageFileName(rs.getString("imageFileName"))
-						.build();
+							.bno(rs.getInt("bno"))
+							.title(rs.getString("title"))
+							.content(rs.getString("content"))
+							.writer(rs.getString("writer"))
+							.writeDate(rs.getDate("writeDate"))
+							.build();
 					list.add(vo);
+				
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return list;
+	}
+	
+	public int getTotalCount() {
+		String query = "select count(bno) as count from SHOP_NOTICE";
+		int totalcount = 0;
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+		){
+			if(rs.next()) {
+				totalcount = rs.getInt("count");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return totalcount;
 	}
 	
 	// 글쓰기
