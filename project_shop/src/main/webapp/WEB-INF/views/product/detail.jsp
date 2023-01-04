@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
 
-<h1>상품</h1>
+<img src="${contextPath}/resources/images/${product.name}.jpg" alt="${product.name}" width="200" /><br>
+${product.name}<br>
+${product.price}<br>
+${product.info}<br>
+
 	
 
 

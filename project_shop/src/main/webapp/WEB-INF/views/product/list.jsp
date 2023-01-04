@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>  
 <script src="${contextPath}/resources/js/product/list.js"></script> 
-<h1>PRODUCT</h1>
+<h1>ALL</h1>
 	<ul class="nav nav-pills justify-content-center">
     <li class="nav-item">
       <a class="nav-link" href="${contextPath}/product/ALL">ALL</a>
@@ -23,8 +23,8 @@
 	 	<div class="row">
 	 	<c:forEach items="${list}" var="p">
 		    <div class="col-sm-3">
-		    	<div><a href="${contextPath}/product/detail"><img src="${contextPath}/resources/images/${p.name}.jpg" alt="${p.name}" width="200" /></div>
-		    	<div  class="name">${p.name}</a></div>
+		    	<div><a href="${p.name}" class="name"><img src="${contextPath}/resources/images/${p.name}.jpg" alt="${p.name}" width="200" /></div>
+		    	<div>${p.name}</a></div>
 		    	<div>1500원</div><br>
 			</div>
 	 	

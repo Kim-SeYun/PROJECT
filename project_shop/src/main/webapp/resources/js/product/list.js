@@ -4,8 +4,8 @@ $(function(){
 		let productForm = $('#productForm')
 		e.preventDefault();
 		$('[name="pno"]').remove();
-		let pnoData = "<input type='hidden' name='pno' value='"+$(this).attr('href')+"'/>";
-		listForm.append(pnoData)
+		let pnoName = "<input type='hidden' name='name' value='"+$(this).attr('href')+"'/>";
+		productForm.append(pnoName)
 				.attr("action", `${contextPath}/product/detail`)
 				.submit();
 	});
