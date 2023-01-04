@@ -14,8 +14,9 @@
     <a class="nav-link" href="${contextPath}/product/SALE">SALE</a>
   </li>
   </ul>
+  
 <div class="container my-3">
-	<form id="listForm">
+	<form id="productForm">
 	<div class="container" style="margin-top:30px">
 	
 	
@@ -32,7 +33,7 @@
 	    </div> 
  	</div>
  	</form>
-
+</div>
 
 
 <%@ include file="../layout/footer.jsp" %> 
