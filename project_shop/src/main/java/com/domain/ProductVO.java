@@ -18,4 +18,6 @@ public class ProductVO {
 	private String name;
 	private String price;
 	private String info;
+	private String weight;
+	private String category;
 }

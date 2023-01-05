@@ -60,6 +60,8 @@ private DataSource dataSource;
 								.name(rs.getString("name"))
 								.price(rs.getString("price"))
 								.info(rs.getString("info"))
+								.weight(rs.getString("weight"))
+								.category(rs.getString("category"))
 							.build();
 					}
 				}
