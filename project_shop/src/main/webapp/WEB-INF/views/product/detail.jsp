@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
 
-<br><br>
-<div class="container" style="margin-top:30px">
+
+<div class="container" style="margin-top:80px">
   <div class="row">
     <div class="col-sm-4">
      
