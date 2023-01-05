@@ -24,8 +24,8 @@
 	 	<c:forEach items="${list}" var="p">
 		    <div class="col-sm-3">
 		    	<div><a href="${p.name}" class="name"><img src="${contextPath}/resources/images/${p.name}.png" alt="${p.name}" width="200" /></div>
-		    	<div>${p.name}</a></div>
-		    	<div>${p.price}원</div><br>
+		    	<div style="float: right; margin-right: 50px">${p.name}</a></div><br>
+		    	<div style="float: right; margin-right: 50px">${p.price}원</div><br>
 			</div>
 	 	
 	 	</c:forEach>

@@ -28,7 +28,7 @@
 <body>
 	
 <nav class="navbar navbar-expand-sm bg-light navbar-dark justify-content-between">
-		<a href="${contextPath}/board/list"><img src="${contextPath}/resources/images/LOGO.png" alt="LOGO" width="150" /></a>
+		<a href="${contextPath}/product/list"><img src="${contextPath}/resources/images/LOGO.png" alt="LOGO" width="150" /></a>
   <ul class="nav nav-pills">
     <li class="nav-item">
       <a class="nav-link" href="${contextPath}/product/list">SHOP</a>
