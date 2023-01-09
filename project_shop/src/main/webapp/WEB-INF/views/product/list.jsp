@@ -41,7 +41,6 @@
     
     <div class="col-sm-8">
       <form id="productForm">
-	<div class="container" style="margin-top:30px">
 	 	<div class="row">
 	 	<c:forEach items="${list}" var="p">
 		    <div class="col-sm-3">
@@ -52,7 +51,6 @@
 	 	
 	 	</c:forEach>
 		   
-	    </div> 
  	</div>
  	</form>
     </div>

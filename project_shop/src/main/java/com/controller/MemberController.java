@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,16 +16,23 @@ import com.dao.MemberDao;
 import com.domain.AuthVO;
 import com.domain.MemberVO;
 import com.domain.MemberVO.MemberGrade;
+import com.google.gson.Gson;
 import com.service.MemberService;
 
 @WebServlet("/member/*")
 public class MemberController extends HttpServlet {
 	
 	private MemberService service;
+	private MemberService sv;
+	private Gson gson;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		service = new MemberService(new MemberDao());
+		ServletContext sc = config.getServletContext();
+		sv = (MemberService) sc.getAttribute("idCheck");
+		gson = new Gson();
+		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +52,7 @@ public class MemberController extends HttpServlet {
 		RequestDispatcher rd = null;
 		String nextPage = null;
 		
+		
 		// 회원가입 폼
 		if(pathInfo.equals("/joinForm")) {
 			nextPage = "joinForm";
@@ -61,6 +70,7 @@ public class MemberController extends HttpServlet {
 			String day = request.getParameter("day");
 			String gender = request.getParameter("gender");
 			String address = request.getParameter("address");
+			
 			MemberVO vo = MemberVO.builder()
 					.id(id)
 					.pwd(pwd)
@@ -90,6 +100,7 @@ public class MemberController extends HttpServlet {
 					.id(id)
 					.pwd(pwd)
 					.build();
+
 			
 			if(service.loginService(vo)) {
 				HttpSession session = request.getSession();
@@ -100,6 +111,7 @@ public class MemberController extends HttpServlet {
 				authVO.setId(vo.getId()); // 아이디
 				authVO.setGrade(grade); // 등급
 				session.setAttribute("auth", authVO); // 세션 데이터 바인딩
+				
 				
 				String userURI = (String) session.getAttribute("userURI");
 				if(userURI!=null) {
@@ -117,6 +129,7 @@ public class MemberController extends HttpServlet {
 		// 로그아웃 처리
 		else if(pathInfo.equals("/logout")) {
 			HttpSession session = request.getSession(false);
+			session = request.getSession(false);
 			session.removeAttribute("auth");
 			response.sendRedirect(contextPath+"/board");
 			return;
@@ -130,7 +143,34 @@ public class MemberController extends HttpServlet {
 			request.setAttribute("info", info);
 			nextPage = "myPage";
 		}
+		
+		// 회원정보수정
+		else if(pathInfo.equals("/modMember")) {
+			String id = request.getParameter("id");
+			String pwd = (String) request.getAttribute("pwd");
+			String email = request.getParameter("email");
+			String year = request.getParameter("year");
+			String month = request.getParameter("month");
+			String day = request.getParameter("day");
+			String gender = request.getParameter("gender");
+			String address = request.getParameter("address");
+			
+			MemberVO vo = MemberVO.builder()
+					.id(id)
+					.pwd(pwd)
+					.email(email)
+					.year(year)
+					.month(month)
+					.day(day)
+					.gender(gender)
+					.address(address)
+					.build();
+			service.modMember(vo);
 
+			response.sendRedirect(contextPath+"/member/myPage");
+			return;
+		} 
+		
 		else {
 			System.out.println("페이지를 찾을 수 없음");
 			return;

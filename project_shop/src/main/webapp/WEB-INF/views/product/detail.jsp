@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-sm-4">
      
-      <div class="fakeimg"><img src="${contextPath}/resources/images/${product.name}.png" alt="${product.name}" width="200" /><br></div>
+      <div class="fakeimg"><img src="${contextPath}/resources/images/${product.name}.png" alt="${product.name}" width="300"/><br></div>
       
     </div>
     <div class="col-sm-8">
@@ -22,6 +22,62 @@
     </div>
   </div>
 </div>
+
+
+<div class="productReplyForm">
+		<table class="table">
+			<tr>
+				<th colspan="2">
+					<ul class="d-flex justify-content-between">
+						<li>댓글을 작성해주세요</li>
+						<li class="form-inline">작성자 : <input type="text" class="reply_writer form-control ml-2" value="${auth.id}" readonly="readonly"></li>
+					</ul>
+				</th>
+			</tr>
+			<tr>
+				<td class="col-1 text-center"><b>내용</b></td>
+				<td>
+					<textarea rows="5" class="form-control reply_content"></textarea>
+				</td>
+			</tr>
+			<tr class="text-right">
+				<td colspan="2"><button class="btn btn-light reply_write">댓글등록</button></td>
+			</tr>
+		</table>
+	</div>
+	<div class="replyList">
+		<div class="card">
+		  <div class="card-header bg-dark text-white">댓글목록</div>
+		  <div class="card-body">
+		  	<ul class="list-group list-group-flush">
+			</ul>
+		  </div>
+		</div>
+	</div>
+	<div class="modal fade replyBtn" id="feedback">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">댓글 등록</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        Modal body..
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+
 
 
 

@@ -1,6 +1,9 @@
 package com.service;
 
+import java.util.List;
+
 import com.dao.MemberDao;
+import com.domain.AuthVO;
 import com.domain.MemberVO;
 import com.domain.MemberVO.MemberGrade;
 
@@ -26,9 +29,14 @@ public class MemberService {
 		return dao.findMemberGradeById(id);
 	}
 	
+	// 마이페이지
 	public MemberVO memberInfo(String id) {
 		return dao.findInfo(id);
 	}
 	
+	// 회원수정
+	public void modMember(MemberVO vo) {
+		dao.updateMember(vo);
+	}
 	
 }

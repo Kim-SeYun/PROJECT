@@ -42,9 +42,11 @@ private DataSource dataSource;
 	}
 	
 	// 회원정보 조회
+	
 	public MemberVO findInfo(String id) {
 		MemberVO vo = null;
 		String query = "SELECT * FROM SHOP_MEMBER where id=?";
+		
 		try (
 				Connection conn = dataSource.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(query);
@@ -71,6 +73,7 @@ private DataSource dataSource;
 			return vo;
 	}
 
+	
 	
 	// 로그인 체크
 	public boolean loginCheck(MemberVO vo) {
@@ -113,6 +116,27 @@ private DataSource dataSource;
 		}
 		return grade;
 	}
+	
+	// 글수정
+	public void updateMember(MemberVO vo) {
+		String query = "update SHOP_MEMBER set pwd=?, email=?, year=?, month=?, day=?, gender=?, address=? where id=?";		
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+		){
+			pstmt.setString(1, vo.getPwd());
+			pstmt.setString(2, vo.getEmail());
+			pstmt.setString(3, vo.getYear());
+			pstmt.setString(4, vo.getMonth());
+			pstmt.setString(5, vo.getDay());
+			pstmt.setString(6, vo.getGender());
+			pstmt.setString(7, vo.getAddress());
+			pstmt.setString(8, vo.getId());
 
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
