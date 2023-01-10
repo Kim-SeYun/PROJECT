@@ -1,10 +1,139 @@
-$(function(){
+function open_Postcode(){  
+  new daum.Postcode({ 
+    oncomplete: function(data) { 
+ 
+       document.getElementById('postcode').value = data.zonecode; 
+       document.getElementById("road_address").value = data.roadAddress;
+  } 
+}).open(); 
+} 
 
-	$('.user_name').on('click',function(e){
-		if($('.user_name').val() == '') {
-			alert('아이디를 입력해주세요.')
-			return;
-		}
+/*let idCheck = {
+	
+	idCheck : function(id) {
+		$.ajax({
+			type : 'get',
+			url : `${contextPath}/member/idCheck`,
+			data : {id : id}, 
+			success : function(result) {
+			   if(result == false){
+                    $("#result").text("사용가능한 아이디입니다.");
+               }else if(result == true){
+                    $("#result").text("이미 사용중인 아이디입니다.");
+               }
+			},
+			error : function() {
+				alert('아이디 조회 실패');
+			} 			
+		}); // ajax end
+	}
+	
+};*/
+
+
+$(function() {
+	$('.viewMode').hide();
+	
+	let viewForm = $('#viewForm');
+	
+	let pwdObj = $('input[name="pwd"]');
+	let emailObj = $('input[name="email"]');
+	let yearObj = $('select[name="year"]');
+	let monthObj = $('select[name="month"]');
+	let dayObj = $('select[name="day"]');
+	let genderObj = $('select[name="gender"]');
+	let addressObj = $('input[name="address"]');
+	
+	let pwdVal = pwdObj.val();
+	let emailVal = emailObj.val();
+	let yearVal = yearObj.val();
+	let monthVal = monthObj.val();
+	let dayVal = dayObj.val();
+	let genderVal = genderObj.val();
+	let addressVal = addressObj.val(); 
+	
+	// 수정모드
+	$('.toModForm').on('click', function(){
 		
+		$('input[name="pwd"],input[name="email"]').attr("readonly",false);
+		$('select[name="year"],select[name="month"],select[name="day"]').attr("readonly",false);
+		$('select[name="gender"],input[name="address"]').attr("readonly",false);
+		$('.toModForm').hide();
+		$('.viewMode').show();
 	});
+	
+/*	// 수정 처리
+	$('.modify').on('click', function(){
+		viewForm.attr({
+			"action" : `${contextPath}/member/modMember`,
+			"method" : "post"
+		}).submit();
+		alert("수정이 완료되었습니다.")
+	});*/
+	
+	// 뷰모드
+	$('.backViewMode').on('click', function(){
+		$('input[name="pwd"],input[name="email"]').attr("readonly",true);
+		$('select[name="year"],select[name="month"],select[name="day"]').attr("readonly",true);
+		$('select[name="gender"],input[name="address"]').attr("readonly",true);
+		$('.viewMode').hide();
+		$('.toModForm').show();
+		pwdObj.val(pwdVal); // 수정전 내용 복원
+		emailObj.val(emailVal);
+		yearObj.val(yearVal);
+		monthObj.val(monthVal);
+		dayObj.val(dayVal);
+		genderObj.val(genderVal);
+		addressObj.val(addressVal);
+	});
+	
+	// 다시입력
+	$('.reset').on('click', function() {
+		document.getElementById('pwd_check_msg').innerHTML = ""; 
+	});
+	
 });
+
+function check_pwd(){  //비밀번호 확인 
+    var pwd = document.getElementById('pwd').value; 
+    var pwd_check = document.getElementById('pwd_check').value; 
+ 
+    if (pwd!=pwd_check) { 
+      document.getElementById('pwd_check_msg').innerHTML = "<font color=red>비밀번호가 일치하지 않습니다.</font>"; 
+    } 
+    else { 
+        document.getElementById('pwd_check_msg').innerHTML = "<font color=blue>비밀번호가 일치합니다.</font>"; 
+    } 
+    
+    if (pwd_check=="") { 
+      document.getElementById('pwd_check_msg').innerHTML = ""; 
+    } 
+ } 
+
+ 
+function checked(){  //form 유효성 검사 
+var pwd = document.getElementById('pwd'); 
+var pwd_check = document.getElementById('pwd_check'); 
+
+if (pwd.value != pwd_check.value) {  //비밀번호 확인 
+  alert("비밀번호가 일치하지 않습니다. 다시 입력해 주세요."); 
+  pwd_check.focus(); 
+  return false; 
+} 
+
+if (document.getElementById('postcode').value=="") { //주소 확인 
+  alert("주소를 입력해주세요"); 
+  document.getElementById('postcode_button').focus(); 
+  return false; 
+} 
+
+if(document.getElementById('addr').value=="") {
+	alert("상세주소를 입력해주세요")
+	document.getElementById('addr').focus();
+	return false; 
+}
+
+else { 
+  return true; 
+}
+} 

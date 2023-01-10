@@ -56,7 +56,6 @@ private DataSource dataSource;
 					if(rs.next()) {
 						vo = MemberVO.builder()
 								.id(rs.getString("id"))
-								.pwd(rs.getString("pwd"))
 								.name(rs.getString("name"))
 								.email(rs.getString("email"))
 								.year(rs.getString("year"))
@@ -117,21 +116,20 @@ private DataSource dataSource;
 		return grade;
 	}
 	
-	// 글수정
+	// 회원정보수정
 	public void updateMember(MemberVO vo) {
-		String query = "update SHOP_MEMBER set pwd=?, email=?, year=?, month=?, day=?, gender=?, address=? where id=?";		
+		String query = "update SHOP_MEMBER set email=?, year=?, month=?, day=?, gender=?, address=? where id=?";		
 		try (
 			Connection conn = dataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(query);
 		){
-			pstmt.setString(1, vo.getPwd());
-			pstmt.setString(2, vo.getEmail());
-			pstmt.setString(3, vo.getYear());
-			pstmt.setString(4, vo.getMonth());
-			pstmt.setString(5, vo.getDay());
-			pstmt.setString(6, vo.getGender());
-			pstmt.setString(7, vo.getAddress());
-			pstmt.setString(8, vo.getId());
+			pstmt.setString(1, vo.getEmail());
+			pstmt.setString(2, vo.getYear());
+			pstmt.setString(3, vo.getMonth());
+			pstmt.setString(4, vo.getDay());
+			pstmt.setString(5, vo.getGender());
+			pstmt.setString(6, vo.getAddress());
+			pstmt.setString(7, vo.getId());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
 <script src="${contextPath}/resources/js/member/join.js"></script>  
+ 
 <div class="container">
 	<div class="jumbotron">
 		<h1>MyPage</h1>
@@ -18,55 +19,74 @@
       </ul>
     </div>
     
-	<form id="viewForm">
+	<form id="viewForm" class="container" action="${contextPath}/member/modMember" method="post">
 		<div class="form-group">
 			<h5><b>아이디</b></h5>
-			<input type="text" class="form-control" name="id" value="${info.id}" readonly="readonly">
-		</div>
-		<div class="form-group">
-			<h5><b>비밀번호 변경</b></h5>
-	        <input type="password" class="form-control" name="pwd" value="****" readonly="readonly">
+			<input type="text" class="form-control" name="id" value="${info.id}" style="width:300px; height:30px;font-size:20px;" readonly="readonly">
 		</div>
 		<div class="form-group">
 			<h5><b>이름</b></h5>
-			<input type="text" class="form-control" name="name" value="${info.name}" readonly="readonly">
+			<input type="text" class="form-control" name="name" value="${info.name}" style="width:300px; height:30px;font-size:20px;" readonly="readonly">
 		</div>
 		<div class="form-group">
 			<h5><b>이메일</b></h5>
-			<input type="email" class="form-control" name="email" value="${info.email}" readonly="readonly">
+			<input type="email" class="form-control" name="email" value="${info.email}" pattern="[A-Za-z0-9_]*[@]{1}[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}" title="EX) example@example.com" style="width:300px; height:30px;font-size:20px;" required readonly="readonly">
 		</div>
-		<div class="form-group">
-			<h5><b>생년월일</b></h5>
-			<div>
-               <div class="form-group">
-                 <input type="text" name="year" id="year" class="form-control" placeholder="YYYY" value="${info.year}" readonly="readonly">
-                 <span class="bar"></span>
-                 <input type="text" name="month" id="month" class="form-control" placeholder="MM" value="${info.month}" readonly="readonly">
-                 <span class="bar"></span>
-                 <input type="text" name="day" id="day" class="form-control" placeholder="DD" value="${info.day}" readonly="readonly">
-               </div>
-             </div>
-		</div>
+		
+ 		<div class="form-group">
+			<h4>생년월일</h4>
+			<select class="form-control" id="year" name="year" style="width:300px; height:30px;font-size:13px;" required readonly="readonly">
+				  <option value="${info.year}" hidden>${info.year}</option>
+				  <c:forEach var="year" begin="1920" end="2023">
+				    <option value="${year}">${year}</option>
+				  </c:forEach>			
+			</select>
+			<select class="form-control" id="month" name="month" style="width:300px; height:30px;font-size:13px;" required readonly="readonly">
+				<option value="${info.month}" hidden>${info.month}</option>
+				<c:forEach var="month" begin="1" end="12">
+				<c:choose>
+				    <c:when test="${month lt 10 }">
+				        <option value="0${month}">0${month}</option>
+				    </c:when>
+				    <c:otherwise>
+				        <option value="${month}">${month}</option>
+				    </c:otherwise>
+				</c:choose>
+				</c:forEach>	
+			</select>
+			<select class="form-control" id="day" name="day" style="width:300px; height:30px;font-size:13px;" required readonly="readonly">
+				<option value="${info.day}" hidden>${info.day}</option>
+				<c:forEach var="day" begin="1" end="31">
+				<c:choose>
+				    <c:when test="${day lt 10 }">
+				        <option value="0${day}">0${day}</option>
+				    </c:when>
+				    <c:otherwise>
+				        <option value="${day}">${day}</option>
+				    </c:otherwise>
+				</c:choose>
+				</c:forEach>	
+			</select>
+			</select>
+		</div> 	
+		
 		<div class="form-group">
 			<h5><b>성별</b></h5>
-			<c:if test="${info.gender eq '남자'}">
-				남자<input type="radio" name="gender" value="남자" checked="checked"> 
-            	여자<input type="radio" name="gender" value="여자">
-			</c:if>
-			<c:if test="${info.gender eq '여자'}">
-				남자<input type="radio" name="gender" value="남자"> 
-            	여자<input type="radio" name="gender" value="여자" checked="checked">
-			</c:if>
+				<select class="form-control" name="gender" style="width:300px; height:30px;font-size:13px;" required readonly="readonly">
+					<option value="${info.gender}" hidden>${info.gender}</option>
+					<option value="남자">남자</option>
+					<option value="여자">여자</option>
+				</select>
 		</div>
 		<div class="form-group">
 			<h5><b>주소</b></h5> 
-			<input type="text" class="form-control" name="address" value="${info.address}" readonly="readonly">
+			<input type="text" class="form-control" name="address" value="${info.address}" style="width:300px; height:30px;font-size:13px;" required readonly="readonly">
 		</div>
 		<div>
 			<button type="button" class="btn btn-info float-right toModForm">수정하기</button>
 		</div>
 		<div class="viewMode">
-			<button type="button" class="btn btn-primary float-right modify" >수정</button>
+			<input type="submit" class="btn btn-primary float-right" value="수정"> 
 			<button type="button" class="btn btn-secondary float-right backViewMode">취소</button>			
 		</div>
 	</form>
