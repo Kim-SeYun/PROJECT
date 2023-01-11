@@ -34,7 +34,6 @@ public class ProductReplyDao {
 			pstmt.setString(1, name);
 			try(ResultSet rs = pstmt.executeQuery();) {
 				while(rs.next()) {
-					System.out.println("??왜죠??");
 					ProductReplyVO vo = ProductReplyVO.builder()
 						.rno(rs.getInt("rno"))
 						.pno(rs.getInt("pno"))
@@ -52,6 +51,20 @@ public class ProductReplyDao {
 		return p_list;
 	}
 	
-	
+	public void write(ProductReplyVO vo) {
+		String query = "insert into P_REPLY(rno, pno, reply, writer) values(P_REPLY_seq.nextval, ?, ?, ?)";
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+		){
+			pstmt.setInt(1, vo.getPno());
+			pstmt.setString(2, vo.getReply());
+			pstmt.setString(3, vo.getWriter());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -15,17 +15,31 @@ let productReply = {
 				alert('댓글목록 조회 실패');
 			} 			
 		}); // ajax end
+	},
+	
+	write : function(productReplyVO){
+		$.ajax({
+			type : 'post',
+			url : `${contextPath}/productReply/write`,
+			data : productReplyVO,
+			success : function(result){
+				console.log(result);
+				alert('aaa');
+				$('.reply_content').val('');
+				$('#reply').find('.modal-body').html(result);
+				$('#reply').modal('show');
+				productReplyService.list(productReplyVO.pno);
+			},
+			error : function(){
+				alert('댓글 등록 에러');
+			}
+		});
 	}
 	
 	
 };
 
-function productList(productReplyList) {
-	
-	if(auth.grade != 'ROLE_ADMIN') {
-		$('.productReplyForm').hide();
-		$('.productReplyBtn').hide();
-	}
+function productList(productReplyList) {		
 	
 	let output = '';
 	for(let p of productReplyList) {

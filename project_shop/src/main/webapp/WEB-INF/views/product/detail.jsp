@@ -56,7 +56,7 @@
 		  </div>
 		</div>
 	</div>
-	<div class="modal fade productReplyBtn" id="feedback">
+	<div class="modal fade productReplyBtn" id="reply">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	

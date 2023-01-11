@@ -19,4 +19,8 @@ public class ProductReplyService {
 	public List<ProductReplyVO> list(String name) {
 		return dao.p_list(name);
 	}
+	
+	public void writer(ProductReplyVO vo) {
+		dao.write(vo);
+	}
 }
