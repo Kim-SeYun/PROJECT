@@ -152,8 +152,7 @@ public class MemberController extends HttpServlet {
 			String month = request.getParameter("month");
 			String day = request.getParameter("day");
 			String gender = request.getParameter("gender");
-			String address = request.getParameter("address");
-			
+			String address = request.getParameter("modAddress");
 			MemberVO vo = MemberVO.builder()
 					.id(id)
 					.email(email)

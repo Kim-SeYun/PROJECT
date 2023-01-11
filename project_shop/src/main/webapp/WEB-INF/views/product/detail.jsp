@@ -19,6 +19,7 @@
       <p><b><font size="3em">${product.weight}</b></p>
       <font size="2em" color="grey">상품설명</font>
       <p><b>${product.info}</b></p>
+      <button type="button" class="btn btn-outline-info">Cart</button>
     </div>
   </div>
 </div>
@@ -45,7 +46,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="replyList">
+	<div class="productReplyList">
 		<div class="card">
 		  <div class="card-header bg-dark text-white">댓글목록</div>
 		  <div class="card-body">
@@ -54,7 +55,7 @@
 		  </div>
 		</div>
 	</div>
-	<div class="modal fade replyBtn" id="feedback">
+	<div class="modal fade productReplyBtn" id="feedback">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	

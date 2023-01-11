@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="${contextPath}/resources/js/member/join.js"></script>  
  
 <div class="container">
@@ -67,7 +68,6 @@
 				</c:choose>
 				</c:forEach>	
 			</select>
-			</select>
 		</div> 	
 		
 		<div class="form-group">
@@ -78,10 +78,17 @@
 					<option value="여자">여자</option>
 				</select>
 		</div>
-		<div class="form-group">
-			<h5><b>주소</b></h5> 
-			<input type="text" class="form-control" name="address" value="${info.address}" style="width:300px; height:30px;font-size:13px;" required readonly="readonly">
+		<div class="form-group originAddr">
+			 <h5><b>주소</b></h5>
+			<input type="text" class="form-control" id="address" name="address" value="${info.address}" style="width:300px; height:30px;font-size:13px;" required readonly="readonly">
 		</div>
+		
+		<div class="form-group modAddr">
+			<h5><b>주소</b></h5>
+            <input type="button" id="postcode_button" onclick="open_Postcode()" value="우편번호 찾기" style="width:300px; height:30px;font-size:13px;">
+            <input type="text" class="form-control" name="modAddress" id="road_address" value="${info.address}" placeholder="도로명 주소(상세)" style="width:300px; height:30px;font-size:13px;">
+		</div>
+		
 		<div>
 			<button type="button" class="btn btn-info float-right toModForm">수정하기</button>
 		</div>

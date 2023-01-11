@@ -2,7 +2,6 @@ function open_Postcode(){
   new daum.Postcode({ 
     oncomplete: function(data) { 
  
-       document.getElementById('postcode').value = data.zonecode; 
        document.getElementById("road_address").value = data.roadAddress;
   } 
 }).open(); 
@@ -33,6 +32,7 @@ function open_Postcode(){
 
 $(function() {
 	$('.viewMode').hide();
+	$('.modAddr').hide();
 	
 	let viewForm = $('#viewForm');
 	
@@ -58,6 +58,8 @@ $(function() {
 		$('input[name="pwd"],input[name="email"]').attr("readonly",false);
 		$('select[name="year"],select[name="month"],select[name="day"]').attr("readonly",false);
 		$('select[name="gender"],input[name="address"]').attr("readonly",false);
+		$('.originAddr').hide();
+		$('.modAddr').show();
 		$('.toModForm').hide();
 		$('.viewMode').show();
 	});
@@ -78,6 +80,8 @@ $(function() {
 		$('select[name="gender"],input[name="address"]').attr("readonly",true);
 		$('.viewMode').hide();
 		$('.toModForm').show();
+		$('.modAddr').hide();
+		$('.originAddr').show();
 		pwdObj.val(pwdVal); // 수정전 내용 복원
 		emailObj.val(emailVal);
 		yearObj.val(yearVal);
@@ -136,4 +140,4 @@ if(document.getElementById('addr').value=="") {
 else { 
   return true; 
 }
-} 
+}

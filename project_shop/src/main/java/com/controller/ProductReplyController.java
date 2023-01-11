@@ -41,6 +41,11 @@ public class ProductReplyController extends HttpServlet{
 		String pathInfo = request.getPathInfo();
 		String contextPath = request.getContextPath();
 		
+		if(pathInfo.equals("/list")) {
+			ProductVO productVO = new ProductVO();
+			List<ProductReplyVO> list = service.list(productVO);
+			out.print(gson.toJson(list));
+		}
 		
 	}
 	

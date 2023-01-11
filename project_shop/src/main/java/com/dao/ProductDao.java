@@ -9,7 +9,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.common.ConnectionUtil;
-import com.domain.BoardVO;
 import com.domain.ProductVO;
 
 public class ProductDao {
@@ -44,31 +43,32 @@ private DataSource dataSource;
 				return list;
 		}
 		
-		// 글상세
+		// 상품상세
 		public ProductVO selectOne(String name) {
 			ProductVO vo = null;
 			String query = "select * from SHOP_PRODUCT where name=?";
 			try (
-				Connection conn = dataSource.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(query);
-			){
-				pstmt.setString(1, name);
-				try(ResultSet rs = pstmt.executeQuery();) {
-					if(rs.next()) {
-						vo = ProductVO.builder()
+					Connection conn = dataSource.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(query);
+				){
+					pstmt.setString(1, name);
+					try(ResultSet rs = pstmt.executeQuery();) {
+						if(rs.next()) {
+							vo = ProductVO.builder()
 								.pno(rs.getInt("pno"))
 								.name(rs.getString("name"))
 								.price(rs.getString("price"))
 								.info(rs.getString("info"))
 								.weight(rs.getString("weight"))
 								.category(rs.getString("category"))
-							.build();
+								.build();
+						}
 					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return vo;
+				return vo;
+			
 		}
 
 }

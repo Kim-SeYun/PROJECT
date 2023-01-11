@@ -43,18 +43,29 @@ public class ProductController extends HttpServlet {
 		RequestDispatcher rd = null;
 		String nextPage = null;
 		
-		// 글목록
+		// 상품목록
 		if(pathInfo==null || pathInfo.equals("/") || pathInfo.equals("/list")) {
 			List<ProductVO> productList = service.productList();
 			request.setAttribute("list", productList);
 			nextPage = "list";
 		}
 		
+		// 상품상세
 		else if(pathInfo.equals("/detail")) {
 			String name = request.getParameter("name");
 			ProductVO product = service.findProduct(name);
 			request.setAttribute("product", product);
 			nextPage = "detail";
+		}
+		
+		// 베스트상품
+		else if(pathInfo.equals("/best")) {
+			nextPage = "best";
+		}
+		
+		// 세일상품
+		else if(pathInfo.equals("/sale")) {
+			nextPage = "sale";
 		}
 		
 		else {

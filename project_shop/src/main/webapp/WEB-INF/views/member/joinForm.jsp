@@ -8,12 +8,13 @@
 <form class="container" action="${contextPath}/member/join" method="post" onsubmit="return checked()">
 	<div class="container" align="center">
 		<div class="jumbotron">
-			<h2>회원 기본 정보</h2>
+			<h2>회원 가입</h2>
 		</div>
 		<div class="form-group">
 			<h4>아이디</h4>
-			<input type="text" class="form-control" name="id" value="" pattern="[a-zA-Z0-9]{4,12}" title="4~12자의 영문 대소문자, 숫자만 입력하세요"  style="width:300px; height:30px;font-size:20px;" required>
+			<input type="text" class="form-control" id="user_id" name="user_id" value="" pattern="[a-zA-Z0-9]{4,12}" title="4~12자의 영문 대소문자, 숫자만 입력하세요"  style="width:300px; height:30px;font-size:20px;" required>
 			<input type="button" onclick="idCheck()" value="중복 확인">
+			<div class="check_font" id="id_check"></div>
 		</div>
 		<div class="form-group">	
 			<h4>비밀번호</h4>
