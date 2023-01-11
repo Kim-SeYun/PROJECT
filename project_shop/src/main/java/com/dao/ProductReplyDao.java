@@ -9,6 +9,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.common.ConnectionUtil;
+import com.domain.ProductDTO;
 import com.domain.ProductReplyVO;
 import com.domain.ProductVO;
 
@@ -21,18 +22,19 @@ public class ProductReplyDao {
 	}
 	
 	
-	
-	public List<ProductReplyVO> p_list(ProductVO productVO) {
+	// 리뷰댓글
+	public List<ProductReplyVO> p_list(String name) {
 		List<ProductReplyVO> p_list = new ArrayList<ProductReplyVO>();
-		String query = "select SHOP_PRODUCT.name, P_REPLY.rno, P_REPLY.reply, P_REPLY.writer, P_REPLY.replyDate, P_REPLY.modifyDate from SHOP_PRODUCT right OUTER JOIN P_REPLY on SHOP_PRODUCT.pno=P_REPLY.pno where name=?";
-		
+		String query = "select SHOP_PRODUCT.name,SHOP_PRODUCT.pno, P_REPLY.rno, "
+				+ "P_REPLY.reply, P_REPLY.writer, P_REPLY.replyDate, P_REPLY.modifyDate from SHOP_PRODUCT right OUTER JOIN P_REPLY on SHOP_PRODUCT.pno=P_REPLY.pno where name=?";
 		try (
 			Connection conn = dataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(query);
 		){
-			pstmt.setString(1, productVO.getName());
+			pstmt.setString(1, name);
 			try(ResultSet rs = pstmt.executeQuery();) {
 				while(rs.next()) {
+					System.out.println("??왜죠??");
 					ProductReplyVO vo = ProductReplyVO.builder()
 						.rno(rs.getInt("rno"))
 						.pno(rs.getInt("pno"))
@@ -44,11 +46,12 @@ public class ProductReplyDao {
 					p_list.add(vo);
 				}
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return p_list;
 	}
+	
+	
 
 }

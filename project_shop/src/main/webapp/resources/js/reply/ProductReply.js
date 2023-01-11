@@ -1,13 +1,15 @@
 let productReply = {
 	
 	list : function(name) {
+		console.log(name)
 		console.log('댓글목록')
 		$.ajax({
 			type : 'get',
 			url : `${contextPath}/productReply/list`,
 			data : {name : name}, 
 			success : function(productReplyList) {
-				replyListRender(productReplyList);
+				console.log(productReplyList)
+				productList(productReplyList);
 			},
 			error : function() {
 				alert('댓글목록 조회 실패');

@@ -3,6 +3,7 @@ package com.service;
 import java.util.List;
 
 import com.dao.ProductReplyDao;
+import com.domain.ProductDTO;
 import com.domain.ProductReplyVO;
 import com.domain.ProductVO;
 import com.domain.ReplyVO;
@@ -15,10 +16,7 @@ public class ProductReplyService {
 		this.dao = dao;
 	}
 	
-	public List<ProductReplyVO> list(ProductVO productVO) {
-		return dao.p_list(productVO);
+	public List<ProductReplyVO> list(String name) {
+		return dao.p_list(name);
 	}
-	
-
-
 }

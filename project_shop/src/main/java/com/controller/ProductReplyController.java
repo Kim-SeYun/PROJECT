@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dao.ProductReplyDao;
+import com.domain.ProductDTO;
 import com.domain.ProductReplyVO;
 import com.domain.ProductVO;
 import com.google.gson.Gson;
@@ -27,7 +29,8 @@ public class ProductReplyController extends HttpServlet{
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		ServletContext sc = config.getServletContext();
-		service = (ProductReplyService) sc.getAttribute("productReplyService");
+		//service = (ProductReplyService) sc.getAttribute("productReplyService");
+		service = new ProductReplyService(new ProductReplyDao());
 		gson = new Gson();
 	}
 
@@ -42,14 +45,9 @@ public class ProductReplyController extends HttpServlet{
 		String contextPath = request.getContextPath();
 		
 		if(pathInfo.equals("/list")) {
-			ProductVO productVO = new ProductVO();
-			List<ProductReplyVO> list = service.list(productVO);
+			String name = request.getParameter("name");
+			List<ProductReplyVO> list = service.list(name);
 			out.print(gson.toJson(list));
 		}
-		
 	}
-	
-
-
-
 }

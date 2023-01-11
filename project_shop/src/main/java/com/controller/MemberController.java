@@ -119,7 +119,7 @@ public class MemberController extends HttpServlet {
 					response.sendRedirect(userURI);
 					return;
 				}
-				response.sendRedirect(contextPath+"/board");
+				response.sendRedirect(contextPath+"/product");
 				return;
 			} else {
 				System.out.println("MemberController.login : 아이디 또는 비밀번호 불일치");
@@ -131,7 +131,7 @@ public class MemberController extends HttpServlet {
 			HttpSession session = request.getSession(false);
 			session = request.getSession(false);
 			session.removeAttribute("auth");
-			response.sendRedirect(contextPath+"/board");
+			response.sendRedirect(contextPath+"/product");
 			return;
 		}
 		

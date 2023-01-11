@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
-
-
+<script src="${contextPath}/resources/js/reply/ProductReply.js"></script>
+<script src="${contextPath}/resources/js/product/detail.js"></script>
 <div class="container" style="margin-top:80px">
   <div class="row">
     <div class="col-sm-4">
@@ -51,6 +51,7 @@
 		  <div class="card-header bg-dark text-white">댓글목록</div>
 		  <div class="card-body">
 		  	<ul class="list-group list-group-flush">
+		  		<li>여기 있음</li>
 			</ul>
 		  </div>
 		</div>

@@ -1,5 +1,4 @@
 $(function(){
-
 	$('.name').on('click',function(e){
 		let productForm = $('#productForm')
 		e.preventDefault();
