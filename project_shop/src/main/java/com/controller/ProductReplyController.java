@@ -13,24 +13,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dao.ReviewDao;
-import com.domain.ReviewVO;
+import com.dao.ProductReplyDao;
+import com.domain.ProductReplyVO;
 import com.google.gson.Gson;
-import com.service.ReviewService;
+import com.service.ProductReplyService;
 
 @WebServlet("/productReply/*")
-public class ReviewController extends HttpServlet{
+public class ProductReplyController extends HttpServlet{
 	
-	private ReviewService service;
-	private ReviewService service2;
+	private ProductReplyService service;
+	private ProductReplyService service2;
 	private Gson gson;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		ServletContext sc = config.getServletContext();
 		//service = (ProductReplyService) sc.getAttribute("productReplyService");
-		service = new ReviewService(new ReviewDao());
-		service2 = (ReviewService) sc.getAttribute("productReplyService");
+		service = new ProductReplyService(new ProductReplyDao());
+		service2 = (ProductReplyService) sc.getAttribute("productReplyService");
 		gson = new Gson();
 	}
 
@@ -46,7 +46,7 @@ public class ReviewController extends HttpServlet{
 		
 		if(pathInfo.equals("/list")) {
 			String name = request.getParameter("name");
-			List<ReviewVO> list = service.list(name);
+			List<ProductReplyVO> list = service.list(name);
 			out.print(gson.toJson(list));
 		}
 		else if(pathInfo.equals("/write")) {
@@ -65,7 +65,7 @@ public class ReviewController extends HttpServlet{
 			// 마지막에 글을 쓴 시간이 없다면
 			session.setAttribute("lastWriting", currentTime);
 			
-			ReviewVO vo = ReviewVO.builder()
+			ProductReplyVO vo = ProductReplyVO.builder()
 							.pno(Integer.parseInt("pno"))
 							.reply(request.getParameter("reply"))
 							.writer(request.getParameter("writer"))
