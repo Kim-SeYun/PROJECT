@@ -52,15 +52,15 @@ public class ProductReplyDao {
 	}
 	
 	public void write(ProductReplyVO vo) {
-		String query = "insert into P_REPLY(rno, pno, reply, writer) values(P_REPLY_seq.nextval, ?, ?, ?)";
+		String query = "insert into P_REPLY(rno, pno, reply, writer) values(P_REPLY_seq.nextval,?,?,?)";
 		try (
-			Connection conn = dataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(query);
-		){
-			pstmt.setInt(1, vo.getPno());
-			pstmt.setString(2, vo.getReply());
-			pstmt.setString(3, vo.getWriter());
-			pstmt.executeUpdate();
+				Connection conn = dataSource.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(query);
+			){
+				pstmt.setInt(1, vo.getPno());
+				pstmt.setString(2, vo.getReply());
+				pstmt.setString(3, vo.getWriter());
+				pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

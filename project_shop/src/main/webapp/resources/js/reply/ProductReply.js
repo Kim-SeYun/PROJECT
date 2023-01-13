@@ -24,11 +24,9 @@ let productReply = {
 			data : productReplyVO,
 			success : function(result){
 				console.log(result);
-				alert('aaa');
 				$('.reply_content').val('');
 				$('#reply').find('.modal-body').html(result);
 				$('#reply').modal('show');
-				productReplyService.list(productReplyVO.pno);
 			},
 			error : function(){
 				alert('댓글 등록 에러');

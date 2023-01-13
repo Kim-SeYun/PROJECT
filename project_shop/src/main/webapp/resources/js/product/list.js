@@ -9,5 +9,10 @@ $(function(){
 				.submit();
 	});
 	
+	$('.cartBtn').on('click', function(e){
+		let data = $(this).attr('value');
+		alert(data)
+	})
+	
 	
 });

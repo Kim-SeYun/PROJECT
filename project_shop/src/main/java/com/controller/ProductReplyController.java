@@ -22,7 +22,6 @@ import com.service.ProductReplyService;
 public class ProductReplyController extends HttpServlet{
 	
 	private ProductReplyService service;
-	private ProductReplyService service2;
 	private Gson gson;
 	
 	@Override
@@ -30,7 +29,6 @@ public class ProductReplyController extends HttpServlet{
 		ServletContext sc = config.getServletContext();
 		//service = (ProductReplyService) sc.getAttribute("productReplyService");
 		service = new ProductReplyService(new ProductReplyDao());
-		service2 = (ProductReplyService) sc.getAttribute("productReplyService");
 		gson = new Gson();
 	}
 
@@ -49,28 +47,28 @@ public class ProductReplyController extends HttpServlet{
 			List<ProductReplyVO> list = service.list(name);
 			out.print(gson.toJson(list));
 		}
+		
 		else if(pathInfo.equals("/write")) {
 			String paramPno = request.getParameter("pno");
-			System.out.println(paramPno);
 			
 			long currentTime = System.currentTimeMillis();
 			HttpSession session = request.getSession(false);
-			if(session.getAttribute("lastWriting")!=null) { // 마지막에 글을 쓴 시간이 있다면
+			if(session.getAttribute("lastWriting")!=null) {
 				long lastWriting = (long) session.getAttribute("lastWriting");
 				if(currentTime-lastWriting < 10000) {
-					out.print(gson.toJson("도배하지마세요"));
+					out.print(gson.toJson("도배금지"));
 					return;
 				}
 			}
-			// 마지막에 글을 쓴 시간이 없다면
+			
 			session.setAttribute("lastWriting", currentTime);
 			
 			ProductReplyVO vo = ProductReplyVO.builder()
-							.pno(Integer.parseInt("pno"))
+							.pno(Integer.parseInt(paramPno))
 							.reply(request.getParameter("reply"))
 							.writer(request.getParameter("writer"))
 							.build();
-			System.out.println(paramPno);
+
 			service.writer(vo);
 			String result = gson.toJson("댓글 등록 성공");
 			out.print(result);

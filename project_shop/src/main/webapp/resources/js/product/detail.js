@@ -3,9 +3,11 @@ $(function(){
 	let name = new URLSearchParams(location.search).get('name');
 	productReply.list(name);
 	
-	// 댓글 쓰기
+	let pno = $('input[name="pno"]').val();
+	
+	// 리뷰 쓰기
 	$('.reply_write').on('click', function(){
-		let write = $('.reply_writer').val()
+		let writer = $('.reply_writer').val()
 		let reply = $('.reply_content').val()
 		
 		let productReplyVO = {
@@ -13,8 +15,8 @@ $(function(){
 			reply : reply,
 			writer : writer
 		}
-		productReplyService.write(productReplyVO);
-		
+		productReply.write(productReplyVO);
+		productReply.list(name);		
 		
 	});
 })

@@ -23,7 +23,7 @@
     </div>
   </div>
 </div>
-
+<input type="hidden" name="pno" value="${product.pno}">
 
 <div class="productReplyForm">
 		<table class="table">

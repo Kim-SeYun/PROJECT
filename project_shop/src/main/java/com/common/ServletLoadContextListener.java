@@ -5,7 +5,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import com.dao.ProductReplyDao;
 import com.dao.ReplyDao;
+import com.service.ProductReplyService;
 import com.service.ReplyService;
 
 @WebListener
@@ -17,6 +19,7 @@ public class ServletLoadContextListener implements ServletContextListener{
 		ReplyDao replyDao = new ReplyDao();
 		ReplyService replyService = new ReplyService(replyDao);
 		sc.setAttribute("replyService", replyService);
+		
 		
 	}
 
