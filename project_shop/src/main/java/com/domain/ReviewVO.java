@@ -15,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Builder
-public class ProductReplyVO {
+public class ReviewVO {
 	private int rno;
 	private int pno;
 	private String reply;

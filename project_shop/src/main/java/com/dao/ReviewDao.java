@@ -10,21 +10,21 @@ import javax.sql.DataSource;
 
 import com.common.ConnectionUtil;
 import com.domain.ProductDTO;
-import com.domain.ProductReplyVO;
+import com.domain.ReviewVO;
 import com.domain.ProductVO;
 
-public class ProductReplyDao {
+public class ReviewDao {
 	
 	private DataSource dataSource;
 	
-	public ProductReplyDao() {
+	public ReviewDao() {
 		dataSource = ConnectionUtil.getDataSource();
 	}
 	
 	
 	// 리뷰댓글
-	public List<ProductReplyVO> p_list(String name) {
-		List<ProductReplyVO> p_list = new ArrayList<ProductReplyVO>();
+	public List<ReviewVO> p_list(String name) {
+		List<ReviewVO> p_list = new ArrayList<ReviewVO>();
 		String query = "select SHOP_PRODUCT.name,SHOP_PRODUCT.pno, P_REPLY.rno, "
 				+ "P_REPLY.reply, P_REPLY.writer, P_REPLY.replyDate, P_REPLY.modifyDate from SHOP_PRODUCT right OUTER JOIN P_REPLY on SHOP_PRODUCT.pno=P_REPLY.pno where name=?";
 		try (
@@ -34,7 +34,7 @@ public class ProductReplyDao {
 			pstmt.setString(1, name);
 			try(ResultSet rs = pstmt.executeQuery();) {
 				while(rs.next()) {
-					ProductReplyVO vo = ProductReplyVO.builder()
+					ReviewVO vo = ReviewVO.builder()
 						.rno(rs.getInt("rno"))
 						.pno(rs.getInt("pno"))
 						.reply(rs.getString("reply"))
@@ -51,7 +51,7 @@ public class ProductReplyDao {
 		return p_list;
 	}
 	
-	public void write(ProductReplyVO vo) {
+	public void write(ReviewVO vo) {
 		String query = "insert into P_REPLY(rno, pno, reply, writer) values(P_REPLY_seq.nextval, ?, ?, ?)";
 		try (
 			Connection conn = dataSource.getConnection();
