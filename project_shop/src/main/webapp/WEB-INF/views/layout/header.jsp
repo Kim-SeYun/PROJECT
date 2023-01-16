@@ -59,7 +59,7 @@
       <a class="nav-link" style="color: black;" href="${contextPath}/member/myPage">마이페이지</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" style="color: black;" href="${contextPath}/member/cart">장바구니</a>
+      <a class="nav-link" style="color: black;" href="${contextPath}/cart/list">장바구니</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" style="color: black;" href="${contextPath}/member/logout">로그아웃</a>

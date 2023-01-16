@@ -22,7 +22,7 @@ public class ProductReplyDao {
 	}
 	
 	
-	// 리뷰댓글
+	// 리뷰목록
 	public List<ProductReplyVO> p_list(String name) {
 		List<ProductReplyVO> p_list = new ArrayList<ProductReplyVO>();
 		String query = "select SHOP_PRODUCT.name,SHOP_PRODUCT.pno, P_REPLY.rno, "
@@ -62,6 +62,20 @@ public class ProductReplyDao {
 				pstmt.setString(3, vo.getWriter());
 				pstmt.executeUpdate();
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 리뷰삭제
+	public void remove(ProductReplyVO vo) {
+		String query = "delete from P_REPLY where rno=?";
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);	
+			){
+			pstmt.setInt(1, vo.getRno());
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

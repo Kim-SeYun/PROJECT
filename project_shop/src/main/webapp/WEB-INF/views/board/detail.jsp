@@ -112,7 +112,6 @@
 	<div class="modal fade replyBtn" id="feedback">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
-	
 	      <!-- Modal Header -->
 	      <div class="modal-header">
 	        <h4 class="modal-title">댓글 등록</h4>

@@ -23,4 +23,8 @@ public class ProductReplyService {
 	public void writer(ProductReplyVO vo) {
 		dao.write(vo);
 	}
+	
+	public void remove(ProductReplyVO vo) {
+		dao.remove(vo);
+	}
 }

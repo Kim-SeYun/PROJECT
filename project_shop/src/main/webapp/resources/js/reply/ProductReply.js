@@ -32,12 +32,34 @@ let productReply = {
 				alert('댓글 등록 에러');
 			}
 		});
+	},
+	
+	remove : function(productReplyVO) {
+		$.ajax({
+			type : 'post',
+			url : `${contextPath}/productReply/remove`,
+			data : productReplyVO,
+			success : function(result) {
+				$('#reply').find('.modal-body').html(result);
+				$('#reply').modal('show');
+			},
+			error : function() {
+				alert('댓글 삭제 에러')
+			}
+			
+		}); // ajax end
+		console.log('댓글삭제')
 	}
 	
 	
 };
 
-function productList(productReplyList) {		
+function productList(productReplyList) {	
+	
+	if(auth.grade != 'ROLE_MEMBER') {
+		$('.productReplyForm').hide();
+		$('.productReplyBtn').hide();
+	}	
 	
 	let output = '';
 	for(let p of productReplyList) {
@@ -51,15 +73,15 @@ function productList(productReplyList) {
 			if(p.writer==auth.id) { // 로그인한 사용자
 				output+=`
 				<div class="align-self-center" data-rno="${p.rno}">
-					<button class="btn btn-sm btn-primary reply_modBtn">수정</button>
-					<button class="btn btn-sm btn-danger reply_delBtn">삭제</button>
+					<button class="btn btn-sm btn-primary p_reply_modBtn">수정</button>
+					<button class="btn btn-sm btn-danger p_reply_delBtn">삭제</button>
 				</div>
 				`;
 	    	}
 	    	if(auth.grade=='ROLE_ADMIN' && p.writer != 'admin') {
 				output+=`
 				<div class="align-self-center" data-rno="${p.rno}">
-					<button class="btn btn-sm btn-danger reply_delBtn">삭제</button>
+					<button class="btn btn-sm btn-danger p_reply_delBtn">삭제</button>
 				</div>
 				`;
 	}

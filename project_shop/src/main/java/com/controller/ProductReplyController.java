@@ -73,5 +73,18 @@ public class ProductReplyController extends HttpServlet{
 			String result = gson.toJson("댓글 등록 성공");
 			out.print(result);
 		}
+		else if(pathInfo.equals("/remove")) {
+			String paramRno = request.getParameter("rno");
+			System.out.println(paramRno);
+			ProductReplyVO vo = ProductReplyVO.builder()
+					.rno(Integer.parseInt(paramRno))
+					.build();
+			
+			service.remove(vo);
+			String result = gson.toJson("댓글 삭제 성공");
+			out.print(result);
+		}
 	}
+	
+	
 }

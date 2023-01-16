@@ -16,7 +16,18 @@ $(function(){
 			writer : writer
 		}
 		productReply.write(productReplyVO);
-		productReply.list(name);		
+		productReply.list(name);
 		
+	});
+	
+	$('.productReplyList').on('click','.p_reply_delBtn', function() {
+		let rno = $(this).closest('div').data('rno');
+		
+		let productReplyVO = {
+			pno : pno,
+			rno : rno
+		}
+		productReply.remove(productReplyVO);
+		productReply.list(name);
 	});
 })
