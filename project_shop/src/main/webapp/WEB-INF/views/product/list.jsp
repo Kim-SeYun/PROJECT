@@ -50,7 +50,6 @@
 		    	<button type="button" id="button" value="${p.name}" class="btn btn-outline-info cartBtn"  style="float: right; margin-right: 23px; margin-bottom: 35px">Cart</button>
 			</div>
 	 	</c:forEach>
-		   
  	</div>
  	</form>
     </div>

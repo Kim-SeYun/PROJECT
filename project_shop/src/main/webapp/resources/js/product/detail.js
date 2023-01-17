@@ -2,6 +2,7 @@
 $(function(){
 	let name = new URLSearchParams(location.search).get('name');
 	productReply.list(name);
+	console.log(name)
 	
 	let pno = $('input[name="pno"]').val();
 	

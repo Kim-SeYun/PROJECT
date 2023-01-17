@@ -32,7 +32,7 @@ private DataSource dataSource;
 						ProductVO vo = ProductVO.builder()
 								.pno(rs.getInt("pno"))
 								.name(rs.getString("name"))
-								.price(rs.getString("price"))
+								.price(rs.getInt("price"))
 								.info(rs.getString("info"))
 							.build();
 						list.add(vo);
@@ -57,7 +57,7 @@ private DataSource dataSource;
 							vo = ProductVO.builder()
 								.pno(rs.getInt("pno"))
 								.name(rs.getString("name"))
-								.price(rs.getString("price"))
+								.price(rs.getInt("price"))
 								.info(rs.getString("info"))
 								.weight(rs.getString("weight"))
 								.category(rs.getString("category"))

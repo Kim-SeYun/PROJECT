@@ -16,7 +16,7 @@ import lombok.ToString;
 public class ProductVO {
 	private int pno;
 	private String name;
-	private String price;
+	private int price;
 	private String info;
 	private String weight;
 	private String category;

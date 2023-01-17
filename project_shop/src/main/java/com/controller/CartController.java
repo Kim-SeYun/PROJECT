@@ -1,17 +1,23 @@
 package com.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
+
 import com.dao.CartDao;
 import com.domain.CartVO;
+import com.google.gson.Gson;
 import com.service.CartService;
 
 
@@ -19,11 +25,14 @@ import com.service.CartService;
 public class CartController extends HttpServlet {
        
 	private CartService service;
+	private Gson gson;
 	
 	@Override
-	public void init() throws ServletException {
+	public void init(ServletConfig config) throws ServletException {
+		ServletContext sc = config.getServletContext();
 		CartDao dao = new CartDao();
 		service = new CartService(dao);
+		gson = new Gson();
 	}
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,6 +45,8 @@ public class CartController extends HttpServlet {
 	}
 	
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("application/json;charset=utf-8");
+		PrintWriter out = response.getWriter();
 		String pathInfo = request.getPathInfo();
 		String contextPath = request.getContextPath();
 		final String PRIFIX = "/WEB-INF/views/cart/";
@@ -45,9 +56,12 @@ public class CartController extends HttpServlet {
 		String nextPage = null;
 		
 		// 카트목록
-		if(pathInfo==null || pathInfo.equals("/") || pathInfo.equals("/list")) {
-			List<CartVO> cartList = service.cartList();
+		if(pathInfo.equals("/list")) {
+			String id = request.getParameter("id");
+			System.out.println(id);
+			List<CartVO> cartList = service.cartList(id);
 			request.setAttribute("list", cartList);
+			out.print(gson.toJson(cartList));
 			nextPage = "list";
 		}
 		else {

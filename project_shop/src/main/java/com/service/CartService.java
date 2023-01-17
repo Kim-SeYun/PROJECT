@@ -12,8 +12,8 @@ public class CartService {
 	
 	private CartDao dao;
 	
-	public List<CartVO> cartList(){
-		return dao.allList();
+	public List<CartVO> cartList(String id){
+		return dao.allList(id);
 	}
 
 }
