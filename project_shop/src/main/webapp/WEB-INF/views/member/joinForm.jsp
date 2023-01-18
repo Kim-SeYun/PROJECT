@@ -8,21 +8,24 @@
 <form class="container" action="${contextPath}/member/join" method="post" onsubmit="return checked()">
 	<div class="container" align="center">
 		<div class="jumbotron">
-			<h2>회원 가입</h2>
+			<h2>회원 기본 정보</h2>
 		</div>
 		<div class="form-group">
 			<h4>아이디</h4>
-			<input type="text" class="form-control" id="user_id" name="user_id" value="" pattern="[a-zA-Z0-9]{4,12}" title="4~12자의 영문 대소문자, 숫자만 입력하세요"  style="width:300px; height:30px;font-size:20px;" required>
-			<input type="button" onclick="idCheck()" value="중복 확인">
-			<div class="check_font" id="id_check"></div>
+			<input type="text" class="form-control" name="id" id="id" value="" maxlength="12" onkeyup="check_id()" pattern="[a-zA-Z0-9]{4,12}" title="4~12자의 영문 대소문자, 숫자만 입력하세요"  style="width:300px; height:30px;font-size:20px;" required>
+			<input type="button" class="form-control checkId" style="width:100px; height:30px;font-size:13px;" value="중복확인">
+			
+			<!-- 아이디 중복 체크 여부 -->
+			<input type="hidden" id="idDuplication" name="idDuplication" value=""/>
+			<span id="id_check_msg"></span>
 		</div>
 		<div class="form-group">	
 			<h4>비밀번호</h4>
-			<input type="password" class="form-control" id="pwd" name="pwd" onkeyup="check_pwd()" value="" pattern="[a-zA-Z0-9!~^]{4,12}" title="4~12자의 영문 대소문자, 숫자, 특수문자(!~^)만 입력하세요." style="width:300px; height:30px;font-size:20px;" required> 
+			<input type="password" class="form-control" id="pwd" name="pwd" onkeyup="check_pwd()" value="" maxlength="16" pattern="[a-zA-Z0-9!~^]{4,16}" title="4~16자의 영문 대소문자, 숫자, 특수문자(!~^)만 입력하세요." style="width:300px; height:30px;font-size:20px;" required> 
 		</div>
 		<div class="form-group">
 			<h4>비밀번호 확인</h4>
-			<input type="password" class="form-control" id="pwd_check" name="pwd_check" onkeyup="check_pwd()" value="" maxlength="12" style="width:300px; height:30px;font-size:20px;" required> 
+			<input type="password" class="form-control" id="pwd_check" name="pwd_check" onkeyup="check_pwd()" value="" maxlength="16" style="width:300px; height:30px;font-size:20px;" required> 
             <span id="pwd_check_msg"></span>
 		</div>
 		<div class="form-group">
@@ -35,13 +38,13 @@
 		</div>
 		<div class="form-group">
 			<h4>생년월일</h4>
-			<select class="form-control" id="year" name="year" style="width:300px; height:30px;font-size:13px;" required>
+			<select class="form-control" id="year" name="year" style="width:100px; height:30px;font-size:13px;" required>
 				  <option value="">년</option>
 				  <c:forEach var="year" begin="1920" end="2023">
 				    <option value="${year}">${year}</option>
 				  </c:forEach>			
 			</select>
-			<select class="form-control" id="month" name="month" style="width:300px; height:30px;font-size:13px;" required>
+			<select class="form-control" id="month" name="month" style="width:100px; height:30px;font-size:13px;" required>
 				<option value="">월</option>
 				<c:forEach var="month" begin="1" end="12">
 				<c:choose>
@@ -54,7 +57,7 @@
 				</c:choose>
 				</c:forEach>	
 			</select>
-			<select class="form-control" id="day" name="day" style="width:300px; height:30px;font-size:13px;" required>
+			<select class="form-control" id="day" name="day" style="width:100px; height:30px;font-size:13px;" required>
 				<option value="">일</option>
 				<c:forEach var="day" begin="1" end="31">
 				<c:choose>
@@ -71,9 +74,7 @@
 		</div>
 		<div class="form-group">
 			<h4>성별</h4>
-			<!-- 남자<input type="radio" class="form-control" name="gender" value="남자" checked="checked" style="width:70px; height:30px;font-size:20px;"> 
-            여자<input type="radio" class="form-control" name="gender" value="여자" style="width:70px; height:30px;font-size:20px;"> --> 
-			<select class="form-control" name="gender" style="width:300px; height:30px;font-size:13px;" required>
+			<select class="form-control" name="gender" class="form-control" style="width:100px; height:30px; font-size:13px;" required>
 				<option value="남자">남자</option>
 				<option value="여자">여자</option>
 			</select>
@@ -81,10 +82,9 @@
 		
 		<div class="form-group">
 			<h4>주소</h4>
-			<input type="text" id="postcode" placeholder="우편번호" readonly > 
-            <input type="button" id="postcode_button" onclick="open_Postcode()" value="우편번호 찾기"><br> 
-            <input type="text" name="address1" id="road_address" placeholder="도로 주소" readonly>
-            <input type="text" id="addr" name="address2" placeholder="상세 주소"><br> 
+            <input type="button" class="form-control btn-primary" id="postcode_button" onclick="open_Postcode()" style="width:100px; height:30px; font-size:12px;" value="우편번호 찾기"><br> 
+            <input type="text" class="form-control" name="address1" id="road_address" placeholder="도로 주소" style="width:300px; height:30px;font-size:20px;"  readonly>
+            <input type="text" class="form-control" id="addr" name="address2" style="width:300px; height:30px;font-size:20px;" placeholder="상세 주소" required><br> 
 		</div>
 	</div>
 	

@@ -75,7 +75,6 @@ public class ProductReplyController extends HttpServlet{
 		}
 		else if(pathInfo.equals("/remove")) {
 			String paramRno = request.getParameter("rno");
-			System.out.println(paramRno);
 			ProductReplyVO vo = ProductReplyVO.builder()
 					.rno(Integer.parseInt(paramRno))
 					.build();

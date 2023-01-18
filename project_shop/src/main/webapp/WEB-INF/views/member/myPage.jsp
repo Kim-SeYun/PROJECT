@@ -15,7 +15,7 @@
           <a class="nav-link" href="${contextPath}/member/myPage">개인정보수정</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">주문내역</a>
+          <a class="nav-link" href="${contextPath}/member/orderList">주문내역</a>
         </li>
       </ul>
     </div>

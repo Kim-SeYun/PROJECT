@@ -3,6 +3,7 @@
 <%@ include file="../layout/header.jsp" %>
 <script src="${contextPath}/resources/js/reply/ProductReply.js"></script>
 <script src="${contextPath}/resources/js/product/detail.js"></script>
+<script src="${contextPath}/resources/js/product/list.js"></script> 
 <div class="container" style="margin-top:80px">
   <div class="row">
     <div class="col-sm-4">
@@ -14,12 +15,17 @@
       <h2><b>${product.name}</b></h2>
       <hr align="left" style="border: solid 1px grey; width: 20%;">
       <font size="2em" color="grey">가격</font>
-      <h5><p><b>${product.price}원</b></p></h5>
+      <h5><p><b><fmt:formatNumber value="${product.price}" pattern="#,###원"/></b></p></h5>
       <font size="2em" color="grey">중량X수량</font>
       <p><b><font size="3em">${product.weight}</b></p>
       <font size="2em" color="grey">상품설명</font>
       <p><b>${product.info}</b></p>
-      <button type="button" class="btn btn-outline-info">Cart</button>
+      <div>
+      	<button type="button" class="minus">-</button>
+	    <input type="text" class="num" name="num" value="1" disabled/>
+	    <button type="button" class="plus">+</button>
+	</div>
+      <button type="button" id="button" value="${product.pno}" class="btn btn-outline-info cartBtn">Cart</button>
     </div>
   </div>
 </div>

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import javax.sql.DataSource;
 
 import com.common.ConnectionUtil;
+import com.domain.CartVO;
 import com.domain.MemberVO;
 import com.domain.MemberVO.MemberGrade;
 
@@ -97,6 +98,28 @@ private DataSource dataSource;
 		return result;
 	}
 	
+	// 아이디 중복확인
+	public boolean idCheck(String id) {
+		boolean result = false;
+		String query = "select decode(count(*),1,'TRUE','FALSE') as result from shop_member where id=?";
+		
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+		){
+			pstmt.setString(1, id);
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					result = Boolean.parseBoolean(rs.getString("result"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	// 회원등급 조회
 	public MemberGrade findMemberGradeById(String id) {
 		MemberGrade grade = null;
@@ -136,5 +159,7 @@ private DataSource dataSource;
 			e.printStackTrace();
 		}
 	}
+
+
 
 }

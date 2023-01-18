@@ -31,4 +31,23 @@ $(function(){
 		productReply.remove(productReplyVO);
 		productReply.list(name);
 	});
+	
+	$('.plus').on('click', function(){
+		//let count = $('input[name="num"]').val();
+		//console.log(count)
+		//var n = $('.plus').index(this);
+		//console.log(n)
+		var n = 0
+		var num = $(".num:eq("+n+")").val();
+    	console.log(num)
+    	num = $(".num:eq("+n+")").val(num*1+1);
+	})
+	$('.minus').click(function(){ 
+	var n = 0
+    var num = $(".num:eq("+n+")").val();
+    console.log(num)
+    num = $(".num:eq("+n+")").val(num*1-1); 
+  });
+	
+	
 })

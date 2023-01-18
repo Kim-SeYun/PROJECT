@@ -19,10 +19,11 @@ $(function(){
 				type : 'post',
 				url : `${contextPath}/cart/addCart`,
 				data : {id : auth.id, pno : data}, 
-				success : function(result) {
-					console.log(result)
-					alert(result)
-					location.assign("/project_shop/cart/list")
+				success : function() {
+					var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?")
+					if(check){
+						location.assign("/project_shop/cart/list")
+					}
 				},
 				error : function() {
 					alert('장바구니 담기 실패');

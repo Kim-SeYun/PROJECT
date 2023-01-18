@@ -64,7 +64,6 @@ public class CartController extends HttpServlet {
 			String id = request.getParameter("id");
 			String Parampno = request.getParameter("pno");
 			int pno = Integer.parseInt(Parampno);
-			System.out.println(pno);
 			CartVO vo = CartVO.builder()
 					.id(id)
 					.pno(pno)

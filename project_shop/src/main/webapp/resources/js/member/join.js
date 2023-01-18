@@ -7,27 +7,49 @@ function open_Postcode(){
 }).open(); 
 } 
 
-/*let idCheck = {
-	
-	idCheck : function(id) {
+$(function() {
+	$('.checkId').on('click', function(){
+	var userId = document.getElementById('id').value;
+	var idReg = /^[A-za-z0-9]{4,12}$/g;
+	if(userId != '' && idReg.test(userId) ) {
 		$.ajax({
 			type : 'get',
 			url : `${contextPath}/member/idCheck`,
-			data : {id : id}, 
+			data : {id : userId},
 			success : function(result) {
-			   if(result == false){
-                    $("#result").text("사용가능한 아이디입니다.");
-               }else if(result == true){
-                    $("#result").text("이미 사용중인 아이디입니다.");
-               }
+				if(result == 1 && userId.length > 3) {
+					/*document.getElementById('id_check_msg').innerHTML = "<font color=red>이미 사용중인 아이디 입니다. </font>";*/
+					// alert('이미 사용중인 아이디입니다.')
+					document.getElementById('id_check_msg').innerHTML = "<font color=red>이미 사용중인 아이디입니다.</font>";
+					// document.getElementById('id').value = "";
+					document.getElementById('idDuplication').value = "idUncheck";
+				} else if(result == 0 && userId.length > 3) {
+					// alert('사용할 수 있는 아이디입니다.');
+					document.getElementById('id_check_msg').innerHTML = "<font color=blue>사용할 수 있는 아이디입니다.</font>";
+					document.getElementById('idDuplication').value = "idChecked";
+				} else if(!idReg.test(userId.val())) {
+					alert('오류')
+				}else {
+					alert('네 자리 이상 작성해주세요. ');
+					document.getElementById('idDuplication').value = "idUncheck";
+				} 
 			},
 			error : function() {
-				alert('아이디 조회 실패');
-			} 			
-		}); // ajax end
-	}
-	
-};*/
+				alert('중복확인 실패')
+			}
+		})
+		} else if(!idReg.test(userId)){
+			document.getElementById('id_check_msg').innerHTML = "<font color=red>4~12자의 영문 대소문자, 숫자만 입력하세요.</font>";
+			document.getElementById('idDuplication').value = "idUncheck";
+			
+		} else {
+			alert('아이디를 입력하세요')
+			document.getElementById('id_check_msg').innerHTML = "";
+			document.getElementById('idDuplication').value = "idUncheck";
+		} 
+		 
+	})
+})
 
 
 $(function() {
@@ -112,32 +134,56 @@ function check_pwd(){  //비밀번호 확인
     if (pwd_check=="") { 
       document.getElementById('pwd_check_msg').innerHTML = ""; 
     } 
- } 
+ }
+ 
+  
+ 
+function check_id(){  //아이디 중복 확인 
+    var id = document.getElementById('id').value;  
+    
+    if (id=="") { 
+      document.getElementById('idDuplication').value = ""; 
+    }
+    
+	$("#id").on("propertychange change keyup paste input", function(){
+		document.getElementById('idDuplication').value = "idUncheck";
+		document.getElementById('id_check_msg').innerHTML = "";
+	});     
+	     
+}
+
+
 
  
 function checked(){  //form 유효성 검사 
+
 var pwd = document.getElementById('pwd'); 
 var pwd_check = document.getElementById('pwd_check'); 
+
+if(document.getElementById('idDuplication').value == "idUncheck" || document.getElementById('idDuplication').value == "") {
+	alert("아이디 중복체크를 해주세요.")
+	return false;
+}
 
 if (pwd.value != pwd_check.value) {  //비밀번호 확인 
   alert("비밀번호가 일치하지 않습니다. 다시 입력해 주세요."); 
   pwd_check.focus(); 
   return false; 
-} 
+}  
 
 if (document.getElementById('postcode').value=="") { //주소 확인 
-  alert("주소를 입력해주세요"); 
+  alert("주소를 입력해주세요."); 
   document.getElementById('postcode_button').focus(); 
   return false; 
 } 
 
 if(document.getElementById('addr').value=="") {
-	alert("상세주소를 입력해주세요")
+	alert("상세주소를 입력해주세요.")
 	document.getElementById('addr').focus();
 	return false; 
 }
-
 else { 
   return true; 
 }
+
 }

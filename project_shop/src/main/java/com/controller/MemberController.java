@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -23,18 +24,14 @@ import com.service.MemberService;
 public class MemberController extends HttpServlet {
 	
 	private MemberService service;
-	private MemberService sv;
 	private Gson gson;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		service = new MemberService(new MemberDao());
-		ServletContext sc = config.getServletContext();
-		sv = (MemberService) sc.getAttribute("idCheck");
 		gson = new Gson();
-		
 	}
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
 	}
@@ -44,6 +41,8 @@ public class MemberController extends HttpServlet {
 	}
 	
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("application/json;charset=utf-8");
+		PrintWriter out = response.getWriter();
 		String pathInfo = request.getPathInfo();
 		String contextPath = request.getContextPath();
 		final String PRIFIX = "/WEB-INF/views/member/";
@@ -85,6 +84,16 @@ public class MemberController extends HttpServlet {
 			service.memberJoin(vo);
 			request.setAttribute("id", id);
 			nextPage = "joinCheck";
+		}
+		
+		else if(pathInfo.equals("/idCheck")) {
+			int result = 0;
+			String id = request.getParameter("id");
+			if(service.idCheckService(id)) {
+				result = 1;
+			}
+			out.print(gson.toJson(result));
+			return;
 		}
 		
 		// 로그인폼
@@ -142,6 +151,13 @@ public class MemberController extends HttpServlet {
 			MemberVO info = service.memberInfo(auth.getId());
 			request.setAttribute("info", info);
 			nextPage = "myPage";
+		}
+		
+		
+		
+		// 주문내역
+		else if(pathInfo.equals("/orderList")) {
+			nextPage = "orderList";
 		}
 		
 		// 회원정보수정
