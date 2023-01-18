@@ -16,10 +16,12 @@ import lombok.ToString;
 @ToString
 @Builder
 public class CartVO {
-	int cart_id;
-	String id;
-	int pno;
-	int cart_cnt;
-	Date regdate;
+	private int cart_id;
+	private String id;
+	private int pno;
+	private int cart_cnt;
+	private Date regdate;
+	private int price;
+	private String name;
 
 }

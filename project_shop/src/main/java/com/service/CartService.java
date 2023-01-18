@@ -15,5 +15,9 @@ public class CartService {
 	public List<CartVO> cartList(String id){
 		return dao.allList(id);
 	}
+	
+	public void addCart(CartVO vo) {
+		dao.addCart(vo);
+	}
 
 }

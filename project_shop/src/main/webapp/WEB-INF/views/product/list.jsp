@@ -47,7 +47,7 @@
 		    	<div><a href="${p.name}" class="name"><img src="${contextPath}/resources/images/${p.name}.png" alt="${p.name}" width="200" /></div>
 		    	<div>${p.name}</a></div>
 		    	<div>${p.price}원</div>
-		    	<button type="button" id="button" value="${p.name}" class="btn btn-outline-info cartBtn"  style="float: right; margin-right: 23px; margin-bottom: 35px">Cart</button>
+		    	<button type="button" id="button" value="${p.pno}" class="btn btn-outline-info cartBtn"  style="float: right; margin-right: 23px; margin-bottom: 35px">Cart</button>
 			</div>
 	 	</c:forEach>
  	</div>

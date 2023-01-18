@@ -5,17 +5,15 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.jasper.tagplugins.jstl.core.Out;
+import javax.servlet.http.HttpSession;
 
 import com.dao.CartDao;
+import com.domain.AuthVO;
 import com.domain.CartVO;
 import com.google.gson.Gson;
 import com.service.CartService;
@@ -28,8 +26,7 @@ public class CartController extends HttpServlet {
 	private Gson gson;
 	
 	@Override
-	public void init(ServletConfig config) throws ServletException {
-		ServletContext sc = config.getServletContext();
+	public void init() throws ServletException {
 		CartDao dao = new CartDao();
 		service = new CartService(dao);
 		gson = new Gson();
@@ -57,13 +54,29 @@ public class CartController extends HttpServlet {
 		
 		// 카트목록
 		if(pathInfo.equals("/list")) {
-			String id = request.getParameter("id");
-			System.out.println(id);
-			List<CartVO> cartList = service.cartList(id);
+			HttpSession session = request.getSession(false);
+			AuthVO auth = (AuthVO) session.getAttribute("auth");
+			List<CartVO> cartList = service.cartList(auth.getId());
 			request.setAttribute("list", cartList);
-			out.print(gson.toJson(cartList));
 			nextPage = "list";
 		}
+		else if(pathInfo.equals("/addCart")) {
+			String id = request.getParameter("id");
+			String Parampno = request.getParameter("pno");
+			int pno = Integer.parseInt(Parampno);
+			System.out.println(pno);
+			CartVO vo = CartVO.builder()
+					.id(id)
+					.pno(pno)
+					.build();
+			service.addCart(vo);
+			String result = gson.toJson("장바구니 담기");
+			out.print(result);
+			return;
+			
+		}
+		
+		
 		else {
 			System.out.println("페이지를 찾을 수 없음");
 			return;

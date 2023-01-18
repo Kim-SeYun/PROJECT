@@ -12,8 +12,8 @@
 			<tr>
 				<th>상품번호</th>
 				<th>상품명</th>
-				<th>갯수</th>
 				<th>개당가격</th>
+				<th>갯수</th>
 				<th>총액</th>
 			</tr>
 			<c:forEach items="${list}" var="c">
@@ -22,7 +22,7 @@
 				<td>${c.name}</td>
 				<td>${c.price}</td>
 				<td>${c.cart_cnt}</td>
-				<td>null</td>
+				<td>${c.price * c.cart_cnt}</td>
 			</tr>
 			</c:forEach>
 		</table>

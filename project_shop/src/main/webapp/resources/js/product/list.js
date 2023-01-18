@@ -12,8 +12,27 @@ $(function(){
 	
 	$('.cartBtn').on('click', function(e){
 		let data = $(this).attr('value');
-		alert(data)
 		console.log(data)
+		if(auth.id !=null && auth.id !=''){
+			
+			$.ajax({
+				type : 'post',
+				url : `${contextPath}/cart/addCart`,
+				data : {id : auth.id, pno : data}, 
+				success : function(result) {
+					console.log(result)
+					alert(result)
+					location.assign("/project_shop/cart/list")
+				},
+				error : function() {
+					alert('장바구니 담기 실패');
+				} 			
+			}); // ajax end
+		} else {
+			alert('로그인으로')
+			location.assign("/project_shop/member/loginForm")
+		}
+		
 	})
 	
 	

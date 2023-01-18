@@ -23,15 +23,15 @@ public class ProductReplyDao {
 	
 	
 	// 리뷰목록
-	public List<ProductReplyVO> p_list(String id) {
+	public List<ProductReplyVO> p_list(String name) {
 		List<ProductReplyVO> p_list = new ArrayList<ProductReplyVO>();
 		String query = "select SHOP_PRODUCT.name,SHOP_PRODUCT.pno, P_REPLY.rno, "
-				+ "P_REPLY.reply, P_REPLY.writer, P_REPLY.replyDate, P_REPLY.modifyDate from SHOP_PRODUCT right OUTER JOIN P_REPLY on SHOP_PRODUCT.pno=P_REPLY.pno where id=?";
+				+ "P_REPLY.reply, P_REPLY.writer, P_REPLY.replyDate, P_REPLY.modifyDate from SHOP_PRODUCT right OUTER JOIN P_REPLY on SHOP_PRODUCT.pno=P_REPLY.pno where name=?";
 		try (
 			Connection conn = dataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(query);
 		){
-			pstmt.setString(1, id);
+			pstmt.setString(1, name);
 			try(ResultSet rs = pstmt.executeQuery();) {
 				while(rs.next()) {
 					ProductReplyVO vo = ProductReplyVO.builder()
