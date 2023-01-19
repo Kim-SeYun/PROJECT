@@ -22,7 +22,7 @@
       <p><b>${product.info}</b></p>
       <div>
       	<button type="button" class="minus">-</button>
-	    <input type="text" class="num" name="num" value="1" disabled/>
+	    <input type="text" class="num" name="num" value="${list.cart_cnt}" disabled/>
 	    <button type="button" class="plus">+</button>
 	</div>
       <button type="button" id="button" value="${product.pno}" class="btn btn-outline-info cartBtn">Cart</button>
