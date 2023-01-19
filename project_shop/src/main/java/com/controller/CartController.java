@@ -63,10 +63,13 @@ public class CartController extends HttpServlet {
 		else if(pathInfo.equals("/addCart")) {
 			String id = request.getParameter("id");
 			String Parampno = request.getParameter("pno");
+			String cartCntParam = request.getParameter("cartCnt");
+			int cartCnt = Integer.parseInt(cartCntParam);
 			int pno = Integer.parseInt(Parampno);
 			CartVO vo = CartVO.builder()
 					.id(id)
 					.pno(pno)
+					.cart_cnt(cartCnt)
 					.build();
 			service.addCart(vo);
 			String result = gson.toJson("장바구니 담기");

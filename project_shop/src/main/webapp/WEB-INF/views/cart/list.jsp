@@ -12,7 +12,7 @@
 		<c:if test="${not empty list}">
 			<table class="table">
 				<tr>
-					<th>아이디</th>
+					<th>번호</th>
 					<th>이미지</th>
 					<th>상품명</th>
 					<th>가격</th>
@@ -22,7 +22,8 @@
 				<c:forEach items="${list}" var="b">
 				<tr>	
 					<td>
-						${b.id}
+						<c:set var="cno" value="${cno+1}"/>
+						<c:out value="${cno}"/>
 					</td>
 					<td><a href="${b.name}" class="name"><img src="${contextPath}/resources/images/${b.name}.png" alt="${b.name}" width="100"/></a></td>
 					<td><a href="${b.name}" class="name">${b.name}</a></td>

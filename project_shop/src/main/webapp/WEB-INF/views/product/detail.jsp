@@ -22,7 +22,7 @@
       <p><b>${product.info}</b></p>
       <div>
       	<button type="button" class="minus">-</button>
-	    <input type="text" class="num" name="num" value="${list.cart_cnt}" disabled/>
+	    <input type="text" class="cartCnt" name="cartCnt" value="${list.cart_cnt}1" readonly="readonly"/>
 	    <button type="button" class="plus">+</button>
 	</div>
       <button type="button" id="button" value="${product.pno}" class="btn btn-outline-info cartBtn">Cart</button>
@@ -86,8 +86,6 @@
 	  </div>
 	</div>
 </div>
-
-
 
 
 <%@ include file="../layout/footer.jsp" %> 

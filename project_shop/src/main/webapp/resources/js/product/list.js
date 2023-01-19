@@ -12,13 +12,14 @@ $(function(){
 	
 	$('.cartBtn').on('click', function(e){
 		let data = $(this).attr('value');
+		let cnt = $('.cartCnt').val();
 		console.log(data)
 		if(auth.id !=null && auth.id !=''){
 			
 			$.ajax({
 				type : 'post',
 				url : `${contextPath}/cart/addCart`,
-				data : {id : auth.id, pno : data}, 
+				data : {id : auth.id, pno : data, cartCnt : cnt}, 
 				success : function() {
 					var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?")
 					if(check){
