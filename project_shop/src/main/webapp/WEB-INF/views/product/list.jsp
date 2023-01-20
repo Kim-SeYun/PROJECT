@@ -59,12 +59,3 @@
 
 
 <%@ include file="../layout/footer.jsp" %> 
-
-<!-- <script>
-$(function(){
-	$('.cartBtn').on('click', function(){
-		let num = $('#button').attr('value')
-		alert(num)
-	})
-})
-</script> -->

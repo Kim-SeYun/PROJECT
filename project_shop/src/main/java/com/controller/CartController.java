@@ -77,6 +77,25 @@ public class CartController extends HttpServlet {
 			return;
 			
 		}
+		else if(pathInfo.equals("/delAllCart")) {
+			String id = request.getParameter("id");
+			service.delAllCart(id);
+			String result = "장바구니 삭제 성공";
+			out.print(gson.toJson(result));
+			return;
+		}
+		
+		else if(pathInfo.equals("/delCheckCart")) {
+			String id = request.getParameter("id");
+			String data = request.getParameter("data");
+			String[] list = data.split(",");
+			service.delCheckCart(id, list);
+			
+			String result = "장바구니 삭제 성공";
+			out.print(gson.toJson(result));
+			return;
+			
+		}
 		
 		
 		else {

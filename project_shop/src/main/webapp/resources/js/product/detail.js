@@ -41,10 +41,14 @@ $(function(){
 		var num = $(".cartCnt:eq("+n+")").val();
     	num = $(".cartCnt:eq("+n+")").val(num*1+1);
 	})
+	
 	$('.minus').click(function(){ 
-	var n = 0
-    var num = $(".cartCnt:eq("+n+")").val();
-    num = $(".cartCnt:eq("+n+")").val(num*1-1); 
+		var n = 0
+	    var num = $(".cartCnt:eq("+n+")").val();
+	    if(num<=1){
+			num = 2;
+		}
+	    num = $(".cartCnt:eq("+n+")").val(num*1-1); 
   });
 	
 	
