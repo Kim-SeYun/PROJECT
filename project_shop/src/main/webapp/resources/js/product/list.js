@@ -13,7 +13,7 @@ $(function(){
 	$('.cartBtn').on('click', function(e){
 		let data = $(this).attr('value');
 		let cnt = $('.cartCnt').val();
-		console.log(data)
+
 		if(auth.id !=null && auth.id !=''){
 			
 			$.ajax({

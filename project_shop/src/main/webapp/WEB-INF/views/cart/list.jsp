@@ -4,7 +4,7 @@
 <%@ include file="../layout/header.jsp" %>  
 <script src="${contextPath}/resources/js/product/list.js"></script> 
 <script src="${contextPath}/resources/js/cart/list.js"></script>
-	<h1>장바구니입니다.</h1>
+	<h1>CART</h1>
 <div class="container my-3">
 	<form id="cartForm">
 		<c:if test="${empty list}">
@@ -35,21 +35,23 @@
 					<td><a href="${b.name}" class="name">${b.name}</a></td>
 					<td><fmt:formatNumber value="${b.price}" pattern="#,###원"/></td>
 					<td>
-						<button type="button" class="c_minus">-</button>
-					    <input type="text" class="cartCnt" name="cartCnt" value="${b.cart_cnt}" readonly="readonly"/>
-					    <button type="button" class="c_plus">+</button>
-					</td>
-					
+						<button type="button" value="${b.pno}" class="btn btn-outline-secondary c_minus">-</button>
+					    <input type="text" class="cartCnt" name="cartCnt" value="${b.cart_cnt}" readonly="readonly" style="width: 40px; height: 38px; text-align: center;"/>
+					    <button type="button" value="${b.pno}" class="btn btn-outline-secondary c_plus">+</button>
+					</td>					
 					<td><fmt:formatNumber value="${b.price * b.cart_cnt}" pattern="#,###원"/></td>
-					<td><input type="checkbox" name="chk" class="cartCheckBox" value="${b.pno}"></td>
+					<td>
+						<input type="hidden" value="${b.price * b.cart_cnt}" name="hdPrice" class="hdPrice">
+						<input type="checkbox" name="chk" class="cartCheckBox" value="${b.pno}">
+					</td>
 				</tr>
 				<c:set var="total" value="${total + b.price*b.cart_cnt}"/>
 				</c:forEach>
 			</table>
 			<div class="form-group" align="right">
-				합계금액 : <input type="text" class="form-control" value="<fmt:formatNumber value="${total}" pattern="#,###원"/>" style="width:130px; height:30px;font-size:15px;text-align:right;font-weight : bold ;" readonly="readonly">
-				<%-- <c:out value="${total}원"></c:out> --%>
-			</div>
+				합계금액 : <input type="text" name="totalPrice" class="form-control totalPrice" value="<fmt:formatNumber value="${total}" pattern="#,###원"/>" style="width:130px; height:30px;font-size:15px;text-align:right;font-weight : bold ;" readonly="readonly">
+				<input type="hidden" class="hdTotal" value="${total}">
+			</div> 
 			<div>
 				<button type="button" class="btn btn-info float-right toBuyForm">주문하기</button>
 			</div>

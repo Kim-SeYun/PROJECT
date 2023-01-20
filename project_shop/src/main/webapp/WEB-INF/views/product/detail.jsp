@@ -21,9 +21,9 @@
       <font size="2em" color="grey">상품설명</font>
       <p><b>${product.info}</b></p>
       <div>
-      	<button type="button" class="minus">-</button>
-	    <input type="text" class="cartCnt" name="cartCnt" value="${list.cart_cnt}1" readonly="readonly"/>
-	    <button type="button" class="plus">+</button>
+      	<button type="button" class="btn btn-outline-secondary minus">-</button>
+		<input type="text" class="cartCnt" name="cartCnt" value="${list.cart_cnt}1" readonly="readonly" style="width: 40px; height: 38px; text-align: center;"/>
+		<button type="button" class="btn btn-outline-secondary plus">+</button>
 	</div>
       <button type="button" id="button" value="${product.pno}" class="btn btn-outline-info cartBtn">Cart</button>
     </div>
@@ -36,7 +36,7 @@
 			<tr>
 				<th colspan="2">
 					<ul class="d-flex justify-content-between">
-						<li>댓글을 작성해주세요</li>
+						<li>리뷰를 작성해주세요</li>
 						<li class="form-inline">작성자 : <input type="text" class="reply_writer form-control ml-2" value="${auth.id}" readonly="readonly"></li>
 					</ul>
 				</th>

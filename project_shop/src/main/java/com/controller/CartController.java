@@ -58,6 +58,7 @@ public class CartController extends HttpServlet {
 			AuthVO auth = (AuthVO) session.getAttribute("auth");
 			List<CartVO> cartList = service.cartList(auth.getId());
 			request.setAttribute("list", cartList);
+			String count = request.getParameter("count");
 			nextPage = "list";
 		}
 		else if(pathInfo.equals("/addCart")) {
@@ -95,6 +96,22 @@ public class CartController extends HttpServlet {
 			out.print(gson.toJson(result));
 			return;
 			
+		}
+		else if(pathInfo.equals("/updateCount")) {
+			String id = request.getParameter("id");
+			String cartCntParam = request.getParameter("cnt");
+			String paramPno = request.getParameter("pno");
+			int cartCnt = Integer.parseInt(cartCntParam);
+			int pno = Integer.parseInt(paramPno);
+			CartVO vo = CartVO.builder()
+					.id(id)
+					.pno(pno)
+					.cart_cnt(cartCnt)
+					.build();
+			service.updateCount(vo);
+			String result = "장바구니 수정 성공";
+			out.print(gson.toJson(result));
+			return;
 		}
 		
 		
