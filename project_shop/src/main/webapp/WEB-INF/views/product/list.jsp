@@ -37,6 +37,17 @@
         </li>
       </ul>
       
+      <ul class="list-group">
+			  <li class="list-group-item ${cid==c.cid ? 'list-group-item-primary':''}">
+			  	<a href="${contextPath}/product/list">전체</a>
+			  </li>
+			  <c:forEach items="${category}" var="c">
+			  <li class="list-group-item ${cid==c.cid ? 'list-group-item-primary':''}">
+			  	<a href="${contextPath}/product/list/${c.cid}">${c.cname}</a>
+			  </li>
+			  </c:forEach>
+			</ul>		
+      
     </div>
     
     <div class="col-sm-8">

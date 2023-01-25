@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dao.ProductDao;
 import com.domain.BoardVO;
+import com.domain.Category;
 import com.domain.ProductVO;
 import com.service.ProductService;
 
@@ -44,9 +45,11 @@ public class ProductController extends HttpServlet {
 		String nextPage = null;
 		
 		// 상품목록
-		if(pathInfo==null || pathInfo.equals("/") || pathInfo.equals("/list")) {
+		if(pathInfo==null || pathInfo.equals("/") || pathInfo.equals("/list") || pathInfo.equals("/list{cid}")) {
 			List<ProductVO> productList = service.productList();
 			request.setAttribute("list", productList);
+			List<Category> list = service.categoryList();
+			request.setAttribute("category", list);
 			nextPage = "list";
 		}
 		
@@ -67,6 +70,13 @@ public class ProductController extends HttpServlet {
 		else if(pathInfo.equals("/sale")) {
 			nextPage = "sale";
 		}
+		
+//		else if(pathInfo.equals("/list{cid}") || pathInfo.equals("/list")) {
+//			List<Category> list = service.categoryList();
+//			request.setAttribute("category", list);
+//			nextPage = "list";
+//			
+//		}
 		
 		else {
 			System.out.println("존재하지 않는 페이지");

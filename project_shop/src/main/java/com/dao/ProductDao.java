@@ -9,6 +9,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.common.ConnectionUtil;
+import com.domain.Category;
 import com.domain.ProductVO;
 
 public class ProductDao {
@@ -60,7 +61,7 @@ private DataSource dataSource;
 								.price(rs.getInt("price"))
 								.info(rs.getString("info"))
 								.weight(rs.getString("weight"))
-								.category(rs.getString("category"))
+								.cid(rs.getString("cid"))
 								.build();
 						}
 					}
@@ -70,5 +71,58 @@ private DataSource dataSource;
 				return vo;
 			
 		}
+		
+		// 카테고리
+//		public List<Category> categoryList(String cid){
+//			String query = "select p.pno, c.cname, p.NAME, p.PRICE, p.INFO, p.WEIGHT from SHOP_PRODUCT  p inner join shop_category c on c.cid = p.cid where c.cid=?";
+//			List<Category> categoryList = new ArrayList<Category>();
+//			
+//			try (
+//				Connection conn = dataSource.getConnection();
+//				PreparedStatement pstmt = conn.prepareStatement(query);
+//			){
+//				pstmt.setString(1, cid);
+//				pstmt.executeUpdate();
+//				try(ResultSet rs = pstmt.executeQuery();){
+//					while(rs.next()) {
+//						Category category = Category.builder()
+//								.cid(rs.getString("cid"))
+//								.cname(rs.getString("cname"))
+//								.build();
+//						categoryList.add(category);
+//					}
+//				}
+//				
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return categoryList;
+//		}
+		
+		public List<Category> categoryList(){
+			String query = "select * from shop_category";
+			List<Category> categoryList = new ArrayList<Category>();
+			
+			try (
+				Connection conn = dataSource.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(query);
+				ResultSet rs = pstmt.executeQuery();
+			){
+				while(rs.next()) {
+					Category category = Category.builder()
+							.cid(rs.getString("cid"))
+							.cname(rs.getString("cname"))
+							.build();
+					categoryList.add(category);
+				}
+			
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return categoryList;
+		}
+		
+		
 
 }

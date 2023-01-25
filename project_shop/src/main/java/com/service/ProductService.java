@@ -3,6 +3,7 @@ package com.service;
 import java.util.List;
 
 import com.dao.ProductDao;
+import com.domain.Category;
 import com.domain.ProductVO;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +19,10 @@ public class ProductService {
 
 	public ProductVO findProduct(String name) {
 		return dao.selectOne(name);
+	}
+
+	public List<Category> categoryList(){
+		return dao.categoryList();
 	}
 
 
