@@ -19,5 +19,5 @@ public class ProductVO {
 	private int price;
 	private String info;
 	private String weight;
-	private String category;
+	private String cid;
 }
