@@ -44,7 +44,7 @@ private DataSource dataSource;
 				return list;
 		}
 		
-		// 상품상세
+		// 상품 상세
 		public ProductVO selectOne(String name) {
 			ProductVO vo = null;
 			String query = "select * from SHOP_PRODUCT where name=?";
