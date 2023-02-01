@@ -78,7 +78,7 @@ function productList(productReplyList) {
 				</div>
 				`;
 	    	}
-	    	if(auth.grade=='ROLE_ADMIN' && p.writer != 'admin') {
+	    	else if(auth.grade=='ROLE_ADMIN') {
 				output+=`
 				<div class="align-self-center" data-rno="${p.rno}">
 					<button class="btn btn-sm btn-danger p_reply_delBtn">삭제</button>

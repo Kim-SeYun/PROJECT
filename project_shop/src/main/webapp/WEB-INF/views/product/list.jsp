@@ -14,6 +14,7 @@
     <a class="nav-link" href="${contextPath}/product/SALE">SALE</a>
   </li>
   </ul>
+  <button class="pm" style="float: right;">상품관리</button>
   
 
 

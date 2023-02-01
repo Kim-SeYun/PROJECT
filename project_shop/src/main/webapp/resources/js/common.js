@@ -17,4 +17,9 @@ $(function(){
 			reader.readAsDataURL(this.files[0]); // 파일 읽기 메소드 호출
 		}
 	});
+	
+	if(auth.grade == 'ROLE_ADMIN'){
+		$('.myPage').hide()
+		$('.cart').hide()
+	}
 });

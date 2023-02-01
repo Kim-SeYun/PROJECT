@@ -57,10 +57,10 @@
    		<span class="nav-link" style="color: black;"><b>${auth.id}님 안녕하세요</b></span>
    	</li>
     <li class="nav-item">
-      <a class="nav-link" style="color: black;" href="${contextPath}/member/myPage">마이페이지</a>
+      <a class="nav-link myPage" style="color: black;" href="${contextPath}/member/myPage">마이페이지</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" style="color: black;" href="${contextPath}/cart/list">장바구니</a>
+      <a class="nav-link cart" style="color: black;" href="${contextPath}/cart/list">장바구니</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" style="color: black;" href="${contextPath}/member/logout">로그아웃</a>
