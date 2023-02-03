@@ -21,8 +21,8 @@ public class ProductService {
 		return dao.selectOne(name);
 	}
 
-	public List<Category> categoryList(){
-		return dao.categoryList();
+	public List<Category> categoryList(String cid){
+		return dao.categoryList(cid);
 	}
 
 

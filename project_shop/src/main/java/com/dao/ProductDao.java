@@ -99,29 +99,67 @@ private DataSource dataSource;
 //			return categoryList;
 //		}
 		
-		public List<Category> categoryList(){
+//		public List<Category> categoryList(){
+//			String query = "select * from shop_category";
+//			List<Category> categoryList = new ArrayList<Category>();
+//			
+//			try (
+//				Connection conn = dataSource.getConnection();
+//				PreparedStatement pstmt = conn.prepareStatement(query);
+//				ResultSet rs = pstmt.executeQuery();
+//			){
+//				while(rs.next()) {
+//					Category category = Category.builder()
+//							.cid(rs.getString("cid"))
+//							.cname(rs.getString("cname"))
+//							.build();
+//					categoryList.add(category);
+//				}
+//			
+//				
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return categoryList;
+//		}
+		
+		public List<Category> categoryList(String cid){
 			String query = "select * from shop_category";
+			String query2 = "select p.pno, c.cname, p.NAME, p.PRICE, p.INFO, p.WEIGHT from SHOP_PRODUCT  p inner join shop_category c on c.cid = p.cid where c.cid=?";
 			List<Category> categoryList = new ArrayList<Category>();
 			
-			try (
-				Connection conn = dataSource.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(query);
-				ResultSet rs = pstmt.executeQuery();
-			){
-				while(rs.next()) {
-					Category category = Category.builder()
-							.cid(rs.getString("cid"))
-							.cname(rs.getString("cname"))
-							.build();
-					categoryList.add(category);
+			try(Connection conn = dataSource.getConnection();){
+				try (
+						PreparedStatement pstmt = conn.prepareStatement(query);
+						PreparedStatement pstmt2 = conn.prepareStatement(query2);
+				){
+					conn.setAutoCommit(false);
+					
+					pstmt.executeUpdate();
+					pstmt2.setString(1, cid);
+					pstmt2.executeUpdate();
+					conn.commit();
+					try(ResultSet rs = pstmt.executeQuery();){
+						while(rs.next()) {
+							Category category = Category.builder()
+									.cid(rs.getString("cid"))
+									.cname(rs.getString("cname"))
+									.build();
+							categoryList.add(category);
+						}
+					}
+				} catch (Exception e) {
+					conn.rollback();
+					e.printStackTrace();
+				} finally {
+					conn.setAutoCommit(true);
 				}
-			
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return categoryList;
 		}
+		
 		
 		
 
