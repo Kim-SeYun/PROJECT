@@ -49,6 +49,7 @@ public class ProductController extends HttpServlet {
 			List<ProductVO> productList = service.productList();
 			request.setAttribute("list", productList);
 			String cid = request.getParameter("cid");
+			System.out.println(cid);
 			List<Category> list = service.categoryList(cid);
 			request.setAttribute("category", list);
 			nextPage = "list";
