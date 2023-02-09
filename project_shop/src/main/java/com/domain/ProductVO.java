@@ -20,4 +20,5 @@ public class ProductVO {
 	private String info;
 	private String weight;
 	private String cid;
+	private String cname;
 }
