@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.dao.ProductDao;
 import com.domain.Category;
@@ -21,7 +22,7 @@ public class ProductService {
 		return dao.selectOne(name);
 	}
 
-	public List<Category> categoryList(String cid){
+	public Map<String, List<?>> categoryList(String cid){
 		return dao.categoryList(cid);
 	}
 
