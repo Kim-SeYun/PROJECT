@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,9 +50,9 @@ public class ProductController extends HttpServlet {
 			List<ProductVO> productList = service.productList();
 			request.setAttribute("list", productList);
 			String cid = request.getParameter("cid");
-			System.out.println(cid);
-			List<Category> list = service.categoryList(cid);
-			request.setAttribute("category", list);
+			Map<String, List<?>> map = service.categoryList(cid);
+			request.setAttribute("category", map.get("categoryList"));
+			request.setAttribute("products", map.get("productList"));
 			nextPage = "list";
 		}
 		

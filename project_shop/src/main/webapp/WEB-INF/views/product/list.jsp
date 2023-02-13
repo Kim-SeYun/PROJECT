@@ -22,21 +22,7 @@
   <div class="row">
     <div class="col-sm-3">
       
-      <h3>CATEGORY</h3><br>
-      <ul class="nav nav-pills flex-column">
-        <li class="nav-item">
-          <a class="nav-link" href="#">채소/과일</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">정육/계란</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">커피/음료</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">간식/베이커리</a>
-        </li>
-      </ul>
+      <h3>CATEGORY</h3><br> 
       
       <ul class="list-group">
 		  <li class="list-group-item ${cid==c.cid ? 'list-group-item-primary':''}">
@@ -48,13 +34,26 @@
 		  </li>
 		  </c:forEach>
 		</ul>		
-      
+		
     </div>
     
     <div class="col-sm-8">
       <form id="productForm">
 	 	<div class="row">
-	 	<c:forEach items="${list}" var="p">
+	 	<c:choose>
+	 		<c:when test="${empty products}">
+		<c:forEach items="${list}" var="p"> 
+		    <div class="col-sm-4">
+		    	<div><a href="${p.name}" class="name"><img src="${contextPath}/resources/images/${p.name}.png" alt="${p.name}" width="200" /></div>
+		    	<div>${p.name}</a></div>
+		    	<div><fmt:formatNumber value="${p.price}" pattern="#,###원"/></div>
+		    	<div><input type="hidden" value="1" class="cartCnt"></div>
+		    	<button type="button" id="button" value="${p.pno}" class="btn btn-outline-info cartBtn"  style="float: right; margin-right: 23px; margin-bottom: 35px">Cart</button>
+			</div>
+	 	</c:forEach> 
+	 	</c:when>
+	 	<c:otherwise>
+	 	<c:forEach items="${products}" var="p">
 		    <div class="col-sm-4">
 		    	<div><a href="${p.name}" class="name"><img src="${contextPath}/resources/images/${p.name}.png" alt="${p.name}" width="200" /></div>
 		    	<div>${p.name}</a></div>
@@ -63,6 +62,8 @@
 		    	<button type="button" id="button" value="${p.pno}" class="btn btn-outline-info cartBtn"  style="float: right; margin-right: 23px; margin-bottom: 35px">Cart</button>
 			</div>
 	 	</c:forEach>
+	 	</c:otherwise>
+	 	</c:choose>
  	</div>
  	</form>
     </div>

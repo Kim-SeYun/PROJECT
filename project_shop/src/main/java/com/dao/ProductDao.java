@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -123,10 +125,12 @@ private DataSource dataSource;
 //			return categoryList;
 //		}
 		
-		public List<Category> categoryList(String cid){
+		public Map<String, List<?>> categoryList(String cid){
 			String query = "select * from shop_category";
 			String query2 = "select p.pno, c.cname, p.NAME, p.PRICE, p.INFO, p.WEIGHT from SHOP_PRODUCT  p inner join shop_category c on c.cid = p.cid where c.cid=?";
+			Map<String, List<?>> map = new HashMap<String, List<?>>();
 			List<Category> categoryList = new ArrayList<Category>();
+			List<ProductVO> productList = new ArrayList<>();
 			
 			try(Connection conn = dataSource.getConnection();){
 				try (
@@ -135,10 +139,20 @@ private DataSource dataSource;
 				){
 					conn.setAutoCommit(false);
 					
-					pstmt.executeUpdate();
 					pstmt2.setString(1, cid);
-					pstmt2.executeUpdate();
-					conn.commit();
+					try(ResultSet rs = pstmt2.executeQuery()){
+						while(rs.next()) {
+							ProductVO vo = ProductVO.builder()
+									.pno(rs.getInt("pno"))
+									.name(rs.getString("name"))
+									.price(rs.getInt("price"))
+									.info(rs.getString("info"))
+									.weight(rs.getString("weight"))
+									.cname(rs.getString("cname")).build();
+							productList.add(vo);
+						}
+					}
+					
 					try(ResultSet rs = pstmt.executeQuery();){
 						while(rs.next()) {
 							Category category = Category.builder()
@@ -148,6 +162,9 @@ private DataSource dataSource;
 							categoryList.add(category);
 						}
 					}
+					map.put("categoryList", categoryList);
+					map.put("productList", productList);
+					conn.commit();
 				} catch (Exception e) {
 					conn.rollback();
 					e.printStackTrace();
@@ -157,7 +174,7 @@ private DataSource dataSource;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return categoryList;
+			return map;
 		}
 		
 		
