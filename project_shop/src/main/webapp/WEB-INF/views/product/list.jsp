@@ -23,7 +23,6 @@
     <div class="col-sm-3">
       
       <h3>CATEGORY</h3><br> 
-      
       <ul class="list-group">
 		  <li class="list-group-item ${cid==c.cid ? 'list-group-item-primary':''}">
 		  	<a href="${contextPath}/product/list">전체</a>
