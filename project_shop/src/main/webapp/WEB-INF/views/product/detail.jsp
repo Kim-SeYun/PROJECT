@@ -18,7 +18,7 @@
       <h5><p><b><fmt:formatNumber value="${product.price}" pattern="#,###원"/></b></p></h5>
       <font size="2em" color="grey">중량X수량</font>
       <p><b><font size="3em">${product.weight}</b></p>
-      <font size="2em" color="grey">상품설명</font>
+      <font size="2em" color="grey">상품설</font>
       <p><b>${product.info}</b></p>
       <div>
       	<button type="button" class="btn btn-outline-secondary minus">-</button>
