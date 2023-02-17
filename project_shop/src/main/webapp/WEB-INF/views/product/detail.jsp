@@ -32,7 +32,7 @@
 <input type="hidden" name="pno" value="${product.pno}">
 
 <div class="productReplyForm">
-		<table class="table">
+		<table class="tabl">
 			<tr>
 				<th colspan="2">
 					<ul class="d-flex justify-content-between">
