@@ -37,7 +37,7 @@
 				<th colspan="2">
 					<ul class="d-flex justify-content-between">
 						<li>리뷰를 작성해주세요</li>
-						<li class="form-inline">작성자 : <input type="text" class="reply_writer form-control ml-2" value="${auth.id}" readonly="readonly"></li>
+						<li class="form-inline">작성 : <input type="text" class="reply_writer form-control ml-2" value="${auth.id}" readonly="readonly"></li>
 					</ul>
 				</th>
 			</tr>
