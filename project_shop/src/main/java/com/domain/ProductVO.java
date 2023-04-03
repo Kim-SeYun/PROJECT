@@ -21,4 +21,5 @@ public class ProductVO {
 	private String weight;
 	private String cid;
 	private String cname;
+	private String imageFileName;
 }

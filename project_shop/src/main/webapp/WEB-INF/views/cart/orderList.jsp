@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
-<script src="${contextPath}/resources/js/cart/cartIn.js"></script> 
 <h1>주문내역</h1>
 	
 <div class="col-sm-3">
@@ -41,8 +40,8 @@
 						<c:set var="cno" value="${cno+1}"/>
 						<c:out value="${cno}"/>
 					</td>
-					<td><a href="${b.name}" class="name"><img src="${contextPath}/resources/images/${b.name}.png" alt="${b.name}" width="100"/></a></td>
-					<td><a href="${b.name}" class="name">${b.name}</a></td>
+					<td><a href="${contextPath}/product/detail?name=${b.name}" class="name"><img src="${contextPath}/resources/images/${b.name}.png" alt="${b.name}" width="100"/></a></td>
+					<td><a href="${contextPath}/product/detail?name=${b.name}" class="name">${b.name}</a></td>
 					<td><fmt:formatNumber value="${b.price}" pattern="#,###원"/></td>
 					<td>${b.order_cnt}</td>		
 					<td><fmt:formatNumber value="${b.price * b.order_cnt}" pattern="#,###원"/></td>

@@ -25,6 +25,12 @@ public class ProductService {
 	public Map<String, List<?>> categoryList(String cid){
 		return dao.categoryList(cid);
 	}
+	
+	public void addProduct(ProductVO vo) {
+		dao.addProduct(vo);
+	}
+	
+	
 
 
 }

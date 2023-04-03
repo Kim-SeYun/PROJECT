@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.common.FileUpload;
+import com.common.ProductFileUpload;
 import com.dao.ProductDao;
 import com.domain.BoardVO;
 import com.domain.Category;
@@ -21,11 +23,13 @@ import com.service.ProductService;
 public class ProductController extends HttpServlet {
 	
 	private ProductService service;
+	private ProductFileUpload fileUpload;
 	
 	@Override
 	public void init() throws ServletException {
 		ProductDao dao = new ProductDao();
 		service = new ProductService(dao);
+		fileUpload = new ProductFileUpload("product/");
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,6 +76,34 @@ public class ProductController extends HttpServlet {
 		// 세일상품
 		else if(pathInfo.equals("/sale")) {
 			nextPage = "sale";
+		}
+		
+		else if(pathInfo.equals("/managePro")){
+			nextPage = "managePro";
+		}
+		
+		else if(pathInfo.equals("/addProduct")) {
+			String name = request.getParameter("name");
+			String paramprice = request.getParameter("price");
+			int price = Integer.parseInt(paramprice);
+			String weight = request.getParameter("weight");
+			String info = request.getParameter("info");
+			String cid = request.getParameter("cid");
+			Map<String, String> req = fileUpload.getMultipartRequest(request);
+			String imageFileName = req.get("imageFileName");
+			
+			ProductVO vo = ProductVO.builder()
+					.name(name)
+					.price(price)
+					.weight(weight)
+					.info(info)
+					.cid(cid)
+					.imageFileName(imageFileName)
+					.build();
+			service.addProduct(vo);			
+			
+			response.sendRedirect(contextPath+"/product");
+			return;
 		}
 		
 		

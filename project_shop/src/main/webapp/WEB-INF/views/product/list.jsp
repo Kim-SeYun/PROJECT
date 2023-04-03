@@ -14,7 +14,6 @@
     <a class="nav-link" href="${contextPath}/product/SALE">SALE</a>
   </li>
   </ul>
-  <button class="pm" style="float: right;">상품관리</button>
   
 
 
@@ -43,7 +42,7 @@
 	 		<c:when test="${empty products}">
 		<c:forEach items="${list}" var="p"> 
 		    <div class="col-sm-4">
-		    	<div><a href="${p.name}" class="name"><img src="${contextPath}/resources/images/${p.name}.png" alt="${p.name}" width="200" /></div>
+		    	<div><a href="${p.name}" class="name"><img src="${contextPath}/resources/images/${p.name}.png" alt="${p.name}" width="200" height="150"/></div>
 		    	<div>${p.name}</a></div>
 		    	<div><fmt:formatNumber value="${p.price}" pattern="#,###원"/></div>
 		    	<div><input type="hidden" value="1" class="cartCnt"></div>

@@ -177,6 +177,32 @@ private DataSource dataSource;
 			return map;
 		}
 		
+		public void addProduct(ProductVO vo) {
+			String query = "insert into shop_product(pno, name, price, info, weight, cid, imageFileName) values(SHOP_PNO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+			try (
+					Connection conn = dataSource.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(query);
+				){
+					pstmt.setString(1, vo.getName());
+					pstmt.setInt(2, vo.getPrice());
+					pstmt.setString(3, vo.getInfo());
+					pstmt.setString(4, vo.getWeight());
+					pstmt.setString(5, vo.getCid());
+					pstmt.setString(6, vo.getImageFileName());
+					pstmt.executeUpdate();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			
+		}
+		
+
+
+		
+		
+		
+		
 		
 		
 

@@ -13,6 +13,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 
+import com.domain.ProductVO;
+
 public class FileUpload {
 	
 	private static final String REPO_PATH = "c:/file_repo/"; 
