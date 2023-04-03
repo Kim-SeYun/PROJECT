@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dao.CartDao;
 import com.domain.CartVO;
+import com.domain.OrderVO;
 
 import lombok.AllArgsConstructor;
 
@@ -30,6 +31,14 @@ public class CartService {
 	
 	public void updateCount(CartVO vo) {
 		dao.updateCount(vo);
+	}
+	
+	public void orderCheck(String id, String[] list) {
+		dao.orderCheck(id, list);
+	}
+
+	public List<OrderVO> orderList(String id) {
+		return dao.orderList(id);
 	}
 
 }

@@ -141,9 +141,32 @@ $(function(){
 	})	
 	
 	
-
+	$('.toBuyForm').on('click', function(){
+		if(pnoSet.size<=0) {
+			alert('주문할 상품을 선택하세요');
+			return;
+		}
+		
+		let pnoListStr = Array.from(pnoSet).join()
+		
+		$.ajax({
+			type : 'post',
+			url : `${contextPath}/cart/orderCheck`,
+			data : {data : pnoListStr, id : auth.id},
+			success : function() {
+				alert('주문이 완료되었습니다.')
+				location.assign("/project_shop/cart/orderCheckForm")
+			},
+			error : function() {
+				alert('주문 실패')
+			}
+		})
+	})
 	
 });	
+	
+	
+
 
 
 $(document).on("click", "input:checkbox[name=chk]", function() {

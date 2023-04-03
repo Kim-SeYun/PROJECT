@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import com.common.ConnectionUtil;
 import com.domain.CartVO;
+import com.domain.OrderVO;
 
 public class CartDao {
 	
@@ -152,6 +153,68 @@ public class CartDao {
 				e.printStackTrace();
 			}		
 		
+	}
+	
+	public void orderCheck(String id, String[] list) {
+		String query1 = "insert into shop_order(order_id, id, pno, order_cnt) values(shop_order_id_seq.nextval, ?, ? , (SELECT CART_CNT FROM SHOP_CART WHERE ID = ? AND PNO = ?))";
+		String query2 = "delete from shop_cart where id=? and pno=?";
+		try(Connection conn = dataSource.getConnection();){
+			try (
+					PreparedStatement pstmt = conn.prepareStatement(query1);
+					PreparedStatement pstmt2 = conn.prepareStatement(query2);
+			){
+				for(int i=0; i<list.length; i++) {
+					int pno = Integer.parseInt(list[i]);
+					
+					conn.setAutoCommit(false);
+					pstmt.setString(1, id);
+					pstmt.setInt(2, pno);
+					pstmt.setString(3, id);
+					pstmt.setInt(4, pno);
+					pstmt.executeUpdate();
+					
+					pstmt2.setString(1, id);
+					pstmt2.setInt(2, pno);
+					pstmt2.executeUpdate();
+					conn.commit();
+				}
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			} finally {
+				conn.setAutoCommit(true);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+
+	public List<OrderVO> orderList(String id) {
+		List<OrderVO> list = new ArrayList();
+		String query = "select M.id, p.pno, p.Name, o.ORDER_CNT, p.price, o.regDate from SHOP_ORDER O inner join shop_product P on P.pno = O.pno inner join shop_member M on O.ID = M.ID where m.id = ? order by regdate DESC";
+		try (
+				Connection conn = dataSource.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(query);
+			){
+				pstmt.setString(1, id);
+				try(ResultSet rs = pstmt.executeQuery();) {
+					while(rs.next()) {
+						OrderVO vo = OrderVO.builder()
+								.id(rs.getString("id"))
+								.pno(rs.getInt("pno"))
+								.name(rs.getString("name"))
+								.order_cnt(rs.getInt("order_cnt"))
+								.price(rs.getString("price"))
+								.regDate(rs.getDate("regDate"))
+								.build();
+						list.add(vo);
+								
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return list;
 	}
 	
 
