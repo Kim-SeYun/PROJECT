@@ -20,7 +20,7 @@ public class OrderVO {
 	private String id;
 	private int pno;
 	private int order_cnt;
-	private Date regDate;
+	private String regDate;
 	private String name;
 	private String price;
 	

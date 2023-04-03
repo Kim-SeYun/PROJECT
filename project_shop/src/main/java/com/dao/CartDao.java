@@ -156,7 +156,7 @@ public class CartDao {
 	}
 	
 	public void orderCheck(String id, String[] list) {
-		String query1 = "insert into shop_order(order_id, id, pno, order_cnt) values(shop_order_id_seq.nextval, ?, ? , (SELECT CART_CNT FROM SHOP_CART WHERE ID = ? AND PNO = ?))";
+		String query1 = "insert into shop_order(order_id, id, pno, order_cnt) values(shop_order_seq.nextval, ?, ? , (SELECT CART_CNT FROM SHOP_CART WHERE ID = ? AND PNO = ?))";
 		String query2 = "delete from shop_cart where id=? and pno=?";
 		try(Connection conn = dataSource.getConnection();){
 			try (
@@ -190,8 +190,15 @@ public class CartDao {
 	}
 
 	public List<OrderVO> orderList(String id) {
-		List<OrderVO> list = new ArrayList();
-		String query = "select M.id, p.pno, p.Name, o.ORDER_CNT, p.price, o.regDate from SHOP_ORDER O inner join shop_product P on P.pno = O.pno inner join shop_member M on O.ID = M.ID where m.id = ? order by regdate DESC";
+		List<OrderVO> list = new ArrayList<>();
+		String query = "SELECT M.id, P.pno, P.name, SUM(O.order_cnt) AS order_cnt, P.price, " +
+	    	    "TO_CHAR(O.regDate, 'YYYY-MM-DD HH24:MI:SS') AS regDate " +
+	    	    "FROM SHOP_ORDER O " +
+	    	    "INNER JOIN shop_product P ON P.pno = O.pno " +
+	    	    "INNER JOIN shop_member M ON O.id = M.id " +
+	    	    "WHERE M.id = ? " +
+	    	    "GROUP BY M.id, P.pno, P.name, P.price, TO_CHAR(O.regDate, 'YYYY-MM-DD HH24:MI:SS') " +
+	    	    "ORDER BY regDate DESC";
 		try (
 				Connection conn = dataSource.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(query);
@@ -205,7 +212,7 @@ public class CartDao {
 								.name(rs.getString("name"))
 								.order_cnt(rs.getInt("order_cnt"))
 								.price(rs.getString("price"))
-								.regDate(rs.getDate("regDate"))
+								.regDate(rs.getString("regDate"))
 								.build();
 						list.add(vo);
 								
