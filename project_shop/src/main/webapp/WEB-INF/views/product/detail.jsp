@@ -7,8 +7,7 @@
 <div class="container" style="margin-top:80px">
   <div class="row">
     <div class="col-sm-4">
-     
-      <div class="fakeimg"><img src="${contextPath}/resources/images/${product.name}.png" alt="${product.name}" width="300"/><br></div>
+      <div><img src="${contextPath}/fileDownload?no=${product.pno}&imageFileName=${product.imageFileName}&path=product" alt="${product.name}" width="300" height="250"/><br></div>
       
     </div>
     <div class="col-sm-8">

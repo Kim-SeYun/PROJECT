@@ -30,6 +30,10 @@ public class ProductService {
 		return dao.addProduct(vo);
 	}
 	
+	public void remove(int pno) {
+		dao.remove(pno);
+	}
+	
 	
 
 

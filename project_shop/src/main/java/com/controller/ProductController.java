@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.common.FileUpload;
 import com.dao.ProductDao;
 import com.domain.ProductVO;
+import com.google.gson.Gson;
 import com.service.ProductService;
 
 @WebServlet("/product/*")
@@ -21,12 +23,14 @@ public class ProductController extends HttpServlet {
 	
 	private ProductService service;
 	private FileUpload multiReq;
+	private Gson gson;
 	
 	@Override
 	public void init() throws ServletException {
 		ProductDao dao = new ProductDao();
 		service = new ProductService(dao);
 		multiReq = new FileUpload("product/");
+		gson = new Gson();
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,8 +42,10 @@ public class ProductController extends HttpServlet {
 	}
 	
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("application/json;charset=utf-8");
 		String pathInfo = request.getPathInfo();
 		String contextPath = request.getContextPath();
+		PrintWriter out = response.getWriter();
 		final String PRIFIX = "/WEB-INF/views/product/";
 		final String SUFFIX = ".jsp";
 		
@@ -86,6 +92,7 @@ public class ProductController extends HttpServlet {
 			nextPage = "managePro";
 		}
 		
+		// 상품등록
 		else if (pathInfo.equals("/addProduct")) {
 		    Map<String, String> req = multiReq.getMultipartRequest(request);
 		    String imageFileName = req.get("imageFileName");
@@ -113,6 +120,42 @@ public class ProductController extends HttpServlet {
 
 		    response.sendRedirect(contextPath + "/product");
 		    return;
+		}
+		
+		// 상품삭제
+		else if(pathInfo.equals("/remove")) {
+			String paramPno = request.getParameter("pno");
+			int pno = Integer.parseInt(paramPno);
+			service.remove(pno);
+			multiReq.deleteAllImage(pno);
+			String result = gson.toJson("삭제 성공");
+			out.print(result);
+			return;
+		}
+		
+		// 관리자페이지 상품 수정
+		else if(pathInfo.equals("/modify")) {
+			String imageFileName = request.getParameter("imageFileName");
+			String cid = request.getParameter("cid");
+			String weight = request.getParameter("weight");
+			String info = request.getParameter("info");
+			String priceP = request.getParameter("price");
+			int price = Integer.parseInt(priceP);
+			String name = request.getParameter("name");
+			String paramPno = request.getParameter("pno");
+			int pno = Integer.parseInt(paramPno);
+
+			ProductVO vo = ProductVO.builder()
+					.pno(pno)
+					.name(name)
+					.price(price)
+					.weight(weight)
+					.info(info)
+					.cid(cid)
+					.imageFileName(imageFileName)
+					.build();
+			request.setAttribute("productList", vo);
+			nextPage = "modify";
 		}
 		
 		

@@ -67,6 +67,7 @@ private DataSource dataSource;
 								.info(rs.getString("info"))
 								.weight(rs.getString("weight"))
 								.cid(rs.getString("cid"))
+								.imageFileName(rs.getString("imageFileName"))
 								.build();
 						}
 					}
@@ -218,6 +219,19 @@ private DataSource dataSource;
 					e.printStackTrace();
 				}
 				return productNo;
+		}
+		
+		public void remove(int pno) {
+			String query = "delete from shop_product where pno=?";
+			try (
+					Connection conn = dataSource.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(query);	
+					){
+					pstmt.setInt(1, pno);
+					pstmt.executeUpdate();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 		}
 		
 

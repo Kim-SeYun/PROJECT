@@ -14,7 +14,7 @@
 <h1>Product List</h1>
 <table style="border-collapse: collapse; width: 100%; border: 1px solid #ddd;">
 	<thead>
-		<tr style="background-color: #f5f5f5;">
+		<tr style="background-color: #f5f5f5;" class="text-center">
 			<th style="padding: 10px; border: 1px solid #ddd;">상품번호</th>
 			<th style="padding: 10px; border: 1px solid #ddd;">상품명</th>
 			<th style="padding: 10px; border: 1px solid #ddd;">가격</th>
@@ -35,25 +35,65 @@
 				<td style="padding: 10px; border: 1px solid #ddd;">${product.info}</td>
 				<td style="padding: 10px; border: 1px solid #ddd;">${product.weight}</td>
 				<td style="padding: 10px; border: 1px solid #ddd;">${product.cid}</td>
-				<td style="padding: 10px; border: 1px solid #ddd;"><img src="${contextPath}/fileDownload?no=${product.pno}&imageFileName=${product.imageFileName}&path=product" alt="${product.name}" style="max-width: 100px; max-height: 100px;"></td>
+				<td style="padding: 10px; border: 1px solid #ddd;"><img src="${contextPath}/fileDownload?no=${product.pno}&imageFileName=${product.imageFileName}&path=product" alt="${product.name}" style="width: 100px; height: 70px;"></td>
 				
-				<td>
-					<form action="/product/edit/${product.pno}">
-						<button type="submit">수정</button>
-					</form>
+				<td style="padding: 10px; border: 1px solid #ddd;">
+					<input type="hidden" value="${product.pno}">
+					<input type="hidden" value="${product.name}">
+					<input type="hidden" value="${product.price}">
+					<input type="hidden" value="${product.info}">
+					<input type="hidden" value="${product.weight}">
+					<input type="hidden" value="${product.cid}">
+					<input type="hidden" value="${product.imageFileName}">
+					<input type="button" class="btn btn-outline-info product_modBtn" value="수정">
 				</td>
-				<td>
-					<form action="/product/delete/${product.pno}">
-						<button type="submit">삭제</button>
-					</form>
+				<td style="padding: 10px; border: 1px solid #ddd;">
+					<input type="hidden" value="${product.pno}">
+					<input type="button" class="btn btn-outline-danger product_delBtn" value="삭제">
 				</td>			
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
-
-
 	
 
 </div>
 <%@ include file="../layout/footer.jsp" %>
+
+<script>
+$('.product_delBtn').on('click', function() {
+    var pno = $(this).prev().val();
+    $.ajax({
+        type : 'post',
+        url : `${contextPath}/product/remove`,
+        data : {pno : pno},
+        success : function(result) {
+            alert("상품이 삭제되었습니다.")
+            location.assign("/project_shop/product/adminPage")
+        },
+        error : function(xhr, status, error) {
+            console.error(xhr.responseText);
+            alert("삭제 실패")
+        }
+    })
+});
+
+
+	
+$('.product_modBtn').on('click', function() {
+	  $('<form/>').attr('method', 'get')
+	    .attr('action', '${contextPath}/product/modify')
+	    .append("<input type='hidden' value='"+$(this).prev().prev().prev().prev().prev().prev().prev().val()+"' name='pno'>") 
+	    .append("<input type='hidden' value='"+$(this).prev().prev().prev().prev().prev().prev().val()+"' name='name'>")
+	    .append("<input type='hidden' value='"+$(this).prev().prev().prev().prev().prev().val()+"' name='price'>")
+	    .append("<input type='hidden' value='"+$(this).prev().prev().prev().prev().val()+"' name='info'>")
+	    .append("<input type='hidden' value='"+$(this).prev().prev().prev().val()+"' name='weight'>")
+	    .append("<input type='hidden' value='"+$(this).prev().prev().val()+"' name='cid'>")
+	    .append("<input type='hidden' value='"+$(this).prev().val()+"' name='imageFileName'>") 
+	    .appendTo('body')
+	    .submit();
+	});
+
+
+
+</script>
