@@ -177,24 +177,44 @@ private DataSource dataSource;
 			return map;
 		}
 		
-		public void addProduct(ProductVO vo) {
-			String query = "insert into shop_product(pno, name, price, info, weight, cid, imageFileName) values(SHOP_PNO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+		public int addProduct(ProductVO vo) {
+			String query = "insert into shop_product(pno, name, price, info, weight, cid, imageFileName) values(?, ?, ?, ?, ?, ?, ?)";
+			int productNo = getNewPno();
 			try (
 					Connection conn = dataSource.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(query);
 				){
-					pstmt.setString(1, vo.getName());
-					pstmt.setInt(2, vo.getPrice());
-					pstmt.setString(3, vo.getInfo());
-					pstmt.setString(4, vo.getWeight());
-					pstmt.setString(5, vo.getCid());
-					pstmt.setString(6, vo.getImageFileName());
+					pstmt.setInt(1, productNo);
+					pstmt.setString(2, vo.getName());
+					pstmt.setInt(3, vo.getPrice());
+					pstmt.setString(4, vo.getInfo());
+					pstmt.setString(5, vo.getWeight());
+					pstmt.setString(6, vo.getCid());
+					pstmt.setString(7, vo.getImageFileName());
 					pstmt.executeUpdate();
 					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			
+			return productNo;
+		}
+		
+		public int getNewPno() {
+			int productNo = 0;
+			String query = "select max(pno)+1 as productNo from shop_product";
+			try (
+					Connection conn = dataSource.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(query);
+					ResultSet rs = pstmt.executeQuery();
+				){
+					if(rs.next()) {
+						productNo = rs.getInt("productNo");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return productNo;
 		}
 		
 

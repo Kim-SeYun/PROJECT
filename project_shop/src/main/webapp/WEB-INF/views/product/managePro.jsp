@@ -7,7 +7,7 @@
 		<h1>상품등록</h1>
 	</div>
 	
-	<form class="container" action="${contextPath}/product/addProduct" method="post" >
+	<form class="container" action="${contextPath}/product/addProduct" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 			상품명 <input type="text" class="form-control" name="name">
 		</div>

@@ -26,8 +26,8 @@ public class ProductService {
 		return dao.categoryList(cid);
 	}
 	
-	public void addProduct(ProductVO vo) {
-		dao.addProduct(vo);
+	public int addProduct(ProductVO vo) {
+		return dao.addProduct(vo);
 	}
 	
 	

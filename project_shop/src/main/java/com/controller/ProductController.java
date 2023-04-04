@@ -82,28 +82,33 @@ public class ProductController extends HttpServlet {
 			nextPage = "managePro";
 		}
 		
-		else if(pathInfo.equals("/addProduct")) {
-			String name = request.getParameter("name");
-			String paramprice = request.getParameter("price");
-			int price = Integer.parseInt(paramprice);
-			String weight = request.getParameter("weight");
-			String info = request.getParameter("info");
-			String cid = request.getParameter("cid");
-			Map<String, String> req = fileUpload.getMultipartRequest(request);
-			String imageFileName = req.get("imageFileName");
-			
-			ProductVO vo = ProductVO.builder()
-					.name(name)
-					.price(price)
-					.weight(weight)
-					.info(info)
-					.cid(cid)
-					.imageFileName(imageFileName)
-					.build();
-			service.addProduct(vo);			
-			
-			response.sendRedirect(contextPath+"/product");
-			return;
+		else if (pathInfo.equals("/addProduct")) {
+		    Map<String, String> req = fileUpload.getMultipartRequest(request);
+		    String imageFileName = req.get("imageFileName");
+		    String name = req.get("name");
+		    String paramprice = req.get("price");
+		    int price = Integer.parseInt(paramprice);
+		    String weight = req.get("weight");
+		    String info = req.get("info");
+		    String cid = req.get("cid");
+
+		    ProductVO vo = ProductVO.builder()
+		            .name(name)
+		            .price(price)
+		            .weight(weight)
+		            .info(info)
+		            .cid(cid)
+		            .imageFileName(imageFileName)
+		            .build();
+
+		    int productNo = service.addProduct(vo);
+
+		    if (imageFileName != null && imageFileName.length() > 0) {
+		        fileUpload.uploadImage(productNo, imageFileName);
+		    }
+
+		    response.sendRedirect(contextPath + "/product");
+		    return;
 		}
 		
 		
