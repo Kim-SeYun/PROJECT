@@ -31,7 +31,7 @@
 						<c:set var="cno" value="${cno+1}"/>
 						<c:out value="${cno}"/>
 					</td>
-					<td><a href="${b.name}" class="name"><img src="${contextPath}/resources/images/${b.name}.png" alt="${b.name}" width="100" height="60"/></a></td>
+					<td><a href="${b.name}" class="name"><img src="${contextPath}/fileDownload?no=${b.pno}&imageFileName=${b.imageFileName}&path=product" alt="${b.name}" width="100" height="60"/></a></td>
 					<td><a href="${b.name}" class="name">${b.name}</a></td>
 					<td><fmt:formatNumber value="${b.price}" pattern="#,###원"/></td>
 					<td>

@@ -24,5 +24,7 @@ public class OrderVO {
 	private String name;
 	private String price;
 	
+	private String imageFileName;
+	
 	
 }

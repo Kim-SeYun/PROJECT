@@ -35,7 +35,8 @@
 				<td style="padding: 10px; border: 1px solid #ddd;">${product.info}</td>
 				<td style="padding: 10px; border: 1px solid #ddd;">${product.weight}</td>
 				<td style="padding: 10px; border: 1px solid #ddd;">${product.cid}</td>
-				<td style="padding: 10px; border: 1px solid #ddd;"><img src="${product.imageFileName}" alt="${product.name}" style="max-width: 100px; max-height: 100px;"></td>
+				<td style="padding: 10px; border: 1px solid #ddd;"><img src="${contextPath}/fileDownload?no=${product.pno}&imageFileName=${product.imageFileName}&path=product" alt="${product.name}" style="max-width: 100px; max-height: 100px;"></td>
+				
 				<td>
 					<form action="/product/edit/${product.pno}">
 						<button type="submit">수정</button>

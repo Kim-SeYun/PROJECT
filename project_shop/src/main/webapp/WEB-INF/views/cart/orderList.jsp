@@ -56,7 +56,7 @@
           <td>${b.regDate}</td>
           <td>
             <a href="${contextPath}/product/detail?name=${b.name}" class="name">
-              <img src="${contextPath}/resources/images/${b.name}.png" alt="${b.name}" width="100" height="60"/>
+              <img src="${contextPath}/fileDownload?no=${b.pno}&imageFileName=${b.imageFileName}&path=product" alt="${b.name}" width="100" height="60"/>
             </a>
           </td>
           <td>

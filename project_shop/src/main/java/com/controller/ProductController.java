@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.common.FileUpload;
-import com.common.ProductFileUpload;
 import com.dao.ProductDao;
-import com.domain.BoardVO;
-import com.domain.Category;
 import com.domain.ProductVO;
 import com.service.ProductService;
 
@@ -23,13 +20,13 @@ import com.service.ProductService;
 public class ProductController extends HttpServlet {
 	
 	private ProductService service;
-	private ProductFileUpload fileUpload;
+	private FileUpload multiReq;
 	
 	@Override
 	public void init() throws ServletException {
 		ProductDao dao = new ProductDao();
 		service = new ProductService(dao);
-		fileUpload = new ProductFileUpload("product/");
+		multiReq = new FileUpload("product/");
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -90,7 +87,7 @@ public class ProductController extends HttpServlet {
 		}
 		
 		else if (pathInfo.equals("/addProduct")) {
-		    Map<String, String> req = fileUpload.getMultipartRequest(request);
+		    Map<String, String> req = multiReq.getMultipartRequest(request);
 		    String imageFileName = req.get("imageFileName");
 		    String name = req.get("name");
 		    String paramprice = req.get("price");
@@ -111,7 +108,7 @@ public class ProductController extends HttpServlet {
 		    int productNo = service.addProduct(vo);
 
 		    if (imageFileName != null && imageFileName.length() > 0) {
-		        fileUpload.uploadImage(productNo, imageFileName);
+		    	multiReq.uploadImage(productNo, imageFileName);
 		    }
 
 		    response.sendRedirect(contextPath + "/product");

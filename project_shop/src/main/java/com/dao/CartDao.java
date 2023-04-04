@@ -21,7 +21,7 @@ public class CartDao {
 	}
 	
 	public List<CartVO> allList(String id){
-		String query = "select M.id, p.Name, c.CART_CNT, p.price, p.pno from shop_cart C inner join shop_product P on P.pno = C.pno inner join shop_member M on C.ID = M.ID where m.id=?";
+		String query = "select M.id, p.Name, c.CART_CNT, p.price, p.pno, p.imageFileName from shop_cart C inner join shop_product P on P.pno = C.pno inner join shop_member M on C.ID = M.ID where m.id=?";
 		List<CartVO> list = new ArrayList<CartVO>();
 		try (
 			Connection conn = dataSource.getConnection();
@@ -37,6 +37,7 @@ public class CartDao {
 							.name(rs.getString("name"))
 							.price(rs.getInt("price"))
 							.cart_cnt(rs.getInt("cart_cnt"))
+							.imageFileName(rs.getString("imageFileName"))
 							.build();
 					list.add(vo);
 				}
@@ -191,13 +192,13 @@ public class CartDao {
 
 	public List<OrderVO> orderList(String id) {
 		List<OrderVO> list = new ArrayList<>();
-		String query = "SELECT M.id, P.pno, P.name, SUM(O.order_cnt) AS order_cnt, P.price, " +
+		String query = "SELECT M.id, P.pno, P.name, SUM(O.order_cnt) AS order_cnt, P.price, p.imageFileName," +
 	    	    "TO_CHAR(O.regDate, 'YYYY-MM-DD HH24:MI:SS') AS regDate " +
 	    	    "FROM SHOP_ORDER O " +
 	    	    "INNER JOIN shop_product P ON P.pno = O.pno " +
 	    	    "INNER JOIN shop_member M ON O.id = M.id " +
 	    	    "WHERE M.id = ? " +
-	    	    "GROUP BY M.id, P.pno, P.name, P.price, TO_CHAR(O.regDate, 'YYYY-MM-DD HH24:MI:SS') " +
+	    	    "GROUP BY M.id, P.pno, P.name, P.price, p.imageFileName, TO_CHAR(O.regDate, 'YYYY-MM-DD HH24:MI:SS') " +
 	    	    "ORDER BY regDate DESC";
 		try (
 				Connection conn = dataSource.getConnection();
@@ -213,6 +214,7 @@ public class CartDao {
 								.order_cnt(rs.getInt("order_cnt"))
 								.price(rs.getString("price"))
 								.regDate(rs.getString("regDate"))
+								.imageFileName(rs.getString("imageFileName"))
 								.build();
 						list.add(vo);
 								

@@ -42,7 +42,7 @@
 	 		<c:when test="${empty products}">
 		<c:forEach items="${list}" var="p"> 
 		    <div class="col-sm-4">
-		    	<div><a href="${p.name}" class="name"><img src="${contextPath}/resources/images/${p.name}.png" alt="${p.name}" width="200" height="150"/></div>
+		    	<div><a href="${p.name}" class="name"><img src="${contextPath}/fileDownload?no=${p.pno}&imageFileName=${p.imageFileName}&path=product" alt="${p.name}" width="200" height="150"/></div>
 		    	<div>${p.name}</a></div>
 		    	<div><fmt:formatNumber value="${p.price}" pattern="#,###원"/></div>
 		    	<div><input type="hidden" value="1" class="cartCnt"></div>

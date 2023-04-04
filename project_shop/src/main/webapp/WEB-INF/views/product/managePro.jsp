@@ -25,8 +25,8 @@
 			카테고리 <select class="form-control" name="cid">
 				<option value="Vegetables/Fruits">채소/과일</option>
 				<option value="Meat/Eggs">정육/계란</option>
-				<option value="coffee/beverage">간식/베이커리</option>
-				<option value="Snack/Bakery">커피/음료</option>
+				<option value="coffee/beverage">커피/음료</option>
+				<option value="Snack/Bakery">간식/베이커리</option>
 			</select>
 		</div>
 		<div class="form-group">
