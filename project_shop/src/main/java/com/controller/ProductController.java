@@ -78,6 +78,13 @@ public class ProductController extends HttpServlet {
 			nextPage = "sale";
 		}
 		
+		// 관리자페이지
+		else if(pathInfo.equals("/adminPage")) {
+			List<ProductVO> productList = service.productList();
+			request.setAttribute("productList", productList);
+			nextPage = "adminPage";
+		}
+
 		else if(pathInfo.equals("/managePro")){
 			nextPage = "managePro";
 		}

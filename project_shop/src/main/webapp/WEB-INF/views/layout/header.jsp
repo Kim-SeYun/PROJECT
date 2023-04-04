@@ -63,7 +63,7 @@
       <a class="nav-link cart" style="color: black;" href="${contextPath}/cart/list">장바구니</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link adminPage" style="color: black;" href="${contextPath}/member/adminPage">관리자페이지</a>
+      <a class="nav-link adminPage" style="color: black;" href="${contextPath}/product/adminPage">관리자페이지</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" style="color: black;" href="${contextPath}/member/logout">로그아웃</a>

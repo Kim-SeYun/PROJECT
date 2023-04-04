@@ -37,6 +37,9 @@ private DataSource dataSource;
 								.name(rs.getString("name"))
 								.price(rs.getInt("price"))
 								.info(rs.getString("info"))
+								.weight(rs.getString("weight"))
+								.cid(rs.getString("cid"))
+								.imageFileName(rs.getString("imageFileName"))
 							.build();
 						list.add(vo);
 					}
