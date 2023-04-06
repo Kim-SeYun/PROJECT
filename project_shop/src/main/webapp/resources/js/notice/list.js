@@ -11,7 +11,10 @@ $(function(){
 				.submit();
 	});
 	
+	
 	if(auth.grade != 'ROLE_ADMIN') {
 		$('.noticeWrite').hide();
 	}
+	
+	
 });

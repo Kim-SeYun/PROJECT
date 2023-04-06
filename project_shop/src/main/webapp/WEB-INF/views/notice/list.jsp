@@ -30,18 +30,18 @@
 	</form>
 	
 	<ul class="pagination d-flex justify-content-center">
-		<c:if test="${p.prev}">
-	  		<li class="page-item"><a class="page-link" href="?pageNum =${p.startPage-1}">Previous</a></li>
-		</c:if>
-	  
-	  <c:forEach begin="${p.startPage}" end="${p.endPage}" var="pageBtn">
-		  <li class="page-item ${pageBtn==param.pageNum?'active' : ''}">
-		 	 <a class="page-link" href="?pageNum=${pageBtn}">${pageBtn}</a>
-		  </li>
-	  </c:forEach>
-	  <c:if test="${p.next}">
-		  <li class="page-item"><a class="page-link" href="?pageNum=${p.endPage+1}">Next</a></li>
-	  </c:if>
+	    <c:if test="${p.prev}">
+	        <li class="page-item"><a class="page-link" href="?pageNum=${p.startPage-1}">Previous</a></li>
+	    </c:if>
+	
+	    <c:forEach begin="${p.startPage}" end="${p.endPage}" var="pageBtn">
+	        <li class="page-item ${pageBtn==param.pageNum or (pageBtn==1 and param.pageNum==null) ? 'active' : ''}">
+	            <a class="page-link" href="?pageNum=${pageBtn}">${pageBtn}</a>
+	        </li>
+	    </c:forEach>
+	    <c:if test="${p.next}">
+	        <li class="page-item"><a class="page-link" href="?pageNum=${p.endPage+1}">Next</a></li>
+	    </c:if>
 	</ul>
 	
 </div>

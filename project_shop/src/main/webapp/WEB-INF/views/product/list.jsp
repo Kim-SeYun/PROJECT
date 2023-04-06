@@ -2,42 +2,31 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>  
 <script src="${contextPath}/resources/js/product/list.js"></script> 
-<h1>ALL</h1>
-	<ul class="nav nav-pills justify-content-center">
-    <li class="nav-item">
-      <a class="nav-link" href="${contextPath}/product/ALL">ALL</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="${contextPath}/product/BEST">BEST</a>
-    </li>
-     <li class="nav-item">
-    <a class="nav-link" href="${contextPath}/product/SALE">SALE</a>
-  </li>
-  </ul>
-  
+
 
 
 <div class="container" style="margin-top:30px; margin-left: 298px;">
   <div class="row">
     <div class="col-sm-3">
       
-      <h3>CATEGORY</h3><br> 
-
-      <ul class="list-group">
-		  <li class="list-group-item ${cid==null ? 'list-group-item-primary':''}">
-		  	<a href="${contextPath}/product/list">전체</a>
-		  </li>
-		  <c:forEach items="${category}" var="c">
-		  <li class="list-group-item ${cid==c.cid ? 'list-group-item-primary':''}">
-		  	<a href="${contextPath}/product/list?cid=${c.cid}">${c.cname}</a>
-		  </li>
-		  </c:forEach>
-		</ul>		
+      <div style="margin-top: 100px;">
+	      <h3>CATEGORY</h3><br> 
+	      <ul class="list-group">
+			  <li class="list-group-item ${cid==null ? 'list-group-item-primary':''}">
+			  	<a href="${contextPath}/product/list">전체</a>
+			  </li>
+			  <c:forEach items="${category}" var="c">
+			  <li class="list-group-item ${cid==c.cid ? 'list-group-item-primary':''}">
+			  	<a href="${contextPath}/product/list?cid=${c.cid}">${c.cname}</a>
+			  </li>
+			  </c:forEach>
+			</ul>	
+		</div>	
 		
     </div>
     
     <div class="col-sm-8">
-      <form id="productForm">
+      <form id="productForm" style="margin-top: 100px;">
 	 	<div class="row">
 	 	<c:choose>
 	 		<c:when test="${empty products}">

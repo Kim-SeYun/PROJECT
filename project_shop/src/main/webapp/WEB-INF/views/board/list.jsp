@@ -38,7 +38,7 @@
 		</c:if>
 	  
 	  <c:forEach begin="${p.startPage}" end="${p.endPage}" var="pageBtn">
-		  <li class="page-item ${pageBtn==param.pageNum ? 'active' : ''}">
+		  <li class="page-item ${pageBtn==param.pageNum or (pageBtn==1 and param.pageNum==null) ? 'active' : ''}">
 		 	 <a class="page-link" href="?pageNum=${pageBtn}">${pageBtn}</a>
 		  </li>
 	  </c:forEach>

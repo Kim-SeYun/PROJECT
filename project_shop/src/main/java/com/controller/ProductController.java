@@ -57,6 +57,7 @@ public class ProductController extends HttpServlet {
 			List<ProductVO> productList = service.productList();
 			request.setAttribute("list", productList);
 			String cid = request.getParameter("cid");
+			request.setAttribute("cid", cid);
 			Map<String, List<?>> map = service.categoryList(cid);
 			request.setAttribute("category", map.get("categoryList"));
 			request.setAttribute("products", map.get("productList"));
@@ -69,16 +70,6 @@ public class ProductController extends HttpServlet {
 			ProductVO product = service.findProduct(name);
 			request.setAttribute("product", product);
 			nextPage = "detail";
-		}
-		
-		// 베스트상품
-		else if(pathInfo.equals("/best")) {
-			nextPage = "best";
-		}
-		
-		// 세일상품
-		else if(pathInfo.equals("/sale")) {
-			nextPage = "sale";
 		}
 		
 		// 관리자페이지
