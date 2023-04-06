@@ -131,7 +131,7 @@ private DataSource dataSource;
 		
 		public Map<String, List<?>> categoryList(String cid){
 			String query = "select * from shop_category";
-			String query2 = "select p.pno, c.cname, p.NAME, p.PRICE, p.INFO, p.WEIGHT from SHOP_PRODUCT  p inner join shop_category c on c.cid = p.cid where c.cid=?";
+			String query2 = "select p.pno, c.cname, p.NAME, p.PRICE, p.INFO, p.WEIGHT, p.imageFileName from SHOP_PRODUCT  p inner join shop_category c on c.cid = p.cid where c.cid=?";
 			Map<String, List<?>> map = new HashMap<String, List<?>>();
 			List<Category> categoryList = new ArrayList<Category>();
 			List<ProductVO> productList = new ArrayList<>();
@@ -152,6 +152,7 @@ private DataSource dataSource;
 									.price(rs.getInt("price"))
 									.info(rs.getString("info"))
 									.weight(rs.getString("weight"))
+									.imageFileName(rs.getString("imageFileName"))
 									.cname(rs.getString("cname")).build();
 							productList.add(vo);
 						}
@@ -232,6 +233,33 @@ private DataSource dataSource;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+		}
+		
+		public void modProduct(ProductVO vo) {
+			String imageFileName = vo.getImageFileName();
+			int pno = vo.getPno();
+			String query = "update shop_product set price=?, info=?";
+			if(imageFileName!=null) {
+				query += ",imageFileName=? where pno=?";
+			} else {
+				query += "where pno=?";
+			}
+			try (
+				Connection conn = dataSource.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(query);
+			){
+				pstmt.setInt(1, vo.getPrice());
+				pstmt.setString(2, vo.getInfo());
+				if(imageFileName!=null) {
+					pstmt.setString(3, imageFileName);
+					pstmt.setInt(4, pno);
+				} else {
+					pstmt.setInt(3, pno);
+				}
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 

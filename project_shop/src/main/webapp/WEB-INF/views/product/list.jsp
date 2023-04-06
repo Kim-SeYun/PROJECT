@@ -22,8 +22,9 @@
     <div class="col-sm-3">
       
       <h3>CATEGORY</h3><br> 
+
       <ul class="list-group">
-		  <li class="list-group-item ${cid==c.cid ? 'list-group-item-primary':''}">
+		  <li class="list-group-item ${cid==null ? 'list-group-item-primary':''}">
 		  	<a href="${contextPath}/product/list">전체</a>
 		  </li>
 		  <c:forEach items="${category}" var="c">
@@ -53,7 +54,7 @@
 	 	<c:otherwise>
 	 	<c:forEach items="${products}" var="p">
 		    <div class="col-sm-4">
-		    	<div><a href="${p.name}" class="name"><img src="${contextPath}/resources/images/${p.name}.png" alt="${p.name}" width="200" /></div>
+		    	<div><a href="${p.name}" class="name"><img src="${contextPath}/fileDownload?no=${p.pno}&imageFileName=${p.imageFileName}&path=product" alt="${p.name}" alt="${p.name}" width="200" /></div>
 		    	<div>${p.name}</a></div>
 		    	<div><fmt:formatNumber value="${p.price}" pattern="#,###원"/></div>
 		    	<div><input type="hidden" value="1" class="cartCnt"></div>

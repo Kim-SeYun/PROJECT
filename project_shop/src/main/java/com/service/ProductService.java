@@ -34,6 +34,10 @@ public class ProductService {
 		dao.remove(pno);
 	}
 	
+	public void modProduct(ProductVO vo) {
+		dao.modProduct(vo);
+	}
+	
 	
 
 

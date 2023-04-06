@@ -1,3 +1,4 @@
+
 $(function(){
 	
 	if(auth.grade != 'ROLE_ADMIN'){
@@ -36,7 +37,7 @@ $(function(){
 				} 			
 			}); // ajax end
 		} else {
-			alert('로그인으로')
+			alert('로그인 후 이용 가능합니다.')
 			location.assign("/project_shop/member/loginForm")
 		}
 		

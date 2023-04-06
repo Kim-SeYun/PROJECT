@@ -133,7 +133,7 @@ public class ProductController extends HttpServlet {
 			return;
 		}
 		
-		// 관리자페이지 상품 수정
+		// 관리자페이지 상품 수정데이터 보내기
 		else if(pathInfo.equals("/modify")) {
 			String imageFileName = request.getParameter("imageFileName");
 			String cid = request.getParameter("cid");
@@ -158,6 +158,34 @@ public class ProductController extends HttpServlet {
 			nextPage = "modify";
 		}
 		
+		// 상품 수정
+		else if(pathInfo.equals("/modProduct")) {
+			Map<String, String> req = multiReq.getMultipartRequest(request);
+			String paramPno = req.get("pno");
+			int pno = Integer.parseInt(paramPno);
+			String priceP = req.get("price");
+			int price = Integer.parseInt(priceP);
+			String info = req.get("info");
+			String imageFileName = req.get("imageFileName");
+			
+			ProductVO vo = ProductVO.builder()
+					.pno(pno)
+					.price(price)
+					.info(info)
+					.imageFileName(imageFileName)
+					.build();
+			service.modProduct(vo);
+			
+			if(imageFileName != null) {
+				String originFileName = req.get("originFileName");
+				multiReq.uploadImage(pno, imageFileName);
+				if(originFileName != null) {
+					multiReq.deleteOriginImage(pno, originFileName);
+				}
+			}
+			response.sendRedirect(contextPath +"/product/adminPage");
+			return;
+		}
 		
 		else {
 			System.out.println("존재하지 않는 페이지");
