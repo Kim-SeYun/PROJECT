@@ -4,7 +4,7 @@
 <script src="${contextPath}/resources/js/reply/ProductReply.js"></script>
 <script src="${contextPath}/resources/js/product/detail.js"></script>
 <script src="${contextPath}/resources/js/product/list.js"></script> 
-<div class="container" style="margin-top:80px">
+<div class="container" style="margin-top:80px; margin-left: 20%;">
   <div class="row">
     <div class="col-sm-4">
      
@@ -35,7 +35,8 @@
 </div>
 <input type="hidden" name="pno" value="${product.pno}">
 
-<div class="productReplyForm">
+<div class="container" style="margin-left: 20%;">
+<div class="productReplyForm" style="margin-top: 30px;">
 		<table class="table">
 			<tr>
 				<th colspan="2">
@@ -56,7 +57,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="productReplyList">
+	<div class="productReplyList" style="margin-top: 30px;">
 		<div class="card">
 		  <div class="card-header bg-dark text-white">댓글목록</div>
 		  <div class="card-body">
@@ -89,7 +90,7 @@
 	    </div>
 	  </div>
 	</div>
-</div>
+	</div>
 
 
 <%@ include file="../layout/footer.jsp" %> 
