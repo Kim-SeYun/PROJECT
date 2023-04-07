@@ -23,6 +23,7 @@ public class CartVO {
 	private Date regdate;
 	private int price;
 	private String name;
+	private String weight;
 	
 	private String imageFileName;
 

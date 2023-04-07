@@ -73,7 +73,6 @@ function productList(productReplyList) {
 			if(p.writer==auth.id) { // 로그인한 사용자
 				output+=`
 				<div class="align-self-center" data-rno="${p.rno}">
-					<button class="btn btn-sm btn-primary p_reply_modBtn">수정</button>
 					<button class="btn btn-sm btn-danger p_reply_delBtn">삭제</button>
 				</div>
 				`;

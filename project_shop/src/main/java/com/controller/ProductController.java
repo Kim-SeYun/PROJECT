@@ -1,16 +1,20 @@
 package com.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FileUtils;
 
 import com.common.FileUpload;
 import com.dao.ProductDao;
@@ -24,13 +28,12 @@ public class ProductController extends HttpServlet {
 	private ProductService service;
 	private FileUpload multiReq;
 	private Gson gson;
-	
-	@Override
-	public void init() throws ServletException {
+
+	public void init(ServletConfig config) throws ServletException {
 		ProductDao dao = new ProductDao();
 		service = new ProductService(dao);
-		multiReq = new FileUpload("product/");
-		gson = new Gson();
+	    multiReq = new FileUpload("product/");
+	    gson = new Gson();
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,15 +57,34 @@ public class ProductController extends HttpServlet {
 		
 		// 상품목록
 		if(pathInfo==null || pathInfo.equals("/") || pathInfo.equals("/list")) {
-			List<ProductVO> productList = service.productList();
-			request.setAttribute("list", productList);
-			String cid = request.getParameter("cid");
-			request.setAttribute("cid", cid);
-			Map<String, List<?>> map = service.categoryList(cid);
-			request.setAttribute("category", map.get("categoryList"));
-			request.setAttribute("products", map.get("productList"));
-			nextPage = "list";
+		    String cid = request.getParameter("cid");
+		    if(cid == null) {
+		        // 카테고리 선택하지 않은 경우, 모든 상품 리스트와 카테고리 리스트 보여주기
+		        Map<String, List<?>> map = service.categoryList(cid);
+		        List<ProductVO> productList = service.productList();
+		        request.setAttribute("list", productList);
+		        request.setAttribute("category", map.get("categoryList"));
+		        request.setAttribute("cid", "all"); // "전체" 카테고리를 선택한 것으로 설정
+		    } else {
+		        // 특정 카테고리에 해당하는 상품 리스트 보여주기
+		        Map<String, List<?>> map = service.categoryList(cid);
+		        List<ProductVO> productList = (List<ProductVO>) map.get("productList");
+		        if (productList.size() == 0 ) {
+		            request.setAttribute("message", "해당 카테고리에 상품이 없습니다.");
+		        } else {
+		            request.setAttribute("products", productList);
+		        }
+		        request.setAttribute("category", map.get("categoryList"));
+		        request.setAttribute("cid", cid);
+		    }
+		    nextPage = "list";
 		}
+
+
+		
+
+
+
 		
 		// 상품상세
 		else if(pathInfo.equals("/detail")) {
@@ -77,8 +99,8 @@ public class ProductController extends HttpServlet {
 			List<ProductVO> productList = service.productList();
 			request.setAttribute("productList", productList);
 			nextPage = "adminPage";
-		}
-
+		}	
+		
 		else if(pathInfo.equals("/managePro")){
 			nextPage = "managePro";
 		}
@@ -118,7 +140,6 @@ public class ProductController extends HttpServlet {
 			String paramPno = request.getParameter("pno");
 			int pno = Integer.parseInt(paramPno);
 			service.remove(pno);
-			multiReq.deleteAllImage(pno);
 			String result = gson.toJson("삭제 성공");
 			out.print(result);
 			return;
@@ -176,7 +197,7 @@ public class ProductController extends HttpServlet {
 			}
 			response.sendRedirect(contextPath +"/product/adminPage");
 			return;
-		}
+		}		
 		
 		else {
 			System.out.println("존재하지 않는 페이지");

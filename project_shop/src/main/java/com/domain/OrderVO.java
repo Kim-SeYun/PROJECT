@@ -21,6 +21,7 @@ public class OrderVO {
 	private String regDate;
 	private String name;
 	private String price;
+	private String weight;
 	
 	private String imageFileName;
 	

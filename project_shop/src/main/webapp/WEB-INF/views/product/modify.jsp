@@ -3,6 +3,14 @@
     
 <%@ include file="../layout/header.jsp" %>  
 <script src="${contextPath}/resources/js/product/modify.js"></script>
+
+<style>
+.preview img {
+  width: 400px;
+  height: 250px;
+  object-fit: cover;
+}
+</style>
   
 	<div class="jumbotron">
 		<h1>상품수정</h1>
@@ -34,13 +42,11 @@
 		    </select>
 		</div>
 		<div class="form-group">
-		<input type="hidden" name="originFileName" value="${productList.imageFileName}">
-		    첨부파일 <input type="file" class="form-control" name="imageFileName" value="${productList.imageFileName}">
-		    <div class="preview">
-				 <div class="preview">
-				    <img src="${contextPath}/fileDownload?no=${productList.pno}&imageFileName=${productList.imageFileName}&path=product" style="width: 400px; height: 250px; margin-top: 20px;">
-				</div>
-			</div>
+		  <input type="hidden" name="originFileName" value="${productList.imageFileName}">
+		  첨부파일 <input type="file" class="form-control" name="imageFileName" value="${productList.imageFileName}"><br>
+		  <div class="preview">
+		    <img src="${contextPath}/fileDownload?no=${productList.pno}&imageFileName=${productList.imageFileName}&path=product">
+		  </div>
 		</div>
 		<button class="btn btn-primary modify">상품수정</button>
 		<button class="btn btn-secondary">취소</button>

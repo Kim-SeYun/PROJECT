@@ -21,6 +21,7 @@
 					<th>이미지</th>
 					<th>상품명</th>
 					<th>가격</th>
+					<th>중량</th>
 					<th>수량</th>
 					<th>합계</th>
 					<th><input type="checkbox" class="cartAllCheckBox"></th>
@@ -34,6 +35,7 @@
 					<td><a href="${b.name}" class="name"><img src="${contextPath}/fileDownload?no=${b.pno}&imageFileName=${b.imageFileName}&path=product" alt="${b.name}" width="100" height="60"/></a></td>
 					<td><a href="${b.name}" class="name">${b.name}</a></td>
 					<td><fmt:formatNumber value="${b.price}" pattern="#,###원"/></td>
+					<td>${b.weight}</td>
 					<td>
 						<button type="button" value="${b.pno}" class="btn btn-outline-secondary c_minus">-</button>
 					    <input type="text" class="cartCnt" name="cartCnt" value="${b.cart_cnt}" readonly="readonly" style="width: 40px; height: 38px; text-align: center;"/>

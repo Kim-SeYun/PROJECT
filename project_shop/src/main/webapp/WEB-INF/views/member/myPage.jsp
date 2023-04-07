@@ -5,9 +5,7 @@
 <script src="${contextPath}/resources/js/member/join.js"></script>  
  
 <div class="container">
-	<div class="jumbotron">
-		<h1>MyPage</h1>
-	</div>
+	<h1>MyPage</h1>
 	
 	 <div class="col-sm-3">
       <ul class="nav nav-pills flex-column">

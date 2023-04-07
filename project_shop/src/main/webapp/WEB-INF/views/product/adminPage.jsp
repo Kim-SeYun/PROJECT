@@ -7,9 +7,20 @@
 <div class="container">
 	<h1>관리자페이지</h1>
 	
-	<form action="${contextPath}/product/managePro">
-		<button class="btn btn-primary">상품등록</button>
-	</form>
+	 <div class="col-sm-3">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="${contextPath}/member/myPage">개인정보수정</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${contextPath}/cart/orderList">주문내역</a>
+        </li>
+      </ul>
+    </div>
+	
+  <form action="${contextPath}/product/managePro">
+    <button class="btn btn-primary ml-auto">상품등록</button>
+  </form>
 	
 <h1>Product List</h1>
 <table style="border-collapse: collapse; width: 100%; border: 1px solid #ddd;">

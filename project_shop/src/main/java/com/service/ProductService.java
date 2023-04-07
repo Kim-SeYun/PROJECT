@@ -27,18 +27,16 @@ public class ProductService {
 	}
 	
 	public int addProduct(ProductVO vo) {
-		return dao.addProduct(vo);
+	   return dao.addProduct(vo);
 	}
-	
+
 	public void remove(int pno) {
 		dao.remove(pno);
 	}
-	
+
 	public void modProduct(ProductVO vo) {
 		dao.modProduct(vo);
 	}
 	
-	
-
 
 }

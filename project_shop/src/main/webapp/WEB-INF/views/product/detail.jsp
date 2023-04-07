@@ -7,7 +7,8 @@
 <div class="container" style="margin-top:80px">
   <div class="row">
     <div class="col-sm-4">
-      <div><img src="${contextPath}/fileDownload?no=${product.pno}&imageFileName=${product.imageFileName}&path=product" alt="${product.name}" width="300" height="250"/><br></div>
+     
+      <div class="fakeimg"><img src="${contextPath}/fileDownload?no=${product.pno}&imageFileName=${product.imageFileName}&path=product" alt="${product.name}" width="300" height="250" /><br></div>
       
     </div>
     <div class="col-sm-8">
@@ -23,8 +24,12 @@
       	<button type="button" class="btn btn-outline-secondary minus">-</button>
 		<input type="text" class="cartCnt" name="cartCnt" value="${list.cart_cnt}1" readonly="readonly" style="width: 40px; height: 38px; text-align: center;"/>
 		<button type="button" class="btn btn-outline-secondary plus">+</button>
-	</div>
+	  </div>
+	  <input type="hidden" value="${product.imageFileName}">
+	  <input type="hidden" value="${product.name}">
+	  <input type="hidden" value="${product.price}">
       <button type="button" id="button" value="${product.pno}" class="btn btn-outline-info cartBtn">Cart</button>
+      
     </div>
   </div>
 </div>

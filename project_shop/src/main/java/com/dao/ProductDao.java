@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 
 import com.common.ConnectionUtil;
 import com.domain.Category;
+import com.domain.ProductReplyVO;
 import com.domain.ProductVO;
 
 public class ProductDao {
@@ -78,56 +79,7 @@ private DataSource dataSource;
 			
 		}
 		
-		// 카테고리
-//		public List<Category> categoryList(String cid){
-//			String query = "select p.pno, c.cname, p.NAME, p.PRICE, p.INFO, p.WEIGHT from SHOP_PRODUCT  p inner join shop_category c on c.cid = p.cid where c.cid=?";
-//			List<Category> categoryList = new ArrayList<Category>();
-//			
-//			try (
-//				Connection conn = dataSource.getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(query);
-//			){
-//				pstmt.setString(1, cid);
-//				pstmt.executeUpdate();
-//				try(ResultSet rs = pstmt.executeQuery();){
-//					while(rs.next()) {
-//						Category category = Category.builder()
-//								.cid(rs.getString("cid"))
-//								.cname(rs.getString("cname"))
-//								.build();
-//						categoryList.add(category);
-//					}
-//				}
-//				
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			return categoryList;
-//		}
-		
-//		public List<Category> categoryList(){
-//			String query = "select * from shop_category";
-//			List<Category> categoryList = new ArrayList<Category>();
-//			
-//			try (
-//				Connection conn = dataSource.getConnection();
-//				PreparedStatement pstmt = conn.prepareStatement(query);
-//				ResultSet rs = pstmt.executeQuery();
-//			){
-//				while(rs.next()) {
-//					Category category = Category.builder()
-//							.cid(rs.getString("cid"))
-//							.cname(rs.getString("cname"))
-//							.build();
-//					categoryList.add(category);
-//				}
-//			
-//				
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			return categoryList;
-//		}
+
 		
 		public Map<String, List<?>> categoryList(String cid){
 			String query = "select * from shop_category";
@@ -183,45 +135,35 @@ private DataSource dataSource;
 		}
 		
 		public int addProduct(ProductVO vo) {
-			String query = "insert into shop_product(pno, name, price, info, weight, cid, imageFileName) values(?, ?, ?, ?, ?, ?, ?)";
-			int productNo = getNewPno();
-			try (
-					Connection conn = dataSource.getConnection();
-					PreparedStatement pstmt = conn.prepareStatement(query);
-				){
-					pstmt.setInt(1, productNo);
-					pstmt.setString(2, vo.getName());
-					pstmt.setInt(3, vo.getPrice());
-					pstmt.setString(4, vo.getInfo());
-					pstmt.setString(5, vo.getWeight());
-					pstmt.setString(6, vo.getCid());
-					pstmt.setString(7, vo.getImageFileName());
-					pstmt.executeUpdate();
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			
-			return productNo;
+		    String query = "insert into shop_product(pno, name, price, info, weight, cid, imageFileName) values(SHOP_PNO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+		    int productNo = 0;
+		    
+		    try (Connection conn = dataSource.getConnection();
+		         PreparedStatement pstmt = conn.prepareStatement(query)) {
+		        pstmt.setString(1, vo.getName());
+		        pstmt.setInt(2, vo.getPrice());
+		        pstmt.setString(3, vo.getInfo());
+		        pstmt.setString(4, vo.getWeight());
+		        pstmt.setString(5, vo.getCid());
+		        pstmt.setString(6, vo.getImageFileName());
+		        pstmt.executeUpdate();
+		        
+		        // 시퀀스 값을 가져와서 변수에 저장
+		        String selectSeqQuery = "SELECT SHOP_PNO_SEQ.CURRVAL AS PRODUCT_NO FROM DUAL";
+		        try (PreparedStatement selectStmt = conn.prepareStatement(selectSeqQuery)) {
+		            ResultSet rs = selectStmt.executeQuery();
+		            if (rs.next()) {
+		                productNo = rs.getInt("PRODUCT_NO");
+		            }
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    
+		    return productNo;
 		}
-		
-		public int getNewPno() {
-			int productNo = 0;
-			String query = "select max(pno)+1 as productNo from shop_product";
-			try (
-					Connection conn = dataSource.getConnection();
-					PreparedStatement pstmt = conn.prepareStatement(query);
-					ResultSet rs = pstmt.executeQuery();
-				){
-					if(rs.next()) {
-						productNo = rs.getInt("productNo");
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return productNo;
-		}
-		
+
+
 		public void remove(int pno) {
 			String query = "delete from shop_product where pno=?";
 			try (
@@ -239,36 +181,46 @@ private DataSource dataSource;
 			String imageFileName = vo.getImageFileName();
 			int pno = vo.getPno();
 			String query = "update shop_product set price=?, info=?";
+			String query2 = "update shop_cart set price=?";
+			String query3 = "";
 			if(imageFileName!=null) {
 				query += ",imageFileName=? where pno=?";
+				query2 += ",imageFileName=? where pno=?";
+				query3 += "update shop_order set imageFileName=? where pno=?";
 			} else {
 				query += "where pno=?";
+				query2 += "where pno=?";
 			}
 			try (
 				Connection conn = dataSource.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(query);
+				PreparedStatement pstmt2 = conn.prepareStatement(query2);
+				PreparedStatement pstmt3 = conn.prepareStatement(query3);
+				
 			){
 				pstmt.setInt(1, vo.getPrice());
 				pstmt.setString(2, vo.getInfo());
+				pstmt2.setInt(1, vo.getPrice());
+				
 				if(imageFileName!=null) {
 					pstmt.setString(3, imageFileName);
 					pstmt.setInt(4, pno);
+					pstmt2.setString(2, imageFileName);
+					pstmt2.setInt(3, pno);
+					pstmt3.setString(1, imageFileName);
+					pstmt3.setInt(2, pno);
+					
 				} else {
 					pstmt.setInt(3, pno);
+					pstmt2.setInt(2, pno);
 				}
 				pstmt.executeUpdate();
+				pstmt2.executeUpdate();
+				pstmt3.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
-
-
-		
-		
-		
-		
-		
 		
 
 }

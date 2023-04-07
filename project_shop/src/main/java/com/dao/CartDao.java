@@ -21,7 +21,7 @@ public class CartDao {
 	}
 	
 	public List<CartVO> allList(String id){
-		String query = "select M.id, p.Name, c.CART_CNT, p.price, p.pno, p.imageFileName from shop_cart C inner join shop_product P on P.pno = C.pno inner join shop_member M on C.ID = M.ID where m.id=?";
+		String query = "select M.id, p.Name, c.CART_CNT, p.price, p.pno, p.imageFileName, c.weight from shop_cart C inner join shop_product P on P.pno = C.pno inner join shop_member M on C.ID = M.ID where m.id=?";
 		List<CartVO> list = new ArrayList<CartVO>();
 		try (
 			Connection conn = dataSource.getConnection();
@@ -38,6 +38,7 @@ public class CartDao {
 							.price(rs.getInt("price"))
 							.cart_cnt(rs.getInt("cart_cnt"))
 							.imageFileName(rs.getString("imageFileName"))
+							.weight(rs.getString("weight"))
 							.build();
 					list.add(vo);
 				}
@@ -73,7 +74,7 @@ public class CartDao {
 	}
 	
 	public void addCart(CartVO vo) {
-		String query = "INSERT INTO SHOP_CART(CART_ID, ID, PNO, CART_CNT) VALUES(SHOP_CART_ID_SEQ.NEXTVAL, ?, ?, ?)";
+		String query = "INSERT INTO SHOP_CART(CART_ID, ID, PNO, CART_CNT, PRICE, NAME, imageFileName, weight) VALUES(SHOP_CART_ID_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)";
 		String query2 = "update SHOP_CART set CART_CNT = CART_CNT+? where id=? and pno=?";
 		try(Connection conn = dataSource.getConnection();){
 			try (
@@ -85,6 +86,10 @@ public class CartDao {
 					pstmt.setString(1, vo.getId());
 					pstmt.setInt(2, vo.getPno());
 					pstmt.setInt(3, vo.getCart_cnt());
+					pstmt.setInt(4, vo.getPrice());
+					pstmt.setString(5, vo.getName());
+					pstmt.setString(6, vo.getImageFileName());
+					pstmt.setString(7, vo.getWeight());
 					pstmt.executeUpdate();
 					conn.commit();
 				
@@ -157,7 +162,14 @@ public class CartDao {
 	}
 	
 	public void orderCheck(String id, String[] list) {
-		String query1 = "insert into shop_order(order_id, id, pno, order_cnt) values(shop_order_seq.nextval, ?, ? , (SELECT CART_CNT FROM SHOP_CART WHERE ID = ? AND PNO = ?))";
+		String query1 = "insert into shop_order(order_id, id, pno, order_cnt, name, price, weight, imageFileName) "
+	            + "values(shop_order_seq.nextval, ?, ?, "
+	            + "(SELECT CART_CNT FROM SHOP_CART WHERE ID = ? AND PNO = ?), "
+	            + "(SELECT NAME FROM SHOP_CART WHERE ID = ? AND PNO = ?), "
+	            + "(SELECT PRICE FROM SHOP_CART WHERE ID = ? AND PNO = ?), "
+	            + "(SELECT WEIGHT FROM SHOP_CART WHERE ID = ? AND PNO = ?), "
+	            + "(SELECT imageFileName FROM SHOP_CART WHERE ID = ? AND PNO = ?))";
+
 		String query2 = "delete from shop_cart where id=? and pno=?";
 		try(Connection conn = dataSource.getConnection();){
 			try (
@@ -172,6 +184,14 @@ public class CartDao {
 					pstmt.setInt(2, pno);
 					pstmt.setString(3, id);
 					pstmt.setInt(4, pno);
+					pstmt.setString(5, id);
+					pstmt.setInt(6, pno);
+					pstmt.setString(7, id);
+					pstmt.setInt(8, pno);
+					pstmt.setString(9, id);
+					pstmt.setInt(10, pno);
+					pstmt.setString(11, id);
+					pstmt.setInt(12, pno);
 					pstmt.executeUpdate();
 					
 					pstmt2.setString(1, id);
@@ -192,14 +212,14 @@ public class CartDao {
 
 	public List<OrderVO> orderList(String id) {
 		List<OrderVO> list = new ArrayList<>();
-		String query = "SELECT M.id, P.pno, P.name, SUM(O.order_cnt) AS order_cnt, P.price, p.imageFileName," +
-	    	    "TO_CHAR(O.regDate, 'YYYY-MM-DD HH24:MI:SS') AS regDate " +
-	    	    "FROM SHOP_ORDER O " +
-	    	    "INNER JOIN shop_product P ON P.pno = O.pno " +
-	    	    "INNER JOIN shop_member M ON O.id = M.id " +
-	    	    "WHERE M.id = ? " +
-	    	    "GROUP BY M.id, P.pno, P.name, P.price, p.imageFileName, TO_CHAR(O.regDate, 'YYYY-MM-DD HH24:MI:SS') " +
-	    	    "ORDER BY regDate DESC";
+		String query = "SELECT id, name, SUM(order_cnt) AS order_cnt, price, pno, imageFileName, weight, " +
+	               "TO_CHAR(regDate, 'YYYY-MM-DD HH24:MI:SS') AS regDate " +
+	               "FROM SHOP_ORDER " +
+	               "WHERE id = ? " +
+	               "GROUP BY id, name, price, pno, imageFileName, weight, TO_CHAR(regDate, 'YYYY-MM-DD HH24:MI:SS') " +
+	               "ORDER BY regDate DESC";
+
+
 		try (
 				Connection conn = dataSource.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(query);
@@ -208,15 +228,17 @@ public class CartDao {
 				try(ResultSet rs = pstmt.executeQuery();) {
 					while(rs.next()) {
 						OrderVO vo = OrderVO.builder()
-								.id(rs.getString("id"))
-								.pno(rs.getInt("pno"))
-								.name(rs.getString("name"))
-								.order_cnt(rs.getInt("order_cnt"))
-								.price(rs.getString("price"))
-								.regDate(rs.getString("regDate"))
-								.imageFileName(rs.getString("imageFileName"))
-								.build();
-						list.add(vo);
+							    .id(rs.getString("id"))
+							    .name(rs.getString("name"))
+							    .order_cnt(rs.getInt("order_cnt"))
+							    .price(rs.getString("price"))
+							    .pno(rs.getInt("pno"))
+							    .imageFileName(rs.getString("imageFileName"))
+							    .weight(rs.getString("weight"))
+							    .regDate(rs.getString("regDate"))
+							    .build();
+							list.add(vo);
+
 								
 					}
 				}

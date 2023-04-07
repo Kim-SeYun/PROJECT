@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,11 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dao.MemberDao;
+import com.dao.ProductDao;
 import com.domain.AuthVO;
 import com.domain.MemberVO;
 import com.domain.MemberVO.MemberGrade;
 import com.google.gson.Gson;
 import com.service.MemberService;
+import com.service.ProductService;
 
 @WebServlet("/member/*")
 public class MemberController extends HttpServlet {
@@ -30,6 +31,14 @@ public class MemberController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		service = new MemberService(new MemberDao());
 		gson = new Gson();
+	}
+	
+	private ProductService productService;
+	
+	@Override
+	public void init() throws ServletException {
+		ProductDao dao = new ProductDao();
+		productService = new ProductService(dao);
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -152,6 +161,9 @@ public class MemberController extends HttpServlet {
 			request.setAttribute("info", info);
 			nextPage = "myPage";
 		}
+
+		
+		
 		
 		// 주문내역
 		else if(pathInfo.equals("/orderList")) {

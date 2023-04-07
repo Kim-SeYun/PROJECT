@@ -20,7 +20,7 @@ $(function(){
 	
 	if(auth.grade == 'ROLE_ADMIN'){
 		$('.myPage').hide();
-		//$('.cart').hide();
+		// $('.cart').hide();
 	}else{
 		$('.adminPage').hide();
 	}

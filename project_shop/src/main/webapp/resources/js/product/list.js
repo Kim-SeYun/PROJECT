@@ -1,4 +1,3 @@
-
 $(function(){
 	
 	if(auth.grade != 'ROLE_ADMIN'){
@@ -19,13 +18,17 @@ $(function(){
 	$('.cartBtn').on('click', function(e){
 		let data = $(this).attr('value');
 		let cnt = $('.cartCnt').val();
+		let price = $(this).prev('input[type="hidden"]').val();
+		let name = $(this).prev().prev('input[type="hidden"]').val();
+		let imageFileName = $(this).prev().prev().prev('input[type="hidden"]').val();
+		let weight = $(this).prev().prev().prev().prev('input[type="hidden"]').val();
 
 		if(auth.id !=null && auth.id !=''){
 			
 			$.ajax({
 				type : 'post',
 				url : `${contextPath}/cart/addCart`,
-				data : {id : auth.id, pno : data, cartCnt : cnt}, 
+				data : {id : auth.id, pno : data, cartCnt : cnt, price : price, name : name, imageFileName : imageFileName, weight : weight}, 
 				success : function() {
 					var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?")
 					if(check){

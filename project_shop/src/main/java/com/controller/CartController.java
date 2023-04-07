@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -66,12 +67,21 @@ public class CartController extends HttpServlet {
 			String id = request.getParameter("id");
 			String Parampno = request.getParameter("pno");
 			String cartCntParam = request.getParameter("cartCnt");
+			String ParamPrice = request.getParameter("price");
+			String name = request.getParameter("name");
+			String imageFileName = request.getParameter("imageFileName");
+			String weight = request.getParameter("weight");
 			int cartCnt = Integer.parseInt(cartCntParam);
+			int price = Integer.parseInt(ParamPrice);
 			int pno = Integer.parseInt(Parampno);
 			CartVO vo = CartVO.builder()
 					.id(id)
 					.pno(pno)
 					.cart_cnt(cartCnt)
+					.price(price)
+					.name(name)
+					.imageFileName(imageFileName)
+					.weight(weight)
 					.build();
 			service.addCart(vo);
 			String result = gson.toJson("장바구니 담기");
@@ -117,7 +127,7 @@ public class CartController extends HttpServlet {
 		
 		else if(pathInfo.equals("/orderCheck")) {
 			String id = request.getParameter("id");
-			String data = request.getParameter("data");
+			String data = request.getParameter("data"); // pno값
 			String[] list = data.split(",");
 			service.orderCheck(id, list);
 			String result = "주문 성공";
