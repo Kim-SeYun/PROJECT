@@ -54,7 +54,7 @@ public class ReplyController extends HttpServlet {
 			if(session.getAttribute("lastWriting")!=null) { // 마지막에 글을 쓴 시간이 있다면
 				long lastWriting = (long) session.getAttribute("lastWriting");
 				if(currentTime-lastWriting < 10000) {
-					out.print(gson.toJson("도배하지마세요"));
+					out.print(gson.toJson("10초 간격을 두고 답변을 작성해 주세요."));
 					return;
 				}
 			}
@@ -67,7 +67,7 @@ public class ReplyController extends HttpServlet {
 					.writer(request.getParameter("writer")).build();
 			
 			service.writer(vo);
-			String result = gson.toJson("댓글 등록 성공");
+			String result = gson.toJson("답변이 성공적으로 등록되었습니다.");
 			out.print(result);
 			
 		} else if(pathInfo.equals("/remove")) {
@@ -79,7 +79,7 @@ public class ReplyController extends HttpServlet {
 					.build();
 			
 			service.remove(vo);
-			String result = gson.toJson("댓글 삭제 성공");
+			String result = gson.toJson("답변이 성공적으로 삭제되었습니다.");
 			out.print(result);
 		}
 	}

@@ -50,18 +50,7 @@ public class ProductReplyController extends HttpServlet{
 		
 		else if(pathInfo.equals("/write")) {
 			String paramPno = request.getParameter("pno");
-			
-			long currentTime = System.currentTimeMillis();
-			HttpSession session = request.getSession(false);
-			if(session.getAttribute("lastWriting")!=null) {
-				long lastWriting = (long) session.getAttribute("lastWriting");
-				if(currentTime-lastWriting < 10000) {
-					out.print(gson.toJson("도배금지"));
-					return;
-				}
-			}
-			
-			session.setAttribute("lastWriting", currentTime);
+
 			
 			ProductReplyVO vo = ProductReplyVO.builder()
 							.pno(Integer.parseInt(paramPno))
@@ -83,6 +72,26 @@ public class ProductReplyController extends HttpServlet{
 			String result = gson.toJson("댓글 삭제 성공");
 			out.print(result);
 		}
+		
+		else if(pathInfo.equals("/prCheck")) {
+			int result = 0;
+		    String id = request.getParameter("id");
+		    int pno = Integer.parseInt(request.getParameter("pno"));
+			if(service.prCheck(id, pno)) {
+				result = 1;
+			}
+			out.print(gson.toJson(result));
+			return;
+		}
+		
+		else if(pathInfo.equals("/updateCommentCount")) {
+			String id = request.getParameter("id");
+			int pno = Integer.parseInt(request.getParameter("pno"));
+			service.updateCommentCount(id, pno);
+			String result = gson.toJson("success");
+			out.print(result);
+		}
+		
 	}
 	
 	

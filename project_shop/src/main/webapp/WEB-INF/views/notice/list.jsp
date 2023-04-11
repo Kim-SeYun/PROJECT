@@ -2,10 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>  
 <script src="${contextPath}/resources/js/notice/list.js"></script>  
-<h1>NOTICE</h1>
-<a href="${contextPath}/notice/writeForm" class="btn btn-dark noticeWrite"  style="float: right; margin-right: 150px">Write</a>
-<br><br>
+
 <div class="container my-3">
+<h1>NOTICE</h1>
+<a href="${contextPath}/notice/writeForm" class="btn btn-dark noticeWrite" style="float: right; margin-right: 0px;">Write</a>
+<br><br>
+
 	<form id="listForm">
 		<table class="table">
 			<tr>

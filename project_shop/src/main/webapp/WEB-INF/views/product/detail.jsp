@@ -9,7 +9,6 @@
     <div class="col-sm-4">
      
       <div class="fakeimg"><img src="${contextPath}/fileDownload?no=${product.pno}&imageFileName=${product.imageFileName}&path=product" alt="${product.name}" width="300" height="250" /><br></div>
-      
     </div>
     <div class="col-sm-8">
       <h2><b>${product.name}</b></h2>
@@ -25,6 +24,7 @@
 		<input type="text" class="cartCnt" name="cartCnt" value="${list.cart_cnt}1" readonly="readonly" style="width: 40px; height: 38px; text-align: center;"/>
 		<button type="button" class="btn btn-outline-secondary plus">+</button>
 	  </div>
+	  <input type="hidden" value="${product.weight}">
 	  <input type="hidden" value="${product.imageFileName}">
 	  <input type="hidden" value="${product.name}">
 	  <input type="hidden" value="${product.price}">
@@ -36,7 +36,7 @@
 <input type="hidden" name="pno" value="${product.pno}">
 
 <div class="container" style="margin-left: 20%;">
-<div class="productReplyForm" style="margin-top: 30px;">
+ 	<div class="productReplyForm" style="margin-top: 30px;">
 		<table class="table">
 			<tr>
 				<th colspan="2">
@@ -48,18 +48,20 @@
 			</tr>
 			<tr>
 				<td class="col-1 text-center"><b>내용</b></td>
+				
 				<td>
 					<textarea rows="5" class="form-control reply_content"></textarea>
 				</td>
 			</tr>
 			<tr class="text-right">
-				<td colspan="2"><button class="btn btn-light reply_write">댓글등록</button></td>
+				<td colspan="2"><button class="btn btn-light reply_write">리뷰등록</button></td>
 			</tr>
 		</table>
-	</div>
+	</div> 
+	
 	<div class="productReplyList" style="margin-top: 30px;">
 		<div class="card">
-		  <div class="card-header bg-dark text-white">댓글목록</div>
+		  <div class="card-header bg-dark text-white">리뷰목록</div>
 		  <div class="card-body">
 		  	<ul class="list-group list-group-flush">
 		  		<li>여기 있음</li>

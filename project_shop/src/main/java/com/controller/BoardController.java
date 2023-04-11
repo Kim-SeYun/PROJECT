@@ -128,7 +128,7 @@ public class BoardController extends HttpServlet {
 					multiReq.deleteOriginImage(bno, originFileName);
 				}
 			} 
-			response.sendRedirect(contextPath+"/board");
+			response.sendRedirect(contextPath+"/board/detail?bno=" + bno);
 			return;
 		}
 		

@@ -41,4 +41,8 @@ public class CartService {
 		return dao.orderList(id);
 	}
 
+	public void prCheck(String id, String[] list) {
+		dao.prCheck(id, list);
+	}
+
 }

@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import com.common.ConnectionUtil;
 import com.domain.CartVO;
+import com.domain.MemberVO;
 import com.domain.OrderVO;
 
 public class CartDao {
@@ -160,6 +161,39 @@ public class CartDao {
 			}		
 		
 	}
+		
+	public void prCheck(String id, String[] list) {
+	    String queryInsert = "INSERT INTO SHOP_PRCHECK(PR_ID, ID, PNO) VALUES(SHOP_PRCHECK_SEQ.NEXTVAL, ?, ?)";
+	    String queryUpdate = "UPDATE SHOP_PRCHECK SET COUNT = COUNT + 1 WHERE ID = ? AND PNO = ?";
+	    String queryCheck = "SELECT COUNT(*) AS CNT FROM SHOP_PRCHECK WHERE ID = ? AND PNO = ?";
+
+	    try (Connection conn = dataSource.getConnection()) {
+	        for (int i = 0; i < list.length; i++) {
+	            int pno = Integer.parseInt(list[i]);
+
+	            try (PreparedStatement pstmtCheck = conn.prepareStatement(queryCheck);
+	                 PreparedStatement pstmtInsert = conn.prepareStatement(queryInsert);
+	                 PreparedStatement pstmtUpdate = conn.prepareStatement(queryUpdate)) {
+	                pstmtCheck.setString(1, id);
+	                pstmtCheck.setInt(2, pno);
+
+	                ResultSet rs = pstmtCheck.executeQuery();
+	                if (rs.next() && rs.getInt("CNT") == 0) {
+	                    pstmtInsert.setString(1, id);
+	                    pstmtInsert.setInt(2, pno);
+	                    pstmtInsert.executeUpdate();
+	                } else {
+	                    pstmtUpdate.setString(1, id);
+	                    pstmtUpdate.setInt(2, pno);
+	                    pstmtUpdate.executeUpdate();
+	                }
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
 	
 	public void orderCheck(String id, String[] list) {
 		String query1 = "insert into shop_order(order_id, id, pno, order_cnt, name, price, weight, imageFileName) "

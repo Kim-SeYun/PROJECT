@@ -130,6 +130,7 @@ public class CartController extends HttpServlet {
 			String data = request.getParameter("data"); // pno값
 			String[] list = data.split(",");
 			service.orderCheck(id, list);
+			service.prCheck(id, list);
 			String result = "주문 성공";
 			out.print(gson.toJson(result));
 			return;

@@ -33,13 +33,14 @@ $(function(){
 		}
 	});
 	
+	
 	// 목록으로
 	$('.toList').on('click', function(){
+	viewForm.empty();
 		viewForm.attr({
 			"action" : `${contextPath}/board`,
 			"method" : "get"
-		}).empty() // 파라미터 정보 삭제
-		.submit();
+		}).submit();
 	});
 	
 	// 수정 처리
@@ -69,6 +70,11 @@ $(function(){
 	$('.reply_write').on('click', function(){
 		let writer = $('.reply_writer').val()
 		let reply = $('.reply_content').val()
+    
+	    if (reply === "") {
+	        alert("댓글 내용을 입력해주세요.");
+	        return;
+	    }		
 		
 		let replyVO = {
 			bno : bno,

@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ include file="../layout/header.jsp" %>  
-<script src="${contextPath}/resources/js/board/list.js"></script>  
-<h1>Q&A</h1>
-<a href="${contextPath}/board/writeForm" class="btn btn-dark boardWrite" style="float: right; margin-right: 450px">Write</a>
-<br><br>
+<script src="${contextPath}/resources/js/board/list.js"></script>
+  
 <div class="container my-3">
+<h1>Q&A</h1>
+<a href="${contextPath}/board/writeForm" class="btn btn-dark boardWrite" style="float: right; margin-right: 0px;">Write</a>
+<br><br>
 	<form id="listForm">
+	<input type="hidden" value="${param.pageNum}" name="pageNum">
 		<table class="table">
 			<tr>
 				<th>번호</th>
@@ -46,7 +47,6 @@
 		  <li class="page-item"><a class="page-link" href="?pageNum=${p.endPage+1}">Next</a></li>
 	  </c:if>
 	</ul>
-	
 </div>
 
 <%@ include file="../layout/footer.jsp" %>  

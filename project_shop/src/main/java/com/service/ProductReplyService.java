@@ -27,4 +27,14 @@ public class ProductReplyService {
 	public void remove(ProductReplyVO vo) {
 		dao.remove(vo);
 	}
+
+	public boolean prCheck(String id, int pno) {
+	    return dao.prCheck(id, pno);
+	}
+
+	public void updateCommentCount(String id, int pno) {
+		dao.updateCommentCount(id, pno);
+	}
+
+		
 }

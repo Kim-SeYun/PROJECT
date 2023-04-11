@@ -65,7 +65,7 @@
 					<c:if test="${auth.id eq board.writer or auth.grade eq 'ROLE_ADMIN'}">
 						<button type="button" class="btn btn-secondary remove">삭제</button>
 					</c:if>
-					<button type="button" class="btn btn-success toList">목록</button>
+					<button class="btn btn-success toList">목록</button>
 				</td>
 			</tr>
 			<tr class="viewMode">
@@ -84,7 +84,7 @@
 			<tr>
 				<th colspan="2">
 					<ul class="d-flex justify-content-between">
-						<li>댓글을 작성해주세요</li>
+						<li>답변 작성해주세요</li>
 						<li class="form-inline">작성자 : <input type="text" class="reply_writer form-control ml-2" value="${auth.id}" readonly="readonly"></li>
 					</ul>
 				</th>
@@ -96,13 +96,14 @@
 				</td>
 			</tr>
 			<tr class="text-right">
-				<td colspan="2"><button class="btn btn-light reply_write">댓글등록</button></td>
+				<td colspan="2"><button class="btn btn-light reply_write">답변등록</button></td>
 			</tr>
 		</table>
 	</div>
+	
 	<div class="replyList">
 		<div class="card">
-		  <div class="card-header bg-dark text-white">댓글목록</div>
+		  <div class="card-header bg-dark text-white">답변목록</div>
 		  <div class="card-body">
 		  	<ul class="list-group list-group-flush">
 			</ul>

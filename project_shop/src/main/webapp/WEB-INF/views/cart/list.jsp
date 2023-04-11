@@ -8,7 +8,12 @@
 <div class="container my-3">
 	<form id="cartForm">
 		<c:if test="${empty list}">
-			<h1>장바구니에 담긴 상품이 없습니다.</h1>
+			<div style="margin: 200px auto 0; text-align: center; width: 60%">
+			    <h1 style="margin-bottom: 50px;">장바구니에 담긴 상품이 없습니다.</h1>
+				<a href="${contextPath}/product/list" class="btn btn-primary" style="float: right; margin-right: 5%;">
+			      SHOP
+			    </a>			    
+		    </div>
 		</c:if>
 		<c:if test="${not empty list}">
 			<table class="table">
