@@ -4,40 +4,105 @@
 <script src="${contextPath}/resources/js/reply/ProductReply.js"></script>
 <script src="${contextPath}/resources/js/product/detail.js"></script>
 <script src="${contextPath}/resources/js/product/list.js"></script> 
-<div class="container" style="margin-top:80px; margin-left: 20%;">
-  <div class="row">
-    <div class="col-sm-4">
-     
-      <div class="fakeimg"><img src="${contextPath}/fileDownload?no=${product.pno}&imageFileName=${product.imageFileName}&path=product" alt="${product.name}" width="300" height="250" /><br></div>
+
+<style>
+  .input-group {
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+  }
+
+  .minus, .plus {
+    border: none;
+    margin: 0;
+    padding: 0.5rem;
+    background-color: transparent;
+  }
+
+  .cartCnt {
+    text-align: center;
+    font-size: 14px;
+    padding: 6px;
+    border: none;
+    margin: 0;
+  }
+</style>
+
+
+<div class="container" style="margin-top:80px; margin-left: 25%;">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="fakeimg">
+                <img src="${contextPath}/fileDownload?no=${product.pno}&imageFileName=${product.imageFileName}&path=product" alt="${product.name}" width="400" height="370" />
+                <br>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <h2><b>${product.name}</b></h2>
+            <hr align="left" style="border: solid 1px grey; width: 70%;">
+            <div class="row">
+                <div class="col-md-2">
+                    <font size="2em" color="grey">가격</font>
+                </div>
+                <div class="col-md-10">
+                    <h5><p><b><fmt:formatNumber value="${product.price}" pattern="#,###원"/></b></p></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <font size="2em" color="grey">중량X수량</font>
+                </div>
+                <div class="col-md-10">
+                    <p><b><font size="3em">${product.weight}</font></b></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <font size="2em" color="grey">상품설명</font>
+                </div>
+                <div class="col-md-10">
+                    <p><b>${product.info}</b></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <font size="2em" color="grey">수량</font>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group mb-3">
+                        <button type="button" class="btn btn-outline-secondary minus">-</button>
+                        <input type="text" class="cartCnt form-control" name="cartCnt" value="${list.cart_cnt}1" readonly="readonly" style="text-align: center; background-color: white;" />
+                        <button type="button" class="btn btn-outline-secondary plus">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-5" style="margin-top: 10px;">
+                    <font size="3em" style="font-weight: bold; margin-left: 170px;">합계금액 : </font>
+                </div>
+	            <div class="col-sm-3">
+		           <c:set var="total" value="${total + product.price*list.cart_cnt}"/>
+					<div class="form-group">
+						<input type="text" name="totalPrice" class="form-control totalPrice" value="<fmt:formatNumber value="${total}" pattern="#,###원"/>" style="font-size:25px; text-align:right; font-weight :bold; background-color: white; border: none;" readonly="readonly">
+						<input type="hidden" class="hdTotal" value="${total}">
+					</div> 
+				</div>
+			</div>
+          
+            <input type="hidden" value="${product.weight}">
+            <input type="hidden" value="${product.imageFileName}">
+            <input type="hidden" value="${product.name}">
+            <input type="hidden" class="price" value="${product.price}">
+            <button type="button" id="button" value="${product.pno}" class="cartBtn" style="background-color: #bd6abc; color: #FFFFFF; border: 1px solid white; width: 400px; height: 50px; font-size: 20px;">Cart</button>
+        </div>
     </div>
-    <div class="col-sm-8">
-      <h2><b>${product.name}</b></h2>
-      <hr align="left" style="border: solid 1px grey; width: 20%;">
-      <font size="2em" color="grey">가격</font>
-      <h5><p><b><fmt:formatNumber value="${product.price}" pattern="#,###원"/></b></p></h5>
-      <font size="2em" color="grey">중량X수량</font>
-      <p><b><font size="3em">${product.weight}</b></p>
-      <font size="2em" color="grey">상품설명</font>
-      <p><b>${product.info}</b></p>
-      <div>
-      	<button type="button" class="btn btn-outline-secondary minus">-</button>
-		<input type="text" class="cartCnt" name="cartCnt" value="${list.cart_cnt}1" readonly="readonly" style="width: 40px; height: 38px; text-align: center;"/>
-		<button type="button" class="btn btn-outline-secondary plus">+</button>
-	  </div>
-	  <input type="hidden" value="${product.weight}">
-	  <input type="hidden" value="${product.imageFileName}">
-	  <input type="hidden" value="${product.name}">
-	  <input type="hidden" value="${product.price}">
-      <button type="button" id="button" value="${product.pno}" class="btn btn-outline-info cartBtn">Cart</button>
-      
-    </div>
-  </div>
 </div>
 <input type="hidden" name="pno" value="${product.pno}">
 
-<div class="container" style="margin-left: 20%;">
+<div class="container" style="margin-left: 20%; margin-top: 10%;">
  	<div class="productReplyForm" style="margin-top: 30px;">
-		<table class="table">
+		<table class="table" style="width: 84%; margin-left: 8%;">
 			<tr>
 				<th colspan="2">
 					<ul class="d-flex justify-content-between">
@@ -54,14 +119,14 @@
 				</td>
 			</tr>
 			<tr class="text-right">
-				<td colspan="2"><button class="btn btn-light reply_write">리뷰등록</button></td>
+				<td colspan="2"><button class="btn btn-light reply_write" >리뷰등록</button></td>
 			</tr>
 		</table>
 	</div> 
 	
 	<div class="productReplyList" style="margin-top: 30px;">
-		<div class="card">
-		  <div class="card-header bg-dark text-white">리뷰목록</div>
+		<div class="card" style="width: 84%; margin-left: 8%;">
+		  <div class="card-header" style="background-color: #7092bf; color: #FFFFFF; border: 1px solid white;">리뷰목록</div>
 		  <div class="card-body">
 		  	<ul class="list-group list-group-flush">
 		  		<li>여기 있음</li>

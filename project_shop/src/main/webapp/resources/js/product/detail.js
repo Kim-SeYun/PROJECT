@@ -32,24 +32,28 @@ $(function(){
 		productReply.list(name);
 	});
 	
+	let n = 0;
+	let price = $('.price').val();
+	let total = price * 1;
+	$('.totalPrice').val(total.toLocaleString('ko-KR')+"원");
+	
 	$('.plus').on('click', function(){
-		let count = $('.cartCnt').val();
-		console.log(count)
-		//var n = $('.plus').index(this);
-		//console.log(n)
-		var n = 0
-		var num = $(".cartCnt:eq("+n+")").val();
-    	num = $(".cartCnt:eq("+n+")").val(num*1+1);
-	})
+	    let count = Number($('.cartCnt:eq('+n+')').val()) + 1;
+	    $('.cartCnt:eq('+n+')').val(count);
+	    
+	    let total = count * price;
+	    $('.totalPrice').val(total.toLocaleString('ko-KR')+"원");
+	});
 	
 	$('.minus').click(function(){ 
-		var n = 0
-	    var num = $(".cartCnt:eq("+n+")").val();
-	    if(num<=1){
-			num = 2;
-		}
-	    num = $(".cartCnt:eq("+n+")").val(num*1-1); 
-  });
-	
+	    let count = Number($('.cartCnt:eq('+n+')').val()) - 1;
+	    if(count < 1) {
+	        count = 1;
+	    }
+	    $('.cartCnt:eq('+n+')').val(count);
+	    
+	    let total = count * price;
+	    $('.totalPrice').val(total.toLocaleString('ko-KR')+"원");
+	});
 	
 })

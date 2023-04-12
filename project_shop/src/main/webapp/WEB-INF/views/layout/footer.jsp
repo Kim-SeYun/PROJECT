@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<style>
+	footer{
+	 width: 100%;
+	}
+</style>
+    
  <footer style="background-color: #f7f7f7; padding-top: 30px; padding-bottom: 30px; margin-top: 60px;">
     <div class="container">
         <div class="row">
@@ -35,4 +41,23 @@
     </div>
 </footer>
 </body>
+
+<script>
+  function positionFooter() {
+    var footerHeight = document.querySelector('footer').offsetHeight;
+    var windowHeight = window.innerHeight;
+    var bodyHeight = document.body.offsetHeight;
+
+    if (bodyHeight < windowHeight) {
+      document.querySelector('footer').style.position = "absolute";
+      document.querySelector('footer').style.bottom = "0";
+    } else {
+      document.querySelector('footer').style.position = "relative";
+      document.querySelector('footer').style.bottom = "auto";
+    }
+  }
+
+  positionFooter();
+  window.addEventListener("resize", positionFooter);
+</script>
 </html>

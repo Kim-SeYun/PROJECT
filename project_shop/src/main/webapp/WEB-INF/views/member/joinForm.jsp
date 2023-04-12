@@ -8,24 +8,25 @@
 	
 <form action="${contextPath}/member/join" method="post" onsubmit="return checked()">
 	<div class="container" >
-		<h2><b>회원가입</b></h2>
-	<div class="col-sm-12">
+		<h2 style="text-align: center; margin-top: 5%;"><b>회원가입</b></h2>
+	<div class="col-sm-9" style="margin-top: 5%; margin-left: 10%;">
+		<hr style="border-top: 2px solid grey;">
 		<div class="form-group">
-	<div class="row">
-		<div class="col-sm-3">
-			<h4>아이디</h4>
+			<div class="row">
+				<div class="col-sm-3">
+					<h4>아이디</h4>
+				</div>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" name="id" id="id" value="" maxlength="12" onkeyup="check_id()" pattern="[a-zA-Z0-9]{4,12}" title="4~12자의 영문 대소문자, 숫자만 입력하세요" style="font-size:20px;" required>
+				</div>
+				<!-- 아이디 중복 체크 여부 -->
+				<div class="col-sm-1">
+					<input type="button" class="form-control checkId" style="width:100px; height:43px; background-color: white; color: #bd6abc; border: 1px solid #bd6abc;" value="중복확인">
+				</div>
+				<input type="hidden" id="idDuplication" name="idDuplication" value=""/>
+				<span id="id_check_msg" style="text-align: center; display: block; margin: 0 auto;"></span>
+			</div>
 		</div>
-		<div class="col-sm-6">
-			<input type="text" class="form-control" name="id" id="id" value="" maxlength="12" onkeyup="check_id()" pattern="[a-zA-Z0-9]{4,12}" title="4~12자의 영문 대소문자, 숫자만 입력하세요" style="font-size:20px;" required>
-		</div>
-		<!-- 아이디 중복 체크 여부 -->
-		<div class="col-sm-1">
-			<input type="button" class="form-control checkId" style="width:100px; height:43px;" value="중복확인">
-		</div>
-		<input type="hidden" id="idDuplication" name="idDuplication" value=""/>
-		<span id="id_check_msg"></span>
-	</div>
-</div>
 		<div class="form-group">
 			<div class="row">
 				<div class="col-sm-3">
@@ -43,8 +44,8 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="password" class="form-control" id="pwd_check" name="pwd_check" onkeyup="check_pwd()" value="" maxlength="16" style="font-size:20px;" required> 
+            		<span id="pwd_check_msg" style="text-align: center; display: block; margin: 0 auto;"></span>
             	</div>
-            <span id="pwd_check_msg"></span>
             </div>
 		</div>
 		<div class="form-group">
@@ -136,7 +137,7 @@
 		            <input type="text" class="form-control" id="addr" name="address2" style="font-size:20px;" placeholder="상세 주소" required><br> 
 		        </div>
 		        <div class="col-sm-2">
-		            <input type="button" class="form-control" id="postcode_button" onclick="open_Postcode()" style="width:100px; height:43px;" value="주소검색"><br>
+		            <input type="button" class="form-control" id="postcode_button" onclick="open_Postcode()" style="width:100px; height:43px; background-color: white; color: #bd6abc; border: 1px solid #bd6abc;" value="주소검색"><br>
 		        </div> 
 			</div>
 		</div>
@@ -144,8 +145,8 @@
 	</div>
 	
 	<div class="form-group" align="center"> 
-		<input type="submit" class="form-control" style="width:100px; height:43px; display:inline;" value="회원가입"> 
-		<input type="reset" class="reset form-control" style="width:100px; height:43px; display:inline;" value="다시 입력"> 
+		<input type="submit" class="form-control" style="width:100px; height:43px; display:inline; background-color: #bd6abc; color: #FFFFFF; border: 1px solid white;" value="회원가입"> 
+		<input type="reset" class="reset form-control" style="width:100px; height:43px; display:inline; background-color: white; color: #bd6abc; border: 1px solid #bd6abc;" value="다시 입력"> 
 	</div> 
 </form>
 <%@ include file="../layout/footer.jsp" %>  

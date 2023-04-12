@@ -10,6 +10,7 @@
 	display: block;
 	margin: 0 auto;	
 	}
+	
 </style>
 
 <div class="container">
@@ -57,7 +58,7 @@
 	 	<c:otherwise>
 	 	<c:forEach items="${products}" var="p">
 			<div class="col-sm-4">
-			    <div><a href="${p.name}" class="name"><img src="${contextPath}/fileDownload?no=${p.pno}&imageFileName=${p.imageFileName}&path=product" alt="${p.name}" width="200" /></div>
+			    <div><a href="${p.name}" class="name"><img src="${contextPath}/fileDownload?no=${p.pno}&imageFileName=${p.imageFileName}&path=product" alt="${p.name}" width="200" height="150" /></div>
 			    <div style="margin-left: 5%;">${p.name}</a></div>
 			    <div style="margin-left: 5%;"><fmt:formatNumber value="${p.price}" pattern="#,###원"/></div>
 			    <div><input type="hidden" value="1" class="cartCnt"></div>
