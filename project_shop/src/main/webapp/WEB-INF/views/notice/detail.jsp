@@ -4,11 +4,9 @@
 <script src="${contextPath}/resources/js/notice/detail.js"></script> 
 
 <div class="container">
-	<div class="jumbotron">
-		<h1>글상세</h1>
-	</div>
+	<h2 style="margin-top: 5%; text-align: center;">NOTICE</h2>
 	<form id="viewForm" enctype="multipart/form-data">
-		<table class="table">
+		<table class="table" style="margin-top: 5%;">
 			<tr>
 				<th>글번호</th>
 				<td>
@@ -67,6 +65,7 @@
 			<tr class="viewMode">
 				<c:if test="${auth.id eq notice.writer or auth.grade eq 'ROLE_ADMIN'}">
 					<td colspan="4" class="text-center">
+						<input type="hidden" name="pageNum" value="">
 						<button type="button" class="btn btn-primary modify">수정</button>
 						<button type="button" class="btn btn-secondary backViewMode">취소</button>
 					</td>

@@ -2,10 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>  
 <script src="${contextPath}/resources/js/board/list.js"></script>
+
+<style>
+	.boardWrite {
+		background-color: #bd6abc; 
+		color: #FFFFFF; 
+		border: 1px solid white;
+	}
+	
+	.boardWrite:hover {
+	  background-color: #FFFFFF;
+	  color: #bd6abc;
+	  border: 1px solid #bd6abc;
+	  
+}
+</style>
   
-<div class="container my-3">
-<h1>Q&A</h1>
-<a href="${contextPath}/board/writeForm" class="btn btn-dark boardWrite" style="float: right; margin-right: 0px;">Write</a>
+<div class="container my-3" >
+<h1 style="margin-top: 5%; text-align: center;">Q&A</h1>
+<a href="${contextPath}/board/writeForm" class="btn boardWrite" style="float: right; margin-right: 0px;">Write</a>
 <br><br>
 	<form id="listForm">
 	<input type="hidden" value="${param.pageNum}" name="pageNum">

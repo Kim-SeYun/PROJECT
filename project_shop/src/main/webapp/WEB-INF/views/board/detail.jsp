@@ -6,11 +6,10 @@
 <script src="${contextPath}/resources/js/board/detail.js"></script> 
 
 <div class="container">
-	<div class="jumbotron">
-		<h1>글상세</h1>
-	</div>
+	
+	<h2 style="margin-top: 5%; text-align: center;">Q&A</h2>
 	<form id="viewForm" enctype="multipart/form-data">
-		<table class="table">
+		<table class="table" style="margin-top: 5%;">
 			<tr>
 				<th>글번호</th>
 				<td>
@@ -38,25 +37,27 @@
 					<textarea rows="10" name="content" class="form-control" readonly="readonly">${board.content}</textarea>
 				</td>
 			</tr>
-			<tr>
-				<th>첨부이미지</th>
-				<td colspan="3">
-					<input type="file" name="imageFileName" class="form-control viewMode">
-					<div class="my-2">
-					<c:if test="${not empty board.imageFileName}">
-						<input type="hidden" name="originFileName" value="${board.imageFileName}">
-						<div class="preview">
-							<img class="originImg" src="${contextPath}/fileDownload?no=${board.bno}&imageFileName=${board.imageFileName}&path=board">
-						</div>
-					</c:if>
-					<c:if test="${empty board.imageFileName}">
-					<div class="preview">
-						<p>등록된 이미지가 없습니다.</p>
-					</div>
-					</c:if>
-					</div>
-				</td>
-			</tr>
+<tr>
+  <th>첨부이미지</th>
+  <td colspan="3">
+    <div style="display: flex; align-items: center;">
+      <input type="file" name="imageFileName" class="form-control viewMode">
+      <div class="my-2" style="margin-left: 150px;">
+        <c:if test="${not empty board.imageFileName}">
+          <input type="hidden" name="originFileName" value="${board.imageFileName}">
+          <div class="preview">
+            <img class="originImg" src="${contextPath}/fileDownload?no=${board.bno}&imageFileName=${board.imageFileName}&path=board" width="500px" height="400px">
+          </div>
+        </c:if>
+        <c:if test="${empty board.imageFileName}">
+          <div class="preview">
+            <p>등록된 이미지가 없습니다.</p>
+          </div>
+        </c:if>
+      </div>
+    </div>
+  </td>
+</tr>
 			<tr>
 				<td colspan="4" class="text-center">
 					<c:if test="${auth.id eq board.writer or (board.writer eq '관리자' and auth.grade eq 'ROLE_ADMIN')}">
@@ -71,6 +72,7 @@
 			<tr class="viewMode">
 				<c:if test="${auth.id eq board.writer or auth.grade eq 'ROLE_ADMIN'}">
 					<td colspan="4" class="text-center">
+						<input type="hidden" name="pageNum" value="">
 						<button type="button" class="btn btn-primary modify">수정</button>
 						<button type="button" class="btn btn-secondary backViewMode">취소</button>
 					</td>
@@ -79,7 +81,7 @@
 		</table>
 	</form>
 
-	<div class="replyForm">
+	<div class="replyForm" style="margin-top: 10%;">
 		<table class="table">
 			<tr>
 				<th colspan="2">
@@ -101,9 +103,9 @@
 		</table>
 	</div>
 	
-	<div class="replyList">
+	<div class="replyList" style="margin-top: 10%;">
 		<div class="card">
-		  <div class="card-header bg-dark text-white">답변목록</div>
+		  <div class="card-header" style="background-color: #bd6abc; color: #FFFFFF; border: 1px solid white;">답변목록</div>
 		  <div class="card-body">
 		  	<ul class="list-group list-group-flush">
 			</ul>
@@ -118,16 +120,7 @@
 	        <h4 class="modal-title">댓글 등록</h4>
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
-	
-	      <!-- Modal body -->
-	      <div class="modal-body">
-	        Modal body..
-	      </div>
-	
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>
-	      </div>
+
 	    </div>
 	  </div>
 	</div>
