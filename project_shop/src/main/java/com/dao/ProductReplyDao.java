@@ -21,7 +21,6 @@ public class ProductReplyDao {
 		dataSource = ConnectionUtil.getDataSource();
 	}
 	
-	
 	// 리뷰목록
 	public List<ProductReplyVO> p_list(String name) {
 		List<ProductReplyVO> p_list = new ArrayList<ProductReplyVO>();
@@ -70,10 +69,11 @@ public class ProductReplyDao {
 	// 리뷰삭제
 	public void remove(ProductReplyVO vo) {
 		String query = "delete from P_REPLY where rno=?";
+		
 		try (
 			Connection conn = dataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(query);	
-			){
+		){
 			pstmt.setInt(1, vo.getRno());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -113,7 +113,8 @@ public class ProductReplyDao {
 	    try (Connection conn = dataSource.getConnection();
 	         PreparedStatement pstmt1 = conn.prepareStatement(query1);
 	         PreparedStatement pstmt2 = conn.prepareStatement(query2);
-	         PreparedStatement pstmt3 = conn.prepareStatement(query3)) {
+	         PreparedStatement pstmt3 = conn.prepareStatement(query3)
+	    ){
 
 	        pstmt1.setString(1, id);
 	        pstmt1.setInt(2, pno);

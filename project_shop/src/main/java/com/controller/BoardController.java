@@ -1,6 +1,5 @@
 package com.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -12,14 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FileUtils;
-
 import com.common.FileUpload;
 import com.dao.BoardDao;
-import com.dao.NoticeDao;
 import com.domain.BoardVO;
 import com.domain.Criteria;
-import com.domain.NoticeVO;
 import com.domain.Pagination;
 import com.service.BoardService;
 
@@ -54,55 +49,56 @@ public class BoardController extends HttpServlet {
 		String nextPage = null;
 		
 		// 글목록
-		if(pathInfo==null || pathInfo.equals("/") || pathInfo.equals("/list")) {
-			Criteria criteria = new Criteria();
-			BoardDao dao = new BoardDao();
-			String paramPageNum = request.getParameter("pageNum"); // 페이지 번호
-			if(paramPageNum != null) {
-				criteria.setPageNum(Integer.parseInt(paramPageNum));
-			}
-			List<BoardVO> boardList = service.boardList(criteria);
-			int totalCount = dao.getTotalCount(); // 게시물 수
-			Pagination pagination = new Pagination(criteria, totalCount); // 페이지네이션
-			request.setAttribute("p", pagination);
-			request.setAttribute("list", boardList);
-			nextPage = "list";
-		}
-		
+		if(pathInfo == null || pathInfo.equals("/") || pathInfo.equals("/list")) {
+		    Criteria criteria = new Criteria();
+		    BoardDao dao = new BoardDao();
+		    String paramPageNum = request.getParameter("pageNum"); // 페이지 번호
+		    if(paramPageNum != null) {
+		        criteria.setPageNum(Integer.parseInt(paramPageNum));
+		    }
+		    List<BoardVO> boardList = service.boardList(criteria);
+		    int totalCount = dao.getTotalCount(); // 게시물 수
+		    Pagination pagination = new Pagination(criteria, totalCount); // 페이지네이션
+		    request.setAttribute("p", pagination);
+		    request.setAttribute("list", boardList);
+		    nextPage = "list";
+		} 
+
 		// 글상세
 		else if(pathInfo.equals("/detail")) {
-			String parambno = request.getParameter("bno");
-			int bno = Integer.parseInt(parambno);
-			BoardVO board = service.findBoard(bno);
-			request.setAttribute("board", board);
-			nextPage = "detail";
-		}
-		
+		    String parambno = request.getParameter("bno");
+		    int bno = Integer.parseInt(parambno);
+		    BoardVO board = service.findBoard(bno);
+		    request.setAttribute("board", board);
+		    nextPage = "detail";
+		} 
+
 		// 글쓰기폼
 		else if(pathInfo.equals("/writeForm")) {
-			nextPage = "writeForm";
-		}
-		
+		    nextPage = "writeForm";
+		} 
+
 		// 글쓰기 처리
 		else if(pathInfo.equals("/write")) {
-			Map<String, String> req = multiReq.getMultipartRequest(request);
-			String imageFileName = req.get("imageFileName");
-			
-			BoardVO vo = BoardVO.builder()
-					.title(req.get("title"))
-					.content(req.get("content"))
-					.writer(req.get("writer"))
-					.imageFileName(req.get("imageFileName"))
-					.build();
-			int boardNO = service.addBoard(vo);
+		    Map<String, String> req = multiReq.getMultipartRequest(request);
+		    String imageFileName = req.get("imageFileName");
 
-			// 이미지파일을 첨부한 경우
-			if(imageFileName!=null && imageFileName.length()>0) {
-				multiReq.uploadImage(boardNO, imageFileName);
-			}
-			response.sendRedirect(contextPath+"/board");
-			return;
+		    BoardVO vo = BoardVO.builder()
+			        .title(req.get("title"))
+			        .content(req.get("content"))
+			        .writer(req.get("writer"))
+			        .imageFileName(req.get("imageFileName"))
+			        .build();
+		    int boardNO = service.addBoard(vo);
+
+		    // 이미지파일을 첨부한 경우
+		    if(imageFileName != null && imageFileName.length() > 0) {
+		        multiReq.uploadImage(boardNO, imageFileName);
+		    }
+		    response.sendRedirect(contextPath + "/board");
+		    return;
 		}
+
 		
 		// 글수정 처리
 		else if(pathInfo.equals("/modBoard")) {
@@ -113,7 +109,6 @@ public class BoardController extends HttpServlet {
 			String content = req.get("content");
 			String imageFileName = req.get("imageFileName");
 			String pageNum = req.get("pageNum");
-			System.out.println(pageNum);
 			
 			BoardVO vo = BoardVO.builder()
 					.bno(bno)
@@ -123,12 +118,12 @@ public class BoardController extends HttpServlet {
 					.build();
 			service.modBoard(vo);
 			
-			if(imageFileName!=null) { // 이미지 파일이 있을 때
+			if(imageFileName != null) { // 이미지 파일이 있을 때
 				String originFileName = req.get("originFileName");
 				// 새로운 이미지 업로드
 				multiReq.uploadImage(bno, imageFileName);
 				// 기존 이미지 삭제
-				if(originFileName!=null) {
+				if(originFileName != null) {
 					multiReq.deleteOriginImage(bno, originFileName);
 				}
 			} 

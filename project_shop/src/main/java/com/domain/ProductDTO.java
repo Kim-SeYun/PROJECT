@@ -13,6 +13,4 @@ public class ProductDTO {
 	private String writer;
 	private String replyDate;
 	private String modifyDate;
-	
-	 
 }

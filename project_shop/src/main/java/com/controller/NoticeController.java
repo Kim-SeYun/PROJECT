@@ -49,7 +49,7 @@ public class NoticeController extends HttpServlet {
 		String nextPage = null;
 		
 		// 글목록
-		if(pathInfo==null || pathInfo.equals("/") || pathInfo.equals("/list")) {
+		if(pathInfo == null || pathInfo.equals("/") || pathInfo.equals("/list")) {
 			Criteria criteria = new Criteria();
 			NoticeDao dao = new NoticeDao();
 			String paramPageNum = request.getParameter("pageNum");
@@ -63,8 +63,6 @@ public class NoticeController extends HttpServlet {
 			request.setAttribute("list", noticeList);
 			nextPage = "list";
 		}
-		
-
 		
 		// 글상세	
 		else if(pathInfo.equals("/detail")) {
@@ -150,6 +148,5 @@ public class NoticeController extends HttpServlet {
 		rd = request.getRequestDispatcher(PRIFIX+nextPage+SUFFIX);
 		rd.forward(request, response);
 	}
-	
 
 }

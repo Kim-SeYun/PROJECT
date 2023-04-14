@@ -53,8 +53,8 @@ public class ReplyDao {
 		String query2 = "update SHOP_BOARD set replycount=replycount+1 where bno=?";
 		try(Connection conn = dataSource.getConnection();){
 			try (
-					PreparedStatement pstmt = conn.prepareStatement(query);
-					PreparedStatement pstmt2 = conn.prepareStatement(query2);
+				PreparedStatement pstmt = conn.prepareStatement(query);
+				PreparedStatement pstmt2 = conn.prepareStatement(query2);
 			){
 				conn.setAutoCommit(false);
 				pstmt.setInt(1, vo.getBno());

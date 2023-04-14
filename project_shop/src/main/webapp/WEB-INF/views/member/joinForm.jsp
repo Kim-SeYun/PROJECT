@@ -61,6 +61,17 @@
 		<div class="form-group">
 			<div class="row">
 				<div class="col-sm-3">
+					<h4>휴대폰 번호</h4>
+				</div>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" name="phone" value="" pattern="^01([0|1]{1})([0-9]{4})([0-9]{4})$" title="EX) 01012345678" style="font-size:20px;" placeholder="'-'없이 작성해주세요." required> 
+				</div>		
+			</div>
+		</div>	
+
+		<div class="form-group">
+			<div class="row">
+				<div class="col-sm-3">
 					<h4>이메일</h4>
 				</div>
 				<div class="col-sm-6">

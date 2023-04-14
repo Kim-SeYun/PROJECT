@@ -21,7 +21,7 @@ private DataSource dataSource;
 	
 	// 회원가입
 	public void insertMember(MemberVO vo) {
-		String query = "insert into shop_member(mno, id, pwd, name, email, year, month, day, gender, address) VALUES(SHOP_MNO_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?)";
+		String query = "insert into shop_member(mno, id, pwd, name, phone, email, year, month, day, gender, address) VALUES(SHOP_MNO_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?,?)";
 		try (
 			Connection conn = dataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(query);
@@ -29,12 +29,13 @@ private DataSource dataSource;
 			pstmt.setString(1, vo.getId());
 			pstmt.setString(2, vo.getPwd());
 			pstmt.setString(3, vo.getName());
-			pstmt.setString(4, vo.getEmail());
-			pstmt.setString(5, vo.getYear());
-			pstmt.setString(6, vo.getMonth());
-			pstmt.setString(7, vo.getDay());
-			pstmt.setString(8, vo.getGender());
-			pstmt.setString(9, vo.getAddress());
+			pstmt.setString(4, vo.getPhone());
+			pstmt.setString(5, vo.getEmail());
+			pstmt.setString(6, vo.getYear());
+			pstmt.setString(7, vo.getMonth());
+			pstmt.setString(8, vo.getDay());
+			pstmt.setString(9, vo.getGender());
+			pstmt.setString(10, vo.getAddress());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -58,6 +59,7 @@ private DataSource dataSource;
 						vo = MemberVO.builder()
 								.id(rs.getString("id"))
 								.name(rs.getString("name"))
+								.phone(rs.getString("phone"))
 								.email(rs.getString("email"))
 								.year(rs.getString("year"))
 								.month(rs.getString("month"))
@@ -72,8 +74,6 @@ private DataSource dataSource;
 			}
 			return vo;
 	}
-
-	
 	
 	// 로그인 체크
 	public boolean loginCheck(MemberVO vo) {
@@ -160,6 +160,86 @@ private DataSource dataSource;
 		}
 	}
 
+	// 회원정보 조회
+	public String findId(MemberVO vo) {
+		String id = null;
+		String query = "select id from shop_member where name=? and phone=?";
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);	
+		){
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getPhone());
+			try(ResultSet rs = pstmt.executeQuery();) {
+				if(rs.next()) id = rs.getString("id");
+				return id;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
+	public boolean findPwd(MemberVO vo) {
+		boolean result = false;
+		String query = "select decode(count(*),1,'TRUE','FALSE') as result from shop_member where id=? and phone=?";
+		
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+		){
+			pstmt.setString(1, vo.getId());
+			pstmt.setString(2, vo.getPhone());
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					result = Boolean.parseBoolean(rs.getString("result"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public boolean checkInfo(MemberVO vo) {
+		boolean result = false;
+		String query = "select decode(count(*),1,'TRUE','FALSE') as result from shop_member where name=? and phone=?";
+		
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+		){
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getPhone());
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					result = Boolean.parseBoolean(rs.getString("result"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
+	public void doChangePwd(MemberVO vo) {
+		String query = "update shop_member set pwd=? where id=?";
+		try (
+				Connection conn = dataSource.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(query);
+			){
+				pstmt.setString(1, vo.getPwd());
+				pstmt.setString(2, vo.getId());
 
+				pstmt.executeUpdate();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
+	}
+
+		
 }

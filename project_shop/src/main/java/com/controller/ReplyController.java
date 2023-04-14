@@ -67,7 +67,7 @@ public class ReplyController extends HttpServlet {
 					.writer(request.getParameter("writer")).build();
 			
 			service.writer(vo);
-			String result = gson.toJson("답변이 성공적으로 등록되었습니다.");
+			String result = gson.toJson("답변이 등록되었습니다.");
 			out.print(result);
 			
 		} else if(pathInfo.equals("/remove")) {
@@ -79,10 +79,9 @@ public class ReplyController extends HttpServlet {
 					.build();
 			
 			service.remove(vo);
-			String result = gson.toJson("답변이 성공적으로 삭제되었습니다.");
+			String result = gson.toJson("답변이 삭제되었습니다.");
 			out.print(result);
 		}
 	}
-
 
 }

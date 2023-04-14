@@ -22,4 +22,5 @@ public class NoticeVO {
 	private String writer; 
 	private String imageFileName;
     private Date writeDate;
+    private int viewCnt;
 }

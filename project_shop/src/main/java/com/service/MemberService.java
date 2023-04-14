@@ -1,9 +1,6 @@
 package com.service;
 
-import java.util.List;
-
 import com.dao.MemberDao;
-import com.domain.AuthVO;
 import com.domain.MemberVO;
 import com.domain.MemberVO.MemberGrade;
 
@@ -44,6 +41,21 @@ public class MemberService {
 		dao.updateMember(vo);
 	}
 
-	
-	
+	public String findId(MemberVO vo) {
+		return dao.findId(vo);
+		
+	}
+
+	public boolean findPwd(MemberVO vo) {
+		return dao.findPwd(vo);
+	}
+
+	public void doChangePwd(MemberVO vo) {
+		dao.doChangePwd(vo);
+	}
+
+	public boolean checkInfo(MemberVO vo) {
+		return dao.checkInfo(vo);
+	}
+
 }

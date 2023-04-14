@@ -3,32 +3,31 @@
 <%@ include file="../layout/header.jsp" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
-<style>
-	h1 {
-  margin-top: 100px;
-}
-</style>
 
 <div class="container">
-<h1>주문내역</h1>
 <div class="row">
-	<div class="col-sm-auto">
-		<ul class="nav nav-pills flex-column">
-			<li class="nav-item">
-				<a class="nav-link" href="${contextPath}/member/myPage">개인정보수정</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${contextPath}/cart/orderList">주문내역</a>
-			</li>
-		</ul>
-	</div>
+    <div class="col-sm-2" style="margin-top: 3%;">
+    <h1>MyPage</h1>
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="${contextPath}/member/myPage">개인정보수정</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${contextPath}/cart/orderList">주문내역</a>
+        </li>
+      </ul>
+    </div>
        
-<div class="container col-sm-9">
+<div class="col-sm-10" style="margin-top: 11.5%;">
   <form id="orderForm" style="margin-top: -50px;">
   
     <c:if test="${empty info}">
-      <h1>주문내역이 없습니다.</h1>
+	<div style="margin: 200px auto 0; text-align: center; width: 50%">
+	    <h1 style="margin-bottom: 50px;">주문내역이 없습니다.</h1>
+	</div>      
     </c:if>
+    
+    
     
     <c:if test="${not empty info}">
       <c:set var="prevDate" value="" />

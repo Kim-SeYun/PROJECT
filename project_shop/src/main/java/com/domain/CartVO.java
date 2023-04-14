@@ -24,7 +24,6 @@ public class CartVO {
 	private int price;
 	private String name;
 	private String weight;
-	
 	private String imageFileName;
 
 }

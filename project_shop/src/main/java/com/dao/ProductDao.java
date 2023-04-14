@@ -12,7 +12,6 @@ import javax.sql.DataSource;
 
 import com.common.ConnectionUtil;
 import com.domain.Category;
-import com.domain.ProductReplyVO;
 import com.domain.ProductVO;
 
 public class ProductDao {
@@ -76,10 +75,7 @@ private DataSource dataSource;
 					e.printStackTrace();
 				}
 				return vo;
-			
 		}
-		
-
 		
 		public Map<String, List<?>> categoryList(String cid){
 			String query = "select * from shop_category";
@@ -134,6 +130,7 @@ private DataSource dataSource;
 			return map;
 		}
 		
+		
 		public int addProduct(ProductVO vo) {
 		    String query = "insert into shop_product(pno, name, price, info, weight, cid, imageFileName) values(SHOP_PNO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)";
 		    int productNo = 0;
@@ -169,7 +166,7 @@ private DataSource dataSource;
 			try (
 					Connection conn = dataSource.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(query);	
-					){
+			){
 					pstmt.setInt(1, pno);
 					pstmt.executeUpdate();
 				} catch (Exception e) {
@@ -221,6 +218,4 @@ private DataSource dataSource;
 				e.printStackTrace();
 			}
 		}
-		
-
 }

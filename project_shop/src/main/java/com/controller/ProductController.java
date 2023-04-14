@@ -1,6 +1,5 @@
 package com.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -13,8 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.FileUtils;
 
 import com.common.FileUpload;
 import com.dao.ProductDao;
@@ -56,7 +53,7 @@ public class ProductController extends HttpServlet {
 		String nextPage = null;
 		
 		// 상품목록
-		if(pathInfo==null || pathInfo.equals("/") || pathInfo.equals("/list")) {
+		if(pathInfo == null || pathInfo.equals("/") || pathInfo.equals("/list")) {
 		    String cid = request.getParameter("cid");
 		    if(cid == null) {
 		        // 카테고리 선택하지 않은 경우, 모든 상품 리스트와 카테고리 리스트 보여주기
@@ -118,14 +115,13 @@ public class ProductController extends HttpServlet {
 		            .cid(cid)
 		            .imageFileName(imageFileName)
 		            .build();
-
 		    int productNo = service.addProduct(vo);
 
 		    if (imageFileName != null && imageFileName.length() > 0) {
 		    	multiReq.uploadImage(productNo, imageFileName);
 		    }
 
-		    response.sendRedirect(contextPath + "/product");
+		    response.sendRedirect(contextPath + "/product/adminPage");
 		    return;
 		}
 		

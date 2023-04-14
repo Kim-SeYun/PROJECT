@@ -36,19 +36,19 @@ public class BoardDao {
 			pstmt.setInt(1, maxRow);
 			pstmt.setInt(2, minRow);
 			try(ResultSet rs = pstmt.executeQuery();){
-					while(rs.next()) {
-						BoardVO vo = BoardVO.builder()
-								.bno(rs.getInt("bno"))
-								.title(rs.getString("title"))
-								.content(rs.getString("content"))
-								.writer(rs.getString("writer"))
-								.writeDate(rs.getDate("writeDate"))
-								.replyCount(rs.getInt("replyCount"))
-								.build();
-						list.add(vo);
-					}
-					
+				while(rs.next()) {
+					BoardVO vo = BoardVO.builder()
+							.bno(rs.getInt("bno"))
+							.title(rs.getString("title"))
+							.content(rs.getString("content"))
+							.writer(rs.getString("writer"))
+							.writeDate(rs.getDate("writeDate"))
+							.replyCount(rs.getInt("replyCount"))
+							.build();
+					list.add(vo);
 				}
+					
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,21 +95,22 @@ public class BoardDao {
 	
 	// 새로운 글번호 생성
 	public int getNewBno() {
-		int boardNo = 0;
-		String query = "SELECT MAX(BNO)+1 AS boardNO FROM SHOP_BOARD";
-		try (
-			Connection conn = dataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery();
-		){
-			if(rs.next()) {
-				boardNo = rs.getInt("boardNO");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return boardNo;
+	    int boardNo = 1;
+	    String query = "SELECT COALESCE(MAX(BNO), 0)+1 AS boardNO FROM SHOP_BOARD";
+	    try (
+	        Connection conn = dataSource.getConnection();
+	        PreparedStatement pstmt = conn.prepareStatement(query);
+	        ResultSet rs = pstmt.executeQuery();
+	    ){
+	        if (rs.next()) {
+	            boardNo = rs.getInt("boardNO");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return boardNo;
 	}
+
 	
 	// 글상세
 	public BoardVO selectOne(int bno) {

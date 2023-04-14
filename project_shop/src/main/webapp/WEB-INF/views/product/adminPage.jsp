@@ -5,25 +5,13 @@
 <script src="${contextPath}/resources/js/member/join.js"></script>  
  
 <div class="container">
-	<h1>관리자페이지</h1>
-	
-	 <div class="col-sm-3">
-      <ul class="nav nav-pills flex-column">
-        <li class="nav-item">
-          <a class="nav-link" href="${contextPath}/member/myPage">개인정보수정</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="${contextPath}/cart/orderList">주문내역</a>
-        </li>
-      </ul>
-    </div>
 	
   <form action="${contextPath}/product/managePro">
-    <button class="btn btn-primary ml-auto">상품등록</button>
+    <button class="btn btn-primary ml-auto" style="float: right;">상품등록</button>
   </form>
-	
-<h1>Product List</h1>
-<table style="border-collapse: collapse; width: 100%; border: 1px solid #ddd;">
+
+<h1 style="margin-top: 5%; ">상품관리</h1>
+<table style="border-collapse: collapse; width: 100%; border: 1px solid #ddd; margin-top: 5%;">
 	<thead>
 		<tr style="background-color: #f5f5f5;" class="text-center">
 			<th style="padding: 10px; border: 1px solid #ddd;">상품번호</th>

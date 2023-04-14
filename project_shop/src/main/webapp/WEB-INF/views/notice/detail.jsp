@@ -2,7 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
 <script src="${contextPath}/resources/js/notice/detail.js"></script> 
-
+<style>
+.preview img {
+  width: 500px;
+  height: 400px;
+  object-fit: cover;
+}
+</style>
 <div class="container">
 	<h2 style="margin-top: 5%; text-align: center;">NOTICE</h2>
 	<form id="viewForm" enctype="multipart/form-data">
@@ -25,20 +31,20 @@
 			<tr>
 				<th>제목</th>
 				<td colspan="3">
-				<input type="text" name="title" class="form-control" value="${notice.title}" readonly="readonly">
+				<input type="text" name="title" class="form-control" value="${notice.title}" readonly="readonly" style="background-color: white; border-color: white;">
 				</td>
 			</tr>
 			<tr>
 				<th>내용</th>
 				<td colspan="3">
-					<textarea rows="10" name="content" class="form-control" readonly="readonly">${notice.content}</textarea>
+					<textarea rows="10" name="content" class="form-control" readonly="readonly" style="background-color: white; border-color: white;">${notice.content}</textarea>
 				</td>
 			</tr>
 			<tr>
 				<th>첨부이미지</th>
 				<td colspan="3">
 					<input type="file" name="imageFileName" class="form-control viewMode">
-					<div class="my-2">
+					<div class="my-2" style="margin-left: 150px;">
 					<c:if test="${not empty notice.imageFileName}">
 						<input type="hidden" name="originFileName" value="${notice.imageFileName}">
 						<div class="preview">

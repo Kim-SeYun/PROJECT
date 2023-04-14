@@ -22,5 +22,4 @@ public class ProductReplyVO {
 	private String writer;
 	private Date replyDate;
 	private Date modifyDate;
-
 }

@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.dao.ProductReplyDao;
 import com.domain.ProductReplyVO;
@@ -50,26 +49,26 @@ public class ProductReplyController extends HttpServlet{
 		
 		else if(pathInfo.equals("/write")) {
 			String paramPno = request.getParameter("pno");
-
 			
 			ProductReplyVO vo = ProductReplyVO.builder()
-							.pno(Integer.parseInt(paramPno))
-							.reply(request.getParameter("reply"))
-							.writer(request.getParameter("writer"))
-							.build();
-
+					.pno(Integer.parseInt(paramPno))
+					.reply(request.getParameter("reply"))
+					.writer(request.getParameter("writer"))
+					.build();
 			service.writer(vo);
-			String result = gson.toJson("댓글 등록 성공");
+			
+			String result = gson.toJson("리뷰가 작성되었습니다.");
 			out.print(result);
 		}
 		else if(pathInfo.equals("/remove")) {
 			String paramRno = request.getParameter("rno");
+			
 			ProductReplyVO vo = ProductReplyVO.builder()
 					.rno(Integer.parseInt(paramRno))
 					.build();
-			
 			service.remove(vo);
-			String result = gson.toJson("댓글 삭제 성공");
+			
+			String result = gson.toJson("리뷰가 삭제되었습니다.");
 			out.print(result);
 		}
 		
@@ -93,6 +92,5 @@ public class ProductReplyController extends HttpServlet{
 		}
 		
 	}
-	
 	
 }

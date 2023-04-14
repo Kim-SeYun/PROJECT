@@ -32,4 +32,5 @@ public class BoardService {
 	public void removeBoard(int bno) {
 		dao.deleteBoard(bno);
 	}
+	
 }

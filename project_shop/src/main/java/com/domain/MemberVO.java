@@ -20,6 +20,7 @@ public class MemberVO {
 	private String id;
 	private String pwd;
 	private String pwdcheck;
+	private String phone;
 	private String name;
 	private String email;
 	private String year;

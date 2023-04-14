@@ -35,6 +35,5 @@ public class ProductReplyService {
 	public void updateCommentCount(String id, int pno) {
 		dao.updateCommentCount(id, pno);
 	}
-
 		
 }

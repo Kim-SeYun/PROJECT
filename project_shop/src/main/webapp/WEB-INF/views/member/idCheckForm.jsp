@@ -20,7 +20,7 @@
 			font-size: 1.5rem;
 			margin-bottom: 50px;
 		}
-		input[type="text"], input[type="password"] {
+		input[type="text"], input[type="tel"], input[type="password"] {
 		  display: block;
 		  width: 90%;
 		  padding: 10px;
@@ -30,11 +30,6 @@
 		  font-size: 1.2rem;
 		  color: #444444;
 		  text-align: center; /* 입력 요소를 가운데 정렬합니다. */
-		}
-		
-		input[type="text"]:focus, input[type="password"]:focus {
-		  outline: none;
-		  border: 1px solid #bd6abc;
 		}
 
 
@@ -64,30 +59,15 @@
 
 	</style>  
 <div class="container con">
-    <h1>로그인</h1>
-    <form action="${contextPath}/member/login" method="post">
-        <input type="text" id="id" name="id" placeholder="아이디를 입력해주세요" required onclick="clearMessage()">
-        <input type="password" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요" required onclick="clearMessage()">
-        <c:if test="${not empty message}">
-            <p id="errorMessage" style="color: red;">${message}</p>
-        </c:if>
-		<div class="forgot-links"style="position: absolute;  right: 38.5%; font-size: 15px;">
-		    <a href="${contextPath}/member/findIdForm">아이디 찾기</a>
-		    <span>|</span>
-		    <a href="${contextPath}/member/findPwdForm">비밀번호 찾기</a>
-		</div>  
-		<br>
-        <button type="submit" class="mb-3">로그인</button>
-    </form>
-    <a href="${contextPath}/member/joinForm" class="btn join mb-3">회원가입</a>
-
+    <h1>아이디 확인</h1>
+	<input type="text" id="id" name="id" value="${id}">
+	<a href="${contextPath}/member/loginForm" class="btn btn-primary">로그인</a>
 </div>
-
 
 
 <%@ include file="../layout/footer.jsp" %>  
 <script>
-    function clearMessage() {
-        document.getElementById("errorMessage").textContent = "";
-    }
+let urlParams = new URLSearchParams(window.location.search);
+let id = urlParams.get('id');
+document.getElementById('id').value = id;
 </script>

@@ -34,7 +34,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-sm-10" style="margin-top: 5%;">
+    <div class="col-sm-10" style="margin-top: 8.7%;">
       
 
       <form id="viewForm" class="container" action="${contextPath}/member/modMember" method="post">
@@ -59,121 +59,129 @@
 		    </div>
 		  </div>
 		</div>
-		
+		<div class="form-group">
+		  <div class="row">
+		    <div class="col-sm-2">
+		      <h5><b>휴대폰 번호</b></h5>
+		    </div>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" name="name" value="${info.phone}" style="font-size:20px; background-color: white;" readonly="readonly">
+		    </div>
+		  </div>
+		</div>		
 		<div class="form-group">
 		  <div class="row">
 		    <div class="col-sm-2">
 		      <h5><b>이메일</b></h5>
 		    </div>
 		    <div class="col-sm-10">
-		      <input type="email" class="form-control" name="email" value="${info.email}" pattern="[A-Za-z0-9_]*[@]{1}[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}" title="EX) example@example.com" style="font-size:20px; background-color: white;" required>
+		      <input type="email" class="form-control" name="email" value="${info.email}" pattern="[A-Za-z0-9_]*[@]{1}[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}" title="EX) example@example.com" style="font-size:20px; background-color: white;" required readonly="readonly">
 		    </div>
 		  </div>
 		</div>
 
         
-<div class="form-group">
-  <div class="row">
-    <div class="col-sm-2">
-      <h5><b>생년월일</b></h5>
-    </div>
-    <div class="col-sm-10">
-      <div class="row">
-        <div class="col-sm-4">
-          <select class="form-control" id="year" name="year" style="font-size:20px; background-color: white;" required disabled>
-            <option value="${info.year}" hidden>${info.year}</option>
-            <c:forEach var="year" begin="1920" end="2023">
-              <option value="${year}">${year}</option>
-            </c:forEach>			
-          </select>
-        </div>
-        <div class="col-sm-4">
-          <select class="form-control" id="month" name="month" style="font-size:20px; background-color: white;" required readonly="readonly">
-            <option value="${info.month}" hidden>${info.month}</option>
-            <c:forEach var="month" begin="1" end="12">
-              <c:choose>
-                <c:when test="${month lt 10 }">
-                  <option value="0${month}">0${month}</option>
-                </c:when>
-                <c:otherwise>
-                  <option value="${month}">${month}</option>
-                </c:otherwise>
-              </c:choose>
-            </c:forEach>	
-          </select>
-        </div>
-        <div class="col-sm-4">
-          <select class="form-control" id="day" name="day" style="font-size:20px; background-color: white;" required disabled>
-            <option value="${info.day}" hidden>${info.day}</option>
-            <c:forEach var="day" begin="1" end="31">
-              <c:choose>
-                <c:when test="${day lt 10 }">
-                  <option value="0${day}">0${day}</option>
-                </c:when>
-                <c:otherwise>
-                  <option value="${day}">${day}</option>
-                </c:otherwise>
-              </c:choose>
-            </c:forEach>	
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
+		<div class="form-group">
+		  <div class="row">
+		    <div class="col-sm-2">
+		      <h5><b>생년월일</b></h5>
+		    </div>
+		    <div class="col-sm-10">
+		      <div class="row">
+		        <div class="col-sm-4">
+		          <select class="form-control" id="year" name="year" style="font-size:20px; background-color: white;" required>
+		            <option value="${info.year}" hidden>${info.year}</option>
+		            <c:forEach var="year" begin="1920" end="2023">
+		              <option value="${year}">${year}</option>
+		            </c:forEach>			
+		          </select>
+		        </div>
+		        <div class="col-sm-4">
+		          <select class="form-control" id="month" name="month" style="font-size:20px; background-color: white;" required>
+		            <option value="${info.month}" hidden>${info.month}</option>
+		            <c:forEach var="month" begin="1" end="12">
+		              <c:choose>
+		                <c:when test="${month lt 10 }">
+		                  <option value="0${month}">0${month}</option>
+		                </c:when>
+		                <c:otherwise>
+		                  <option value="${month}">${month}</option>
+		                </c:otherwise>
+		              </c:choose>
+		            </c:forEach>	
+		          </select>
+		        </div>
+		        <div class="col-sm-4">
+		          <select class="form-control" id="day" name="day" style="font-size:20px; background-color: white;" required>
+		            <option value="${info.day}" hidden>${info.day}</option>
+		            <c:forEach var="day" begin="1" end="31">
+		              <c:choose>
+		                <c:when test="${day lt 10 }">
+		                  <option value="0${day}">0${day}</option>
+		                </c:when>
+		                <c:otherwise>
+		                  <option value="${day}">${day}</option>
+		                </c:otherwise>
+		              </c:choose>
+		            </c:forEach>	
+		          </select>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 		
-<div class="form-group">
-  <div class="row">
-    <div class="col-sm-2">
-      <h5><b>성별</b></h5>
-    </div>
-    <div class="col-sm-10">
-      <select class="form-control" name="gender" style="font-size:20px; background-color: white;" required>
-        <option value="${info.gender}" hidden>${info.gender}</option>
-        <option value="남자">남자</option>
-        <option value="여자">여자</option>
-      </select>
-    </div>
-  </div>
-</div>
-
-
-<div class="form-group originAddr">
-  <div class="row">
-    <div class="col-sm-2">
-      <h5><b>주소</b></h5>
-    </div>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="address" name="address" value="${info.address}" style="font-size:20px; background-color: white;" required readonly="readonly">
-    </div>
-  </div>
-</div>
-
-<div class="form-group modAddr">
-  <div class="row">
-    <div class="col-sm-2">
-      <h5><b>주소</b></h5>
-    </div>
-
-    <div class="col-sm-8">
-      <input type="text" class="form-control" name="modAddress" id="road_address" value="${info.address}" placeholder="도로명 주소(상세)" style="font-size:20px;">
-    </div>
-    <div class="col-sm-2">
-      <input type="button" id="postcode_button" onclick="open_Postcode()" value="우편번호 찾기">
-    </div>    
-  </div>
-</div>
-
-
-       
+				
+		<div class="form-group">
+		  <div class="row">
+		    <div class="col-sm-2">
+		      <h5><b>성별</b></h5>
+		    </div>
+		    <div class="col-sm-10">
+		      <select class="form-control" name="gender" style="font-size:20px; background-color: white;" required>
+		        <option value="${info.gender}" hidden>${info.gender}</option>
+		        <option value="남자">남자</option>
+		        <option value="여자">여자</option>
+		      </select>
+		    </div>
+		  </div>
+		</div>
+		
+		
+		<div class="form-group originAddr">
+		  <div class="row">
+		    <div class="col-sm-2">
+		      <h5><b>주소</b></h5>
+		    </div>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="address" name="address" value="${info.address}" style="font-size:20px; background-color: white;" required readonly="readonly">
+		    </div>
+		  </div>
+		</div>
+		
+		<div class="form-group modAddr">
+		  <div class="row">
+		    <div class="col-sm-2">
+		      <h5><b>주소</b></h5>
+		    </div>
+		
+		    <div class="col-sm-8">
+		      <input type="text" class="form-control" name="modAddress" id="road_address" value="${info.address}" placeholder="도로명 주소(상세)" style="font-size:20px;">
+		    </div>
+		    <div class="col-sm-2">
+		      <input type="button" id="postcode_button" onclick="open_Postcode()" value="우편번호 찾기">
+		    </div>    
+		  </div>
+		</div>
+		
         <div>
           <button type="button" class="btn btn-info float-right toModForm">수정하기</button>
         </div>
         <div class="viewMode">
-          <input type="submit" class="btn btn-primary float-right" value="수정"> 
           <button type="button" class="btn btn-secondary float-right backViewMode">취소</button>     
+          <input type="submit" class="btn btn-primary float-right mr-1" value="수정"> 
         </div>
+ 
       </form>
     </div>
   </div>

@@ -69,7 +69,10 @@ function replyListRender(replyList) {
 	}
 	
 	let output = '';
-	for(let r of replyList) {
+	if(replyList.length === 0) {
+		output += `<li class="list-group-item">등록된 답변이 없습니다.</li>`;
+	} else {
+		for(let r of replyList) {
 			output += 
 				`<li class="list-group-item d-flex justify-content-between">
 					<div>
@@ -90,8 +93,8 @@ function replyListRender(replyList) {
 					<button class="btn btn-sm btn-danger reply_delBtn">삭제</button>
 				</div>
 				`;
-	}
+			}
 		}
-	output += `</li>`;
+	}
 	$('.replyList ul').html(output);
 }

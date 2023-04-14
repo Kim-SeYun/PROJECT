@@ -4,7 +4,7 @@
 <%@ include file="../layout/header.jsp" %>  
 <script src="${contextPath}/resources/js/product/list.js"></script> 
 <script src="${contextPath}/resources/js/cart/list.js"></script>
-	<h1>CART</h1>
+
 <div class="container my-3">
 	<form id="cartForm">
 		<c:if test="${empty list}">
@@ -16,10 +16,11 @@
 		    </div>
 		</c:if>
 		<c:if test="${not empty list}">
+		<h1 style="margin-top: 5%; text-align: center;">CART</h1>
 			<table class="table">
 			<div>
 				<button type="button" class="btn btn-outline-dark float-right delAllCart">전체삭제</button>
-				<button type="button" class="btn btn-outline-dark float-right delCheckCart">선택삭제</button>
+				<button type="button" class="btn btn-outline-dark float-right mr-1 delCheckCart">선택삭제</button>
 			</div>
 				<tr>
 					<th>번호</th>

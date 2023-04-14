@@ -2,7 +2,6 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -38,7 +37,6 @@ public class CartController extends HttpServlet {
 		doHandle(request, response);
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
 	}
@@ -60,7 +58,6 @@ public class CartController extends HttpServlet {
 			AuthVO auth = (AuthVO) session.getAttribute("auth");
 			List<CartVO> cartList = service.cartList(auth.getId());
 			request.setAttribute("list", cartList);
-			String count = request.getParameter("count");
 			nextPage = "list";
 		}
 		else if(pathInfo.equals("/addCart")) {

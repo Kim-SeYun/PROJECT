@@ -37,6 +37,5 @@ public class ProductService {
 	public void modProduct(ProductVO vo) {
 		dao.modProduct(vo);
 	}
-	
 
 }

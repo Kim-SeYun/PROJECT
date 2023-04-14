@@ -58,13 +58,16 @@ $('.toList').on('click', function(){
 	});
 
 	
-	// 삭제 처리
 	$('.remove').on('click', function(){
-		viewForm.attr({
-			"action" : `${contextPath}/board/removeBoard`,
-			"method" : "post"
-		}).submit();
+	  if (confirm('삭제하시겠습니까?')) {
+	    viewForm.attr({
+	      "action" : `${contextPath}/board/removeBoard`,
+	      "method" : "post"
+	    }).submit();
+	  }
 	});
+
+
 });
 
 $(function(){

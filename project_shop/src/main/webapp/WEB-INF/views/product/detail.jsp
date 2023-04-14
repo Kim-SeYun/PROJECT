@@ -57,14 +57,17 @@
                     <p><b><font size="3em">${product.weight}</font></b></p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <font size="2em" color="grey">상품설명</font>
-                </div>
-                <div class="col-md-10">
-                    <p><b>${product.info}</b></p>
-                </div>
-            </div>
+			<div class="row">
+			    <div class="col-md-2">
+			        <font size="2em" color="grey">상품설명</font>
+			    </div>
+			<div class="col-md-7" style="display: flex; flex-wrap: wrap;">
+			    <p style="width: 100%; white-space: pre-wrap;">${product.info}</p>
+			</div>
+			
+			</div>
+
+
             <div class="row">
                 <div class="col-md-2">
                     <font size="2em" color="grey">수량</font>
@@ -136,7 +139,7 @@
 	
 	      <!-- Modal Header -->
 	      <div class="modal-header">
-	        <h4 class="modal-title">댓글 등록</h4>
+	        <h4 class="modal-title">리뷰 등록</h4>
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
 	

@@ -27,53 +27,5 @@ public class Pagination {
 		
 		if(endPage > tempEndPage) endPage = tempEndPage;
 	}
-/*
- 	displayPageNum = 10
- 	1~10 : [1][2]...[9][10]
- 		endPage = 10
- 		startPage = 10-10+1
- 		
- 	11~20 : [11][12]...[19][20]
- 		endPage = 20
- 		startPage = 10-10+1
- 	
- 	21~30 : [21][22]...[29][30]
- 		endPage = 30
- 		startPage = 30(endPage) - 10(displayPageNum) +1
- 
- */
 
 }
-
-/*
- 	displayPageNum = 10
- 	totalCount = 412
- 	
- 	1-10페이지 : 
- 	[1][2][3]...[9][10][다음페이지]
-	 	startPage = [1]
-	 	endPage = [10]
-	 	prev = false
-	 	next = true
-	 	
-	 11-20페이지 : 
- 	 [이전페이지][11][12][13]...[19][20][다음페이지]
-	 	startPage = [11]
-	 	endPage = [20]
-	 	prev = true
-	 	next = true
-	 	
-	  42페이지 : 
- 	 [이전페이지][41][42][43]...[49][50][다음페이지]
-	 	startPage = [41]
-	 	endPage = [50]
-	 	prev = true
-	 	next = true
-	 	
-	 실제로 보여질 페이지
-	 [이전페이지][41][42]
-	 	startPage = [41]
-	 	endPage = [42]
-	 	prev = true
-	 	next = false
- */

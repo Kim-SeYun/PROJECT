@@ -103,35 +103,50 @@ function productList(productReplyList) {
     }
 
     
-    let output = '';
-    var productReplyListLength = productReplyList.length;
-	output += `
-	        <div class="card" style="width: 84%; margin-left: 8%;">
-	            <div class="card-header" style="background-color: #7092bf; color: #FFFFFF; border: 1px solid white;">리뷰목록(${productReplyListLength})</div>
-	                <div class="card-body">
-	                    <ul class="list-group list-group-flush">`;
-	for(let p of productReplyList) {
-	    output += 
-	        `<li class="list-group-item d-flex justify-content-between">
-	            <div>
-	                <p>${p.reply}</p>
-	                <span class="badge badge-info">${p.writer}</span>
-	                <span class="badge badge-warning">${p.replyDate}</span>
-	            </div>`;
-	    if(p.writer==auth.id || auth.grade=='ROLE_ADMIN') {
-	        output+=`
-	        <div class="align-self-center" data-rno="${p.rno}">
-	            <button class="btn btn-sm btn-danger p_reply_delBtn">삭제</button>
-	        </div>
-	        `;
-	    }
-	    output += `</li>`;
-	}
-	output += `
-	                </ul>
-	            </div>
-	        </div>
-	`;
-    
-    $('.productReplyList div').html(output);
+let output = '';
+var productReplyListLength = productReplyList.length;
+
+if (productReplyListLength === 0) {
+    output += `
+        <div class="card" style="width: 84%; margin-left: 8%;">
+            <div class="card-header" style="background-color: #7092bf; color: #FFFFFF; border: 1px solid white;">리뷰목록(0)</div>
+                <div class="card-body">
+                    <p>등록된 리뷰가 없습니다.</p>
+                </div>
+            </div>
+        </div>
+    `;
+} else {
+    output += `
+        <div class="card" style="width: 84%; margin-left: 8%;">
+            <div class="card-header" style="background-color: #7092bf; color: #FFFFFF; border: 1px solid white;">리뷰목록(${productReplyListLength})</div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">`;
+
+    for (let p of productReplyList) {
+        output += `<li class="list-group-item d-flex justify-content-between">
+            <div>
+                <p>${p.reply}</p>
+                <span class="badge badge-info">${p.writer}</span>
+                <span class="badge badge-warning">${p.replyDate}</span>
+            </div>`;
+
+        if (p.writer == auth.id || auth.grade == 'ROLE_ADMIN') {
+            output += `
+                <div class="align-self-center" data-rno="${p.rno}">
+                    <button class="btn btn-sm btn-danger p_reply_delBtn">삭제</button>
+                </div>
+            `;
+        }
+        output += `</li>`;
+    }
+
+    output += `
+            </ul>
+        </div>
+    </div>
+    `;
+}
+
+$('.productReplyList div').html(output);
 }

@@ -1,4 +1,4 @@
-$(function(){
+/*$(function(){
 	
 	$('.modify').on('click', function(){
 		modForm.attr({
@@ -8,4 +8,4 @@ $(function(){
 	});
 	
 	
-});
+});*/

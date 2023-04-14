@@ -4,7 +4,13 @@
 <%@ include file="../layout/header.jsp" %>
 <script src="${contextPath}/resources/js/reply/ReplyService.js"></script>  
 <script src="${contextPath}/resources/js/board/detail.js"></script> 
-
+<style>
+.preview img {
+  width: 500px;
+  height: 400px;
+  object-fit: cover;
+}
+</style>
 <div class="container">
 	
 	<h2 style="margin-top: 5%; text-align: center;">Q&A</h2>
@@ -28,36 +34,35 @@
 			<tr>
 				<th>제목</th>
 				<td colspan="3">
-				<input type="text" name="title" class="form-control" value="${board.title}" readonly="readonly">
+				<input type="text" name="title" class="form-control" value="${board.title}" readonly="readonly" style="background-color: white; border-color: white;">
 				</td>
 			</tr>
 			<tr>
 				<th>내용</th>
 				<td colspan="3">
-					<textarea rows="10" name="content" class="form-control" readonly="readonly">${board.content}</textarea>
+					<textarea rows="10" name="content" class="form-control" readonly="readonly" style="background-color: white; border-color: white;">${board.content}</textarea>
 				</td>
 			</tr>
-<tr>
-  <th>첨부이미지</th>
-  <td colspan="3">
-    <div style="display: flex; align-items: center;">
-      <input type="file" name="imageFileName" class="form-control viewMode">
-      <div class="my-2" style="margin-left: 150px;">
-        <c:if test="${not empty board.imageFileName}">
-          <input type="hidden" name="originFileName" value="${board.imageFileName}">
-          <div class="preview">
-            <img class="originImg" src="${contextPath}/fileDownload?no=${board.bno}&imageFileName=${board.imageFileName}&path=board" width="500px" height="400px">
-          </div>
-        </c:if>
-        <c:if test="${empty board.imageFileName}">
-          <div class="preview">
-            <p>등록된 이미지가 없습니다.</p>
-          </div>
-        </c:if>
-      </div>
-    </div>
-  </td>
-</tr>
+			
+			<tr>
+				<th>첨부이미지</th>
+				<td colspan="3">
+					<input type="file" name="imageFileName" class="form-control viewMode">
+					<div class="my-2" style="margin-left: 150px;">
+					<c:if test="${not empty board.imageFileName}">
+						<input type="hidden" name="originFileName" value="${board.imageFileName}">
+						<div class="preview">
+							<img class="originImg" src="${contextPath}/fileDownload?no=${board.bno}&imageFileName=${board.imageFileName}&path=board">
+						</div>
+					</c:if>
+					<c:if test="${empty board.imageFileName}">
+					<div class="preview">
+						<p>등록된 이미지가 없습니다.</p>
+					</div>
+					</c:if>
+					</div>
+				</td>
+			</tr>			
 			<tr>
 				<td colspan="4" class="text-center">
 					<c:if test="${auth.id eq board.writer or (board.writer eq '관리자' and auth.grade eq 'ROLE_ADMIN')}">
@@ -120,7 +125,14 @@
 	        <h4 class="modal-title">댓글 등록</h4>
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
-
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        Modal body..
+	      </div>	      
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>
+	      </div>
 	    </div>
 	  </div>
 	</div>

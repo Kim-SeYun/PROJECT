@@ -150,7 +150,6 @@ public class CartDao {
 			Connection conn = dataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			){
-			
 				pstmt.setInt(1, vo.getCart_cnt());
 				pstmt.setString(2, vo.getId());
 				pstmt.setInt(3, vo.getPno());
@@ -159,7 +158,6 @@ public class CartDao {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}		
-		
 	}
 		
 	public void prCheck(String id, String[] list) {
@@ -207,8 +205,8 @@ public class CartDao {
 		String query2 = "delete from shop_cart where id=? and pno=?";
 		try(Connection conn = dataSource.getConnection();){
 			try (
-					PreparedStatement pstmt = conn.prepareStatement(query1);
-					PreparedStatement pstmt2 = conn.prepareStatement(query2);
+				PreparedStatement pstmt = conn.prepareStatement(query1);
+				PreparedStatement pstmt2 = conn.prepareStatement(query2);
 			){
 				for(int i=0; i<list.length; i++) {
 					int pno = Integer.parseInt(list[i]);
@@ -253,7 +251,6 @@ public class CartDao {
 	               "GROUP BY id, name, price, pno, imageFileName, weight, TO_CHAR(regDate, 'YYYY-MM-DD HH24:MI:SS') " +
 	               "ORDER BY regDate DESC";
 
-
 		try (
 				Connection conn = dataSource.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(query);
@@ -272,8 +269,6 @@ public class CartDao {
 							    .regDate(rs.getString("regDate"))
 							    .build();
 							list.add(vo);
-
-								
 					}
 				}
 			} catch (Exception e) {

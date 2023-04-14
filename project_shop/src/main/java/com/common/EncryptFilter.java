@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 @WebFilter(urlPatterns = {
 		"/member/join",
 		"/member/login",
-		"/member/modMember"
+		"/member/modMember",
+		"/member/doChangePwd"
 })
 public class EncryptFilter extends HttpFilter implements Filter {
        

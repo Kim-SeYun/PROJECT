@@ -12,11 +12,9 @@
 }
 </style>
   
-	<div class="jumbotron">
-		<h1>상품수정</h1>
-	</div>
+	<h1 style="margin-top: 5%; text-align: center;">상품수정</h1>
 	
-	<form id="modForm" class="container" action="${contextPath}/product/modProduct" method="post" enctype="multipart/form-data">
+	<form id="modForm" class="container" style="margin-top: 3%;" action="${contextPath}/product/modProduct" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 		    상품번호 <input type="text" class="form-control" name="pno" value="${productList.pno}" readonly="readonly">
 		</div>
@@ -24,13 +22,13 @@
 		    상품명 <input type="text" class="form-control" name="name" value="${productList.name}" readonly="readonly">
 		</div>
 		<div class="form-group">
-		    가격 <input type="number" class="form-control" name="price" value="${productList.price}">
+		    가격 <input type="number" class="form-control" name="price" value="${productList.price}" required>
 		</div>
 		<div class="form-group">
 		    중량X수량 <input type="text" class="form-control" name="weight" value="${productList.weight}" readonly="readonly">
 		</div>
 		<div class="form-group">
-		    상품설명 <textarea class="form-control" name="info">${productList.info}</textarea>
+		    상품설명 <textarea class="form-control" name="info" required>${productList.info}</textarea>
 		</div>
 		<div class="form-group">
 		    카테고리 
@@ -48,8 +46,10 @@
 		    <img src="${contextPath}/fileDownload?no=${productList.pno}&imageFileName=${productList.imageFileName}&path=product">
 		  </div>
 		</div>
-		<button class="btn btn-primary modify">상품수정</button>
-		<button class="btn btn-secondary">취소</button>
+		<div style="overflow: hidden">
+		  <a href="${contextPath}/product/adminPage" class="btn btn-secondary float-right">취소</a>
+		  <button class="btn btn-primary float-right mr-2">상품수정</button>
+		</div>
 	</form>
 
 <%@ include file="../layout/footer.jsp" %>  

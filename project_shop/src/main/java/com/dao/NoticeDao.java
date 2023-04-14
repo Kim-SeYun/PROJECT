@@ -94,7 +94,7 @@ public class NoticeDao {
 	// 새로운 글번호 생성
 	public int getNewBno() {
 		int noticeNo = 0;
-		String query = "SELECT MAX(BNO)+1 AS noticeNO FROM SHOP_NOTICE";
+		String query = "SELECT COALESCE(MAX(BNO), 0)+1 AS noticeNO FROM SHOP_NOTICE";
 		try (
 			Connection conn = dataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(query);
@@ -180,6 +180,5 @@ public class NoticeDao {
 			e.printStackTrace();
 		}
 	}
-	
 	
 }

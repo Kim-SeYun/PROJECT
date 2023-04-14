@@ -52,11 +52,14 @@ $(function(){
 	});
 
 	
-	// 삭제 처리
 	$('.remove').on('click', function(){
-		viewForm.attr({
-			"action" : `${contextPath}/notice/removeNotice`,
-			"method" : "post"
-		}).submit();
+	  if (confirm('삭제하시겠습니까?')) {
+	    viewForm.attr({
+	      "action" : `${contextPath}/notice/removeNotice`,
+	      "method" : "post"
+	    }).submit();
+	  }
 	});
+	
+	
 });

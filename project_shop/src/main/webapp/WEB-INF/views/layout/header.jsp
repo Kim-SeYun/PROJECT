@@ -97,7 +97,8 @@
 				                    <b>${auth.id}님</b>
 				                </a>
 				                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				                    <a class="dropdown-item" href="${contextPath}/member/myPage">MyPage</a>
+				                    <a class="dropdown-item" href="${contextPath}/member/myPage">마이페이지</a>
+				                    <a class="dropdown-item" href="${contextPath}/cart/orderList">주문내역</a>
 				                    <a class="dropdown-item adminPage" href="${contextPath}/product/adminPage">상품관리</a>
 				                    <a class="dropdown-item" href="${contextPath}/member/logout">로그아웃</a>
 				                </div>
