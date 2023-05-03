@@ -85,15 +85,15 @@
 			  <div class="col-sm-6">
 			    <c:set var="total" value="${total + product.price*list.cart_cnt}"/>
 			    <div class="form-group" style="display: flex; align-items: center;">
-			      <span style="display: inline-flex; align-items: center; margin-left: 100px;">
-			        <label style="width: 300px; margin-right: 5px; text-align: right; margin-top: 8px;">합계금액 :</label>
+			      <span style="display: inline-flex; align-items: center; margin-left: 95px;">
+			        <label style="width: 300px; font-weight:bold; margin-right: 5px; text-align: right; margin-top: 8px;">합계금액 :</label>
 			        <input type="text" name="totalPrice" class="form-control totalPrice" value="<fmt:formatNumber value="${total}" pattern="#,###원"/>" style="font-size:23px; text-align:right; font-weight :bold; background-color: white; border: none; text-indent: calc(100% - 150px); padding-left: 0%;">
 			      </span>
 			      <input type="hidden" class="hdTotal" value="${total}">
 			    </div>
 			  </div>
 			</div>
-  
+          
             <input type="hidden" value="${product.weight}">
             <input type="hidden" value="${product.imageFileName}">
             <input type="hidden" value="${product.name}">
