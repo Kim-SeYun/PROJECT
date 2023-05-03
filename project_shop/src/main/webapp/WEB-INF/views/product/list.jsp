@@ -62,10 +62,11 @@
 			    <div style="margin-left: 5%;">${p.name}</a></div>
 			    <div style="margin-left: 5%;"><fmt:formatNumber value="${p.price}" pattern="#,###원"/></div>
 			    <div><input type="hidden" value="1" class="cartCnt"></div>
-			    <div>
-				    <input type="hidden" value="${p.price}" name="price">
-				    <button type="button" id="button" value="${p.pno}" class="btn btn-outline-info cartBtn"  style="float: right; margin-right: 5%; margin-bottom: 35px">Cart</button>
-				</div>
+			    <input type="hidden" value="${p.weight}">
+		    	<input type="hidden" value="${p.imageFileName}">
+		    	<input type="hidden" value="${p.name}">
+		    	<input type="hidden" value="${p.price}">
+		    	<button type="button" id="button" value="${p.pno}" class="btn btn-outline-info cartBtn"  style="float: right; margin-right: 5%; margin-bottom: 35px">Cart</button>
 			</div>
 	 	</c:forEach>
 	 	</c:otherwise>
